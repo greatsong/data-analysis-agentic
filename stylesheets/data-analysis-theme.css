@@ -640,12 +640,12 @@
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="data"] h4 { color: #818cf8; }
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="analysis"] { background: linear-gradient(135deg, rgba(46,196,182,0.1), rgba(46,196,182,0.05)); border-color: rgba(46,196,182,0.4); }
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="analysis"] h4 { color: #5dd9ce; }
-[data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] { background: linear-gradient(135deg, rgba(244,162,97,0.1), rgba(244,162,97,0.05)); border-color: rgba(244,162,97,0.4); }
+[data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] { background: linear-gradient(135deg, rgba(225,29,72,0.1), rgba(225,29,72,0.05)); border-color: rgba(225,29,72,0.4); }
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] h4 { color: #fb7185; }
 
 [data-md-color-scheme="slate"] .rubric-table tbody td { border-bottom-color: rgba(255,255,255,0.06); }
-[data-md-color-scheme="slate"] .rubric-table tbody tr:nth-child(even) { background: rgba(244,162,97,0.04); }
-[data-md-color-scheme="slate"] .rubric-table tbody tr:hover { background: rgba(244,162,97,0.08); }
+[data-md-color-scheme="slate"] .rubric-table tbody tr:nth-child(even) { background: rgba(225,29,72,0.04); }
+[data-md-color-scheme="slate"] .rubric-table tbody tr:hover { background: rgba(225,29,72,0.08); }
 [data-md-color-scheme="slate"] .rubric-table .rubric-level { color: #fb7185; }
 
 [data-md-color-scheme="slate"] .ba-before { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.04)); }
@@ -734,4 +734,121 @@
 
   .timeline-flow .tl-dot { width: 2.2rem; height: 2.2rem; font-size: 0.8rem; }
   .peer-review-lens { padding: 1rem; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
 }
+
+@media (max-width: 480px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Feature Grid (index.md 특징 카드) ===== */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.feature-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.8rem 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--da-primary), var(--da-accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--da-primary);
+  box-shadow: 0 8px 24px rgba(67, 97, 238, 0.12);
+  transform: translateY(-2px);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.6rem 0 !important;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* 다크모드 feature-card */
+[data-md-color-scheme="slate"] .feature-card {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+}
+[data-md-color-scheme="slate"] .feature-card:hover {
+  border-color: rgba(67,97,238,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+[data-md-color-scheme="slate"] .feature-card h3 { color: #e2e8f0; }
+[data-md-color-scheme="slate"] .feature-card p { color: #94a3b8; }
+
+/* ===== Markmap 마인드맵 스타일링 ===== */
+.markmap {
+  background: linear-gradient(135deg, #f8faff, #f0f4ff);
+  border: 1px solid #e0e7ff;
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  min-height: 400px;
+  box-shadow: 0 2px 12px rgba(67, 97, 238, 0.06);
+}
+
+.markmap svg {
+  width: 100%;
+  min-height: 380px;
+}
+
+/* 다크모드 markmap */
+[data-md-color-scheme="slate"] .markmap {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+/* ===== KaTeX 수식 스타일링 ===== */
+.md-typeset .katex-display {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow-x: auto;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .katex-display {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.md-typeset .katex { font-size: 1.05em; }
