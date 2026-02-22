@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;font-family:'Noto Sans KR',sans-serif;background:#fff;overflow:hidden;}
+  #container{width:100%;height:100%;display:flex;flex-direction:column;}
+  #controls{
+    flex-shrink:0;padding:14px 20px 10px;
+    background:linear-gradient(135deg,#4338ca 0%,#6366f1 100%);color:#e0e7ff;
+  }
+  #controls h2{font-size:14px;font-weight:600;margin-bottom:6px;color:#e0e7ff;}
+  .ctrl-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .slider-wrap{flex:1;min-width:150px;}
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;width:100%;height:8px;
+    background:linear-gradient(90deg,#ef4444 0%,#f59e0b 25%,#10b981 60%,#6366f1 100%);
+    border-radius:4px;outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+    background:#fff;border:3px solid #6366f1;box-shadow:0 2px 8px rgba(0,0,0,0.2);cursor:grab;
+  }
+  .slider-labels{display:flex;justify-content:space-between;font-size:10px;color:#c7d2fe;margin-top:2px;}
+  .btn-draw{
+    padding:8px 18px;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);
+    border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:600;
+    cursor:pointer;transition:all 0.2s;white-space:nowrap;
+  }
+  .btn-draw:hover{background:rgba(255,255,255,0.3);transform:translateY(-1px);}
+  #status{
+    margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;
+  }
+  .stat{background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:16px;display:flex;align-items:center;gap:5px;}
+  .stat .lb{color:#c7d2fe;} .stat .vl{color:#fff;font-weight:700;font-size:13px;}
+  .stat.hl{background:rgba(255,255,255,0.25);border:1px solid rgba(199,210,254,0.5);}
+  #chartArea{flex:1;display:flex;min-height:0;}
+  #mainChart{flex:2;min-width:0;}
+  #distPanel{flex:1;min-width:0;border-left:1px solid #e5e7eb;display:flex;flex-direction:column;}
+  #distChart{flex:1;min-height:0;}
+  #distInfo{
+    padding:10px 14px;background:#fafbfe;border-top:1px solid #e5e7eb;
+    font-size:12px;color:#6b7280;text-align:center;line-height:1.5;
+  }
+  #distInfo b{color:#1e1b4b;}
+  @media(max-width:600px){
+    #chartArea{flex-direction:column;}
+    #distPanel{border-left:none;border-top:1px solid #e5e7eb;max-height:180px;}
+    #controls{padding:10px 14px 8px;}
+    #controls h2{font-size:13px;}
+    .ctrl-row{gap:8px;}
+    #status{gap:6px;font-size:11px;}
+    .stat{padding:3px 8px;} .stat .vl{font-size:12px;}
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="controls">
+    <h2>표본 크기가 상관계수에 미치는 영향</h2>
+    <div class="ctrl-row">
+      <div class="slider-wrap">
+        <input type="range" id="sizeSlider" min="0" max="5" step="1" value="2">
+        <div class="slider-labels"><span>5</span><span>10</span><span>20</span><span>50</span><span>100</span><span>200</span></div>
+      </div>
+      <button class="btn-draw" id="btnDraw">새 표본 뽑기</button>
+    </div>
+    <div id="status">
+      <div class="stat"><span class="lb">표본 크기:</span><span class="vl" id="vN">20</span></div>
+      <div class="stat hl"><span class="lb">이번 r:</span><span class="vl" id="vR">-</span></div>
+      <div class="stat"><span class="lb">20회 평균:</span><span class="vl" id="vAvg">-</span></div>
+      <div class="stat"><span class="lb">범위:</span><span class="vl" id="vRange">-</span></div>
+    </div>
+  </div>
+  <div id="chartArea">
+    <div id="mainChart"></div>
+    <div id="distPanel">
+      <div id="distChart"></div>
+      <div id="distInfo">표본이 <b>작으면</b> 상관계수가 불안정합니다.<br><b>30개 이상</b>의 데이터를 확보하세요.</div>
+    </div>
+  </div>
+</div>
+<script>
+// 모집단 생성 (500명, r ≈ -0.55)
+function seededRng(seed){let s=seed;return function(){s=(s*16807)%2147483647;return s/2147483647;};}
+const popRng=seededRng(42);
+const POP_N=500,popX=[],popY=[];
+for(let i=0;i<POP_N;i++){
+  const sp=1+popRng()*6;
+  const noise=(popRng()-0.5)*2.5;
+  popX.push(+(sp).toFixed(2));
+  popY.push(+(Math.max(3.5,Math.min(10.5,9.5-sp*0.55+noise))).toFixed(2));
+}
+
+const sizes=[5,10,20,50,100,200];
+let drawSeed=Date.now()%100000;
+let drawRng=seededRng(drawSeed);
+let rHistory=[];
+
+function pearson(x,y){const n=x.length;if(n<3)return 0;let sx=0,sy=0,sxy=0,sx2=0,sy2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];sy2+=y[i]*y[i];}const d=Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy));return d===0?0:(n*sxy-sx*sy)/d;}
+function linReg(x,y){const n=x.length;let sx=0,sy=0,sxy=0,sx2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];}const sl=(n*sxy-sx*sy)/(n*sx2-sx*sx);return{slope:sl,intercept:(sy-sl*sx)/n};}
+
+function drawSample(sz){
+  const idx=[];
+  while(idx.length<sz){const i=Math.floor(drawRng()*POP_N);if(!idx.includes(i))idx.push(i);}
+  return{x:idx.map(i=>popX[i]),y:idx.map(i=>popY[i])};
+}
+
+function rColor(r){const a=Math.abs(r);return a>=0.5?'#059669':a>=0.3?'#d97706':'#dc2626';}
+
+const mob=window.innerWidth<600;
+
+// 메인 차트 초기화
+function updateMainChart(sx,sy,r){
+  const reg=linReg(sx,sy);
+  const tx=[0.5,7.5],ty=tx.map(x=>reg.slope*x+reg.intercept);
+  const traces=[
+    {x:sx,y:sy,mode:'markers',type:'scatter',name:'표본',
+     marker:{color:'#6366f1',size:mob?8:10,opacity:0.8,line:{color:'#4f46e5',width:1}},
+     hovertemplate:'스마트폰: %{x}h<br>수면: %{y}h<extra></extra>'},
+    {x:tx,y:ty,mode:'lines',type:'scatter',name:'추세선',
+     line:{color:'#8b5cf6',width:2.5,dash:'dash'},hoverinfo:'skip'}
+  ];
+  const layout={
+    title:{text:'현재 표본 (n='+sx.length+')',font:{family:'Noto Sans KR',size:mob?14:16,weight:700,color:'#1e1b4b'},x:0.5,y:0.97},
+    font:{family:'Noto Sans KR',color:'#1e1b4b'},
+    paper_bgcolor:'#fff',plot_bgcolor:'#fafbfe',
+    margin:mob?{l:40,r:10,t:50,b:40}:{l:55,r:15,t:50,b:50},
+    xaxis:{title:{text:'스마트폰 (시간)',font:{size:12,color:'#6b7280'}},range:[0,8],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:11,color:'#6b7280'}},
+    yaxis:{title:{text:'수면 (시간)',font:{size:12,color:'#6b7280'}},range:[3,11],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:11,color:'#6b7280'}},
+    showlegend:false,
+    annotations:[{text:'<b>r = '+r.toFixed(2)+'</b>',font:{size:18,color:rColor(r)},showarrow:false,x:0.98,y:0.98,xref:'paper',yref:'paper',xanchor:'right',yanchor:'top',bgcolor:'rgba(255,255,255,0.95)',bordercolor:rColor(r),borderwidth:2,borderpad:8}]
+  };
+  Plotly.react('mainChart',traces,layout,{responsive:true,displayModeBar:false});
+}
+
+// 분포 차트
+function updateDistChart(){
+  const colors=rHistory.map(r=>rColor(r));
+  const trace={y:rHistory,x:rHistory.map((_,i)=>i+1),mode:'markers',type:'scatter',
+    marker:{color:colors,size:mob?6:8,line:{color:'#fff',width:1}},
+    hovertemplate:'#%{x}: r = %{y:.2f}<extra></extra>'};
+  const popR=pearson(popX,popY);
+  const layout={
+    title:{text:'r값 분포 ('+rHistory.length+'회)',font:{family:'Noto Sans KR',size:mob?12:14,weight:600,color:'#1e1b4b'},x:0.5,y:0.97},
+    font:{family:'Noto Sans KR',color:'#1e1b4b'},
+    paper_bgcolor:'#fff',plot_bgcolor:'#fafbfe',
+    margin:mob?{l:35,r:10,t:40,b:30}:{l:40,r:10,t:45,b:35},
+    xaxis:{title:{text:'',font:{size:10}},showticklabels:false,gridcolor:'#f0f0f5',zeroline:false},
+    yaxis:{title:{text:'r',font:{size:11,color:'#6b7280'}},range:[-1,0.5],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:10,color:'#6b7280'}},
+    showlegend:false,
+    shapes:[{type:'line',x0:0,x1:1,xref:'paper',y0:popR,y1:popR,line:{color:'#ef4444',width:1.5,dash:'dot'}}],
+    annotations:[{text:'모집단 r='+popR.toFixed(2),font:{size:10,color:'#ef4444'},showarrow:false,x:0.98,y:popR+0.05,xref:'paper',yref:'y',xanchor:'right'}]
+  };
+  Plotly.react('distChart',[trace],layout,{responsive:true,displayModeBar:false});
+}
+
+function updateStatus(sz,r){
+  document.getElementById('vN').textContent=sz+'개';
+  document.getElementById('vR').textContent=r.toFixed(2);
+  document.getElementById('vR').style.color=rColor(r)==='#059669'?'#86efac':rColor(r)==='#d97706'?'#fcd34d':'#fca5a5';
+  if(rHistory.length>0){
+    const avg=rHistory.reduce((a,b)=>a+b,0)/rHistory.length;
+    const min=Math.min(...rHistory),max=Math.max(...rHistory);
+    document.getElementById('vAvg').textContent=avg.toFixed(2);
+    document.getElementById('vRange').textContent=min.toFixed(2)+' ~ '+max.toFixed(2);
+  }
+}
+
+function doDraw(){
+  const sz=sizes[parseInt(document.getElementById('sizeSlider').value)];
+  const samp=drawSample(sz);
+  const r=pearson(samp.x,samp.y);
+  rHistory.push(r);
+  updateMainChart(samp.x,samp.y,r);
+  updateDistChart();
+  updateStatus(sz,r);
+}
+
+function doMultiDraw(count){
+  const sz=sizes[parseInt(document.getElementById('sizeSlider').value)];
+  rHistory=[];
+  let lastSamp,lastR;
+  for(let i=0;i<count;i++){
+    const samp=drawSample(sz);
+    const r=pearson(samp.x,samp.y);
+    rHistory.push(r);
+    lastSamp=samp;lastR=r;
+  }
+  updateMainChart(lastSamp.x,lastSamp.y,lastR);
+  updateDistChart();
+  updateStatus(sz,lastR);
+}
+
+// 이벤트
+document.getElementById('btnDraw').addEventListener('click',function(){
+  drawSeed++;drawRng=seededRng(drawSeed);
+  doDraw();
+});
+
+document.getElementById('sizeSlider').addEventListener('input',function(){
+  drawSeed=Date.now()%100000;drawRng=seededRng(drawSeed);
+  doMultiDraw(20);
+});
+
+// 초기 실행
+doMultiDraw(20);
+</script>
+</body>
+</html>

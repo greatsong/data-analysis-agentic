@@ -6,85 +6,94 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
-  #chart { width:100%; height:100%; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;font-family:'Noto Sans KR',sans-serif;background:#fff;overflow:hidden;}
+  #container{width:100%;height:100%;display:flex;flex-direction:column;}
+  #chart{flex:1;min-height:0;}
+  #legend{
+    flex-shrink:0;height:44px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    font-size:12px;color:#6b7280;
+  }
+  .lg-item{display:flex;align-items:center;gap:5px;}
+  .lg-dot{width:14px;height:14px;border-radius:3px;}
+  .lg-strong-neg{background:#b91c1c;}
+  .lg-weak{background:#fafbfe;border:1px solid #e5e7eb;}
+  .lg-strong-pos{background:#1d4ed8;}
+  .lg-label{font-weight:600;color:#1e1b4b;}
+  @media(max-width:600px){
+    #legend{height:38px;gap:8px;font-size:10px;}
+    .lg-dot{width:10px;height:10px;}
+  }
 </style>
 </head>
 <body>
-<div id="chart"></div>
+<div id="container">
+  <div id="chart"></div>
+  <div id="legend">
+    <div class="lg-item"><div class="lg-dot lg-strong-neg"></div><span class="lg-label">강한 음의 상관</span></div>
+    <div class="lg-item"><div class="lg-dot lg-weak"></div><span>약한 상관</span></div>
+    <div class="lg-item"><div class="lg-dot lg-strong-pos"></div><span class="lg-label">강한 양의 상관</span></div>
+  </div>
+</div>
 <script>
-const labels = ['스마트폰', '수면', '피로도', '만족도', '운동', '공부', '성적'];
-
-// 7x7 상관계수 행렬 (대칭)
-const matrix = [
-  [ 1.00, -0.45,  0.52, -0.18,-0.22,  -0.30, -0.25],
-  [-0.45,  1.00, -0.38,  0.28,  0.15,   0.20,  0.18],
-  [ 0.52, -0.38,  1.00, -0.30, -0.25,  -0.15, -0.20],
-  [-0.18,  0.28, -0.30,  1.00,  0.40,   0.22,  0.30],
-  [-0.22,  0.15, -0.25,  0.40,  1.00,   0.10,  0.12],
-  [-0.30,  0.20, -0.15,  0.22,  0.10,   1.00,  0.55],
-  [-0.25,  0.18, -0.20,  0.30,  0.12,   0.55,  1.00]
+const labels=['스마트폰','수면','피로도','만족도','운동','공부','성적'];
+const matrix=[
+  [ 1.00,-0.45, 0.52,-0.18,-0.22,-0.30,-0.25],
+  [-0.45, 1.00,-0.38, 0.28, 0.15, 0.20, 0.18],
+  [ 0.52,-0.38, 1.00,-0.30,-0.25,-0.15,-0.20],
+  [-0.18, 0.28,-0.30, 1.00, 0.40, 0.22, 0.30],
+  [-0.22, 0.15,-0.25, 0.40, 1.00, 0.10, 0.12],
+  [-0.30, 0.20,-0.15, 0.22, 0.10, 1.00, 0.55],
+  [-0.25, 0.18,-0.20, 0.30, 0.12, 0.55, 1.00]
 ];
 
-// 셀에 표시할 텍스트 생성
-const textMatrix = matrix.map(row =>
-  row.map(val => val.toFixed(2))
-);
+function strength(v){const a=Math.abs(v);if(a>=0.5)return'강한';if(a>=0.3)return'중간';if(a>=0.1)return'약한';return'거의 없는';}
+function direction(v){if(v>0.05)return'양의';if(v<-0.05)return'음의';return'';}
 
-// 모바일 감지
-const isMobile = window.innerWidth < 600;
+const textMatrix=matrix.map(row=>row.map(v=>v.toFixed(2)));
+const hoverMatrix=matrix.map((row,i)=>row.map((v,j)=>
+  i===j?labels[i]+' (자기 상관)':labels[i]+' ↔ '+labels[j]+'<br>r = '+v.toFixed(2)+' ('+strength(v)+' '+direction(v)+' 상관)'
+));
 
-const data = [{
-  z: matrix,
-  x: labels,
-  y: labels,
-  type: 'heatmap',
-  colorscale: [
-    [0, '#06b6d4'],
-    [0.25, '#a5f3fc'],
-    [0.5, '#fafbfe'],
-    [0.75, '#a5b4fc'],
-    [1, '#6366f1']
-  ],
-  zmin: -1,
-  zmax: 1,
-  text: textMatrix,
-  texttemplate: '%{text}',
-  textfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
-  hovertemplate: '%{y} ↔ %{x}<br>상관계수: %{z:.2f}<extra></extra>',
-  colorbar: {
-    title: { text: '상관계수', font: { family: 'Noto Sans KR', size: 13, color: '#1e1b4b' } },
-    tickfont: { family: 'Noto Sans KR', size: 11, color: '#6b7280' },
-    thickness: isMobile ? 12 : 15,
-    len: 0.75,
-    outlinewidth: 0
+const mob=window.innerWidth<600;
+
+const data=[{
+  z:matrix,x:labels,y:labels,type:'heatmap',
+  colorscale:[[0,'#b91c1c'],[0.25,'#fca5a5'],[0.5,'#fafbfe'],[0.75,'#93c5fd'],[1,'#1d4ed8']],
+  zmin:-1,zmax:1,
+  text:textMatrix,texttemplate:'%{text}',
+  textfont:{family:'Noto Sans KR',size:mob?9:13,color:'#1e1b4b'},
+  customdata:hoverMatrix,
+  hovertemplate:'%{customdata}<extra></extra>',
+  colorbar:{
+    title:{text:'상관계수 (r)',font:{family:'Noto Sans KR',size:12,color:'#1e1b4b'}},
+    tickfont:{family:'Noto Sans KR',size:11,color:'#6b7280'},
+    thickness:mob?12:15,len:0.75,outlinewidth:0,
+    tickvals:[-1,-0.5,0,0.5,1],ticktext:['-1.0\n강한 음','',  '0\n없음','','1.0\n강한 양']
   }
 }];
 
-const layout = {
-  title: {
-    text: '변수 간 상관계수 히트맵',
-    font: { family: 'Noto Sans KR', size: isMobile ? 16 : 20, weight: 700, color: '#1e1b4b' },
-    y: 0.97
-  },
-  xaxis: {
-    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
-    side: 'bottom',
-    tickangle: isMobile ? -45 : 0
-  },
-  yaxis: {
-    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
-    autorange: 'reversed'
-  },
-  margin: isMobile
-    ? { l: 55, r: 40, t: 50, b: 55 }
-    : { l: 80, r: 80, t: 60, b: 60 },
-  paper_bgcolor: '#ffffff',
-  plot_bgcolor: '#ffffff'
+const layout={
+  title:{text:'변수 간 상관계수 히트맵',font:{family:'Noto Sans KR',size:mob?14:18,weight:700,color:'#1e1b4b'},y:0.97},
+  xaxis:{tickfont:{family:'Noto Sans KR',size:mob?9:13,color:'#1e1b4b'},side:'bottom',tickangle:mob?-45:0},
+  yaxis:{tickfont:{family:'Noto Sans KR',size:mob?9:13,color:'#1e1b4b'},autorange:'reversed'},
+  margin:mob?{l:55,r:40,t:50,b:55}:{l:80,r:80,t:55,b:60},
+  paper_bgcolor:'#fff',plot_bgcolor:'#fff',
+  annotations:[]
 };
 
-Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
+// 대각선 강조
+for(let i=0;i<labels.length;i++){
+  layout.annotations.push({
+    x:labels[i],y:labels[i],text:'<b>1.00</b>',font:{size:mob?9:13,color:'#6b7280'},
+    showarrow:false,xref:'x',yref:'y'
+  });
+}
+
+Plotly.newPlot('chart',data,layout,{responsive:true,displayModeBar:false});
 </script>
 </body>
 </html>
