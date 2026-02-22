@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+const days = ['월요일', '화요일', '수요일', '목요일', '금요일'];
+const values = [5.2, 6.1, 6.8, 6.3, 7.5];
+const errors = [0.45, 0.35, 0.30, 0.40, 0.50];
+
+// 인디고 → 라이트블루 그라디언트
+const barColors = ['#312e81', '#3730a3', '#4338ca', '#4f46e5', '#6366f1'];
+
+const trace = {
+  x: days,
+  y: values,
+  type: 'bar',
+  marker: {
+    color: barColors,
+    line: { color: '#1e1b4b', width: 1 },
+    cornerradius: 4
+  },
+  error_y: {
+    type: 'data',
+    array: errors,
+    visible: true,
+    color: '#64748b',
+    thickness: 2,
+    width: 6
+  },
+  text: values.map(v => v.toFixed(1)),
+  textposition: 'outside',
+  textfont: { family: 'Noto Sans KR', size: 14, color: '#334155', weight: 600 },
+  hovertemplate: '%{x}<br>만족도: %{y}점 (±%{error_y.array})<extra></extra>',
+  width: 0.6
+};
+
+const layout = {
+  title: {
+    text: '요일별 학교생활 만족도',
+    font: { family: 'Noto Sans KR', size: 22, color: '#1e293b', weight: 700 },
+    x: 0.5,
+    y: 0.95
+  },
+  font: { family: 'Noto Sans KR', color: '#334155' },
+  paper_bgcolor: '#fff',
+  plot_bgcolor: '#fafbfc',
+  margin: { l: 70, r: 40, t: 80, b: 70 },
+  xaxis: {
+    title: { text: '요일', font: { size: 15, color: '#475569' } },
+    tickfont: { size: 14, color: '#334155' },
+    gridcolor: 'rgba(0,0,0,0)'
+  },
+  yaxis: {
+    title: { text: '만족도 (1-10)', font: { size: 15, color: '#475569' } },
+    range: [0, 9.5],
+    gridcolor: '#e2e8f0',
+    tickfont: { size: 12 },
+    dtick: 2,
+    zeroline: true,
+    zerolinecolor: '#cbd5e1'
+  },
+  annotations: [
+    {
+      text: '금요일에 가장 높다!',
+      font: { size: 14, color: '#4338ca', family: 'Noto Sans KR', weight: 600 },
+      showarrow: true,
+      arrowhead: 2,
+      arrowsize: 1.2,
+      arrowwidth: 2,
+      arrowcolor: '#6366f1',
+      ax: -60,
+      ay: -45,
+      x: '금요일',
+      y: 7.5 + 0.5,
+      xref: 'x',
+      yref: 'y',
+      bgcolor: 'rgba(238, 242, 255, 0.95)',
+      bordercolor: '#6366f1',
+      borderwidth: 1.5,
+      borderpad: 8
+    }
+  ],
+  bargap: 0.25
+};
+
+const config = { responsive: true, displayModeBar: false };
+
+Plotly.newPlot('chart', [trace], layout, config);
+</script>
+</body>
+</html>

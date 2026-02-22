@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+// --- 검증 전: 원본 데이터 (노이즈, 이상치 포함) ---
+const rawSmartphone = [
+  1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0,
+  1.0, 2.2, 3.3, 4.1, 5.2, 6.3, 7.1, 3.8, 4.6, 5.8, 2.7, 6.8, 1.8, 4.3,
+  // 이상치
+  0.5, 9.0, 8.5, 0.2, 10.0, 7.8, 1.2, 9.5
+];
+const rawSleep = [
+  8.0, 7.5, 7.8, 7.0, 6.5, 6.8, 6.0, 5.5, 5.8, 5.0, 5.2, 4.8, 4.5, 4.0,
+  8.5, 7.2, 6.3, 6.5, 5.0, 4.5, 4.2, 7.0, 5.5, 6.0, 7.8, 5.5, 8.2, 6.2,
+  // 이상치 (비현실적)
+  9.5, 8.0, 7.5, 10.0, 2.0, 3.0, 9.0, 1.5
+];
+
+// --- 검증 후: 정제 데이터 (이상치 제거, 명확한 패턴) ---
+const cleanSmartphone = [
+  1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5,
+  1.8, 2.2, 2.7, 3.3, 3.8, 4.1, 4.3, 4.6, 5.2, 5.8, 6.3, 6.8, 7.1
+];
+const cleanSleep = [
+  8.0, 7.5, 7.8, 7.0, 6.5, 6.8, 6.0, 5.5, 5.8, 5.0, 5.2, 4.8, 4.5,
+  8.2, 7.2, 7.8, 6.3, 7.0, 6.5, 6.2, 5.5, 5.0, 6.0, 4.5, 5.5, 4.2
+];
+
+// 선형 회귀 함수
+function linearRegression(x, y) {
+  const n = x.length;
+  const sx = x.reduce((a, b) => a + b, 0);
+  const sy = y.reduce((a, b) => a + b, 0);
+  const sxy = x.reduce((acc, xi, i) => acc + xi * y[i], 0);
+  const sx2 = x.reduce((acc, xi) => acc + xi * xi, 0);
+  const m = (n * sxy - sx * sy) / (n * sx2 - sx * sx);
+  const b = (sy - m * sx) / n;
+  return { slope: m, intercept: b };
+}
+
+// 검증 후 회귀선
+const reg = linearRegression(cleanSmartphone, cleanSleep);
+const regX = [1.0, 8.0];
+const regY = regX.map(x => reg.slope * x + reg.intercept);
+
+// 신뢰 구간 밴드 (간략 계산)
+const bandOffset = 0.45;
+const bandUpperY = regY.map(y => y + bandOffset);
+const bandLowerY = regY.map(y => y - bandOffset);
+
+const data = [
+  // === 검증 전 데이터 (visible by default) ===
+  {
+    x: rawSmartphone,
+    y: rawSleep,
+    mode: 'markers',
+    type: 'scatter',
+    name: '원본 데이터',
+    marker: {
+      color: 'rgba(158,158,158,0.5)',
+      size: 9,
+      line: { color: 'rgba(120,120,120,0.6)', width: 1 }
+    },
+    hovertemplate: '스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>',
+    visible: true
+  },
+
+  // === 검증 후 데이터 (hidden by default) ===
+  // 신뢰 구간 밴드 상단
+  {
+    x: regX,
+    y: bandUpperY,
+    mode: 'lines',
+    type: 'scatter',
+    line: { color: 'transparent' },
+    showlegend: false,
+    hoverinfo: 'skip',
+    visible: false
+  },
+  // 신뢰 구간 밴드 하단 (fill)
+  {
+    x: regX,
+    y: bandLowerY,
+    mode: 'lines',
+    type: 'scatter',
+    fill: 'tonexty',
+    fillcolor: 'rgba(33,150,243,0.12)',
+    line: { color: 'transparent' },
+    name: '95% 신뢰 구간',
+    hoverinfo: 'skip',
+    visible: false
+  },
+  // 정제 데이터 산점도
+  {
+    x: cleanSmartphone,
+    y: cleanSleep,
+    mode: 'markers',
+    type: 'scatter',
+    name: '정제 데이터',
+    marker: {
+      color: 'rgba(33,150,243,0.7)',
+      size: 10,
+      line: { color: '#1565C0', width: 1.5 },
+      symbol: 'circle'
+    },
+    hovertemplate: '스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>',
+    visible: false
+  },
+  // 추세선
+  {
+    x: regX,
+    y: regY,
+    mode: 'lines',
+    type: 'scatter',
+    name: '추세선 (r = -0.65)',
+    line: { color: '#E53935', width: 2.5, dash: 'dash' },
+    hoverinfo: 'skip',
+    visible: false
+  }
+];
+
+const layout = {
+  title: {
+    text: '검증 전: 스마트폰 사용시간 vs 수면시간 (원본 데이터, r = -0.32)',
+    font: { family: 'Noto Sans KR', size: 17, weight: 700 }
+  },
+  xaxis: {
+    title: { text: '스마트폰 사용시간 (시간)', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 },
+    range: [0, 11],
+    gridcolor: '#eee'
+  },
+  yaxis: {
+    title: { text: '수면시간 (시간)', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 },
+    range: [0, 11],
+    gridcolor: '#eee'
+  },
+  legend: {
+    font: { family: 'Noto Sans KR', size: 12 },
+    x: 0.65, y: 0.98,
+    bgcolor: 'rgba(255,255,255,0.9)',
+    bordercolor: '#ddd',
+    borderwidth: 1
+  },
+  updatemenus: [{
+    type: 'buttons',
+    direction: 'right',
+    x: 0.5,
+    xanchor: 'center',
+    y: 1.13,
+    showactive: true,
+    active: 0,
+    font: { family: 'Noto Sans KR', size: 13 },
+    buttons: [
+      {
+        label: '\uD83D\uDD0D 검증 전 (원본 데이터)',
+        method: 'update',
+        args: [
+          { visible: [true, false, false, false, false] },
+          {
+            title: {
+              text: '검증 전: 스마트폰 사용시간 vs 수면시간 (원본 데이터, r = -0.32)',
+              font: { family: 'Noto Sans KR', size: 17, weight: 700 }
+            },
+            'plot_bgcolor': '#f5f5f5'
+          }
+        ]
+      },
+      {
+        label: '\u2705 검증 후 (정제 데이터)',
+        method: 'update',
+        args: [
+          { visible: [false, true, true, true, true] },
+          {
+            title: {
+              text: '검증 후: 스마트폰 사용시간 vs 수면시간 (정제 데이터, r = -0.65)',
+              font: { family: 'Noto Sans KR', size: 17, weight: 700 }
+            },
+            'plot_bgcolor': '#fafffe'
+          }
+        ]
+      }
+    ]
+  }],
+  margin: { l: 70, r: 40, t: 80, b: 60 },
+  paper_bgcolor: '#fff',
+  plot_bgcolor: '#f5f5f5'
+};
+
+Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
+</script>
+</body>
+</html>

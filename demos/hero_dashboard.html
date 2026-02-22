@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#1a1a2e; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+// --- 데이터 생성 ---
+
+// 1. 산점도: 수면시간 vs 피로도 (음의 상관)
+const n = 30;
+const sleepHours = [];
+const fatigue = [];
+const scatterColors = [];
+const colorPalette = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#cc5de8','#20c997','#f06595','#339af0','#fcc419'];
+for (let i = 0; i < n; i++) {
+  const s = 4 + Math.random() * 5;
+  sleepHours.push(Math.round(s * 10) / 10);
+  fatigue.push(Math.round((10 - s * 0.9 + (Math.random() - 0.5) * 3) * 10) / 10);
+  scatterColors.push(colorPalette[i % colorPalette.length]);
+}
+
+// 2. 막대: 요일별 만족도
+const days = ['월', '화', '수', '목', '금'];
+const satisfaction = [5.2, 6.1, 6.8, 6.3, 7.5];
+const barColors = ['#1e3a5f', '#264f78', '#2e6491', '#3679aa', '#3e8ec3'];
+
+// 3. 파이: 학년별 분포
+const gradeLabels = ['1학년', '2학년', '3학년'];
+const gradeValues = [120, 95, 85];
+const pieColors = ['#312e81', '#4338ca', '#6366f1'];
+
+// 4. 선: 월별 평균기온
+const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const temps = [-2.4, 0.4, 5.7, 12.5, 17.8, 22.2, 24.9, 25.7, 21.2, 14.8, 7.2, 0.4];
+
+// --- 트레이스 ---
+
+const traceScatter = {
+  x: sleepHours,
+  y: fatigue,
+  mode: 'markers',
+  type: 'scatter',
+  marker: {
+    color: scatterColors,
+    size: 10,
+    line: { color: '#fff', width: 1 }
+  },
+  name: '수면 vs 피로',
+  hovertemplate: '수면: %{x}시간<br>피로도: %{y}<extra></extra>',
+  xaxis: 'x',
+  yaxis: 'y'
+};
+
+const traceBar = {
+  x: days,
+  y: satisfaction,
+  type: 'bar',
+  marker: {
+    color: barColors,
+    line: { color: '#fff', width: 0.5 }
+  },
+  name: '만족도',
+  hovertemplate: '%{x}요일: %{y}점<extra></extra>',
+  xaxis: 'x2',
+  yaxis: 'y2'
+};
+
+const tracePie = {
+  labels: gradeLabels,
+  values: gradeValues,
+  type: 'pie',
+  marker: {
+    colors: pieColors,
+    line: { color: '#1a1a2e', width: 2 }
+  },
+  textinfo: 'label+percent',
+  textfont: { color: '#fff', family: 'Noto Sans KR', size: 13 },
+  hovertemplate: '%{label}: %{value}명 (%{percent})<extra></extra>',
+  domain: { x: [0, 0.45], y: [0, 0.42] },
+  hole: 0.35
+};
+
+const traceLine = {
+  x: months,
+  y: temps,
+  type: 'scatter',
+  mode: 'lines+markers',
+  fill: 'tozeroy',
+  fillcolor: 'rgba(99,102,241,0.2)',
+  line: { color: '#818cf8', width: 2.5, shape: 'spline' },
+  marker: { color: '#c7d2fe', size: 6 },
+  name: '평균기온',
+  hovertemplate: '%{x}: %{y}°C<extra></extra>',
+  xaxis: 'x3',
+  yaxis: 'y3'
+};
+
+// --- 레이아웃 ---
+
+const layout = {
+  title: {
+    text: '데이터 분석 에이전틱 수업',
+    font: { family: 'Noto Sans KR', size: 22, color: '#e2e8f0', weight: 700 },
+    x: 0.5,
+    y: 0.98
+  },
+  paper_bgcolor: '#1a1a2e',
+  plot_bgcolor: '#16213e',
+  font: { family: 'Noto Sans KR', color: '#e2e8f0' },
+  showlegend: false,
+  margin: { l: 50, r: 30, t: 60, b: 40 },
+
+  // 상단 좌측: 산점도
+  xaxis: {
+    domain: [0, 0.45],
+    anchor: 'y',
+    title: { text: '수면시간', font: { size: 11 } },
+    gridcolor: '#2a2a4a',
+    tickfont: { size: 10 }
+  },
+  yaxis: {
+    domain: [0.55, 1],
+    anchor: 'x',
+    title: { text: '피로도', font: { size: 11 } },
+    gridcolor: '#2a2a4a',
+    tickfont: { size: 10 }
+  },
+
+  // 상단 우측: 막대
+  xaxis2: {
+    domain: [0.55, 1],
+    anchor: 'y2',
+    gridcolor: '#2a2a4a',
+    tickfont: { size: 10 }
+  },
+  yaxis2: {
+    domain: [0.55, 1],
+    anchor: 'x2',
+    title: { text: '만족도', font: { size: 11 } },
+    gridcolor: '#2a2a4a',
+    range: [0, 9],
+    tickfont: { size: 10 }
+  },
+
+  // 하단 우측: 선
+  xaxis3: {
+    domain: [0.55, 1],
+    anchor: 'y3',
+    gridcolor: '#2a2a4a',
+    tickfont: { size: 9 },
+    tickangle: -45
+  },
+  yaxis3: {
+    domain: [0, 0.42],
+    anchor: 'x3',
+    title: { text: '기온 (°C)', font: { size: 11 } },
+    gridcolor: '#2a2a4a',
+    tickfont: { size: 10 }
+  },
+
+  // 서브플롯 제목 (annotations)
+  annotations: [
+    {
+      text: '<b>수면시간 vs 피로도</b>',
+      font: { size: 13, color: '#c7d2fe' },
+      showarrow: false,
+      x: 0.225, y: 1.02, xref: 'paper', yref: 'paper',
+      xanchor: 'center'
+    },
+    {
+      text: '<b>요일별 만족도</b>',
+      font: { size: 13, color: '#c7d2fe' },
+      showarrow: false,
+      x: 0.775, y: 1.02, xref: 'paper', yref: 'paper',
+      xanchor: 'center'
+    },
+    {
+      text: '<b>학년별 분포</b>',
+      font: { size: 13, color: '#c7d2fe' },
+      showarrow: false,
+      x: 0.225, y: 0.47, xref: 'paper', yref: 'paper',
+      xanchor: 'center'
+    },
+    {
+      text: '<b>월별 평균기온 추세</b>',
+      font: { size: 13, color: '#c7d2fe' },
+      showarrow: false,
+      x: 0.775, y: 0.47, xref: 'paper', yref: 'paper',
+      xanchor: 'center'
+    }
+  ]
+};
+
+const config = {
+  responsive: true,
+  displayModeBar: false
+};
+
+Plotly.newPlot('chart', [traceScatter, traceBar, tracePie, traceLine], layout, config);
+</script>
+</body>
+</html>

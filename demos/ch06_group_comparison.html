@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+// 난수 시드 역할을 하는 간단한 데이터 생성 함수
+function generateBoxData(median, spread, count, min, max) {
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    // Box-Muller 변환으로 정규분포 근사
+    const u1 = Math.random();
+    const u2 = Math.random();
+    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+    let val = median + z * spread;
+    val = Math.max(min, Math.min(max, val));
+    data.push(Math.round(val * 10) / 10);
+  }
+  return data;
+}
+
+const groups = ['5시간 미만', '5-6시간', '6-7시간', '7-8시간', '8시간 이상'];
+const medians = [3.5, 4.8, 6.2, 7.5, 7.8];
+const spreads = [0.8, 1.0, 1.1, 1.0, 0.9];
+const colors = ['#E53935', '#FB8C00', '#FDD835', '#66BB6A', '#2E7D32'];
+const markerColors = ['rgba(229,57,53,0.5)', 'rgba(251,140,0,0.5)', 'rgba(253,216,53,0.5)', 'rgba(102,187,106,0.5)', 'rgba(46,125,50,0.5)'];
+
+const data = groups.map((group, i) => {
+  const values = generateBoxData(medians[i], spreads[i], 30, 1, 10);
+  return {
+    y: values,
+    x: Array(values.length).fill(group),
+    type: 'box',
+    name: group,
+    boxpoints: 'all',
+    jitter: 0.4,
+    pointpos: -1.5,
+    marker: {
+      color: markerColors[i],
+      size: 5,
+      line: { color: colors[i], width: 1 }
+    },
+    line: { color: colors[i], width: 2 },
+    fillcolor: colors[i] + '30',
+    hovertemplate: '%{x}<br>만족도: %{y}<extra></extra>'
+  };
+});
+
+const layout = {
+  title: {
+    text: '수면시간 구간별 학교생활 만족도',
+    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    y: 0.96
+  },
+  xaxis: {
+    title: { text: '수면시간 구간', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 }
+  },
+  yaxis: {
+    title: { text: '학교생활 만족도', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 },
+    range: [0, 11],
+    dtick: 2,
+    gridcolor: '#eee'
+  },
+  showlegend: false,
+  annotations: [{
+    x: '7-8시간',
+    y: 10.2,
+    xref: 'x',
+    yref: 'y',
+    text: '<b>7시간 이상 수면 → 만족도 급상승!</b>',
+    showarrow: true,
+    arrowhead: 2,
+    arrowsize: 1,
+    arrowwidth: 2,
+    arrowcolor: '#2E7D32',
+    ax: -30,
+    ay: -30,
+    font: { family: 'Noto Sans KR', size: 13, color: '#2E7D32' },
+    bgcolor: 'rgba(255,255,255,0.9)',
+    bordercolor: '#2E7D32',
+    borderwidth: 1,
+    borderpad: 6
+  }],
+  margin: { l: 70, r: 30, t: 60, b: 70 },
+  paper_bgcolor: '#fff',
+  plot_bgcolor: '#fafafa'
+};
+
+Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
+</script>
+</body>
+</html>

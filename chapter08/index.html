@@ -1,0 +1,1992 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI를 도구로 활용하는 데이터 분석 수업 시리즈">
+      
+      
+        <meta name="author" content="greatsong">
+      
+      
+      
+        <link rel="prev" href="../chapter07/">
+      
+      
+        <link rel="next" href="../chapter09/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Ch.8 — 양식·루브릭·성찰지 - 데이터 분석 에이전틱 수업 — 교사용 지도서</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/data-analysis-theme.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ch8" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="데이터 분석 에이전틱 수업 — 교사용 지도서" class="md-header__button md-logo" aria-label="데이터 분석 에이전틱 수업 — 교사용 지도서" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            데이터 분석 에이전틱 수업 — 교사용 지도서
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch.8 — 양식·루브릭·성찰지
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  홈
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+  Part 1: 질문을 설계하라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+  Part 2: AI에게 분석을 시켜라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+  Part 3: 단짝 분석을 부숴라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter09/" class="md-tabs__link">
+          
+  
+  
+  Part 4: 처음부터 끝까지
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="데이터 분석 에이전틱 수업 — 교사용 지도서" class="md-nav__button md-logo" aria-label="데이터 분석 에이전틱 수업 — 교사용 지도서" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    데이터 분석 에이전틱 수업 — 교사용 지도서
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1: 질문을 설계하라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1: 질문을 설계하라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.1 — 설계 철학
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.2 — 모호함에서 질문으로
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.3 — 상황카드·활동지·루브릭
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2: AI에게 분석을 시켜라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2: AI에게 분석을 시켜라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.4 — 좋은 지시가 좋은 분석을
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.5 — Soul Document 작성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.6 — 결과 검증과 개선
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3: 단짝 분석을 부숴라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3: 단짝 분석을 부숴라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.7 — 피어리뷰
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.8 — 양식·루브릭·성찰지
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.8 — 양식·루브릭·성찰지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        단짝 분석을 부숴라 — 수업 자료
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 기록 양식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="피어리뷰 기록 양식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 1: 데이터 정합성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 2: 분석 논리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 3: 해석 타당성
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 평가 시각화
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 루브릭
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        분석 개선 성찰지
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="분석 개선 성찰지">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: 받은 피드백 정리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: 핵심 피드백 분석
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part C: 개선 계획
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part D: 메타인지 성찰
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        교사 커스터마이징 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="교사 커스터마이징 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        난이도 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시간 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디지털 vs 종이
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        전체 피어리뷰 프로세스 흐름도
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4: 처음부터 끝까지
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4: 처음부터 끝까지
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.9 — 독립 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.10 — 템플릿·평가·종합
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        단짝 분석을 부숴라 — 수업 자료
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 기록 양식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="피어리뷰 기록 양식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 1: 데이터 정합성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 2: 분석 논리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        렌즈 3: 해석 타당성
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 평가 시각화
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        피어리뷰 루브릭
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        분석 개선 성찰지
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="분석 개선 성찰지">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: 받은 피드백 정리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: 핵심 피드백 분석
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part C: 개선 계획
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part D: 메타인지 성찰
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        교사 커스터마이징 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="교사 커스터마이징 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        난이도 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시간 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디지털 vs 종이
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        전체 피어리뷰 프로세스 흐름도
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ch8">Ch.8 — 피어리뷰 양식·루브릭·성찰지<a class="headerlink" href="#ch8" title="Permanent link">&para;</a></h1>
+<div class="part-header" data-part="3">
+<p><span class="part-number">Part 3</span></p>
+<h2 id="_1">단짝 분석을 부숴라 — 수업 자료<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>3차시 피어리뷰에서 사용하는 기록 양식, 평가 루브릭, 성찰지를 모두 담았습니다. | 50분</p>
+</div>
+<hr />
+<h2 id="_2">피어리뷰 기록 양식<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">사용 안내</p>
+<p>이 양식은 <strong>검토자(공격 라운드)</strong>가 작성합니다.
+렌즈별로 해당 항목을 점검하고, 발견한 문제와 제안을 구체적으로 기록하세요.</p>
+</div>
+<h3 id="1">렌즈 1: 데이터 정합성<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>핵심 질문</strong>: "이 데이터로 이 질문에 답할 수 있는가?"</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">검토 항목</th>
+<th style="text-align: left;">점검 내용</th>
+<th style="text-align: center;">결과 (O/X/△)</th>
+<th style="text-align: left;">발견 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>변수 적합성</strong></td>
+<td style="text-align: left;">분석 질문에 답하기 위한 변수가 데이터에 포함되어 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>변수 유형</strong></td>
+<td style="text-align: left;">각 변수의 유형(연속형/범주형)이 올바르게 구분되어 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>표본 크기</strong></td>
+<td style="text-align: left;">결론을 내리기에 충분한 표본 수(N)인가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>표본 대표성</strong></td>
+<td style="text-align: left;">표본이 모집단을 합리적으로 대표하는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>결측값 처리</strong></td>
+<td style="text-align: left;">결측값의 비율과 처리 방법이 명시되어 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>결측값 영향</strong></td>
+<td style="text-align: left;">결측값 처리 방법이 결과에 편향을 주지 않는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>데이터 출처</strong></td>
+<td style="text-align: left;">데이터의 출처와 수집 방법이 명시되어 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>렌즈 1 종합 의견:</strong></p>
+<blockquote>
+<p>(발견된 핵심 문제와 개선 제안을 구체적으로 작성하세요)</p>
+</blockquote>
+<hr />
+<h3 id="2">렌즈 2: 분석 논리<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>핵심 질문</strong>: "분석 과정에 논리적 허점이 있는가?"</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">검토 항목</th>
+<th style="text-align: left;">점검 내용</th>
+<th style="text-align: center;">결과 (O/X/△)</th>
+<th style="text-align: left;">발견 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>방법 적절성</strong></td>
+<td style="text-align: left;">분석 방법(상관/비교/추세 등)이 질문과 데이터 유형에 맞는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>이상치 처리</strong></td>
+<td style="text-align: left;">이상치를 식별하고 적절히 처리했는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>전처리 기록</strong></td>
+<td style="text-align: left;">데이터 전처리 과정이 투명하게 기록되어 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>시각화 정확성</strong></td>
+<td style="text-align: left;">그래프 유형이 데이터 성격에 적합한가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>축 설정</strong></td>
+<td style="text-align: left;">축 범위, 레이블, 단위가 정확하고 적절한가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>통계적 유의성</strong></td>
+<td style="text-align: left;">표본 크기 대비 적절한 수준의 통계적 판단을 하고 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>복수 분석</strong></td>
+<td style="text-align: left;">하나의 방법만이 아닌, 다각도 분석을 시도했는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>렌즈 2 종합 의견:</strong></p>
+<blockquote>
+<p>(발견된 핵심 문제와 개선 제안을 구체적으로 작성하세요)</p>
+</blockquote>
+<hr />
+<h3 id="3">렌즈 3: 해석 타당성<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>핵심 질문</strong>: "이 결론이 정말 데이터가 말하는 것인가?"</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">검토 항목</th>
+<th style="text-align: left;">점검 내용</th>
+<th style="text-align: center;">결과 (O/X/△)</th>
+<th style="text-align: left;">발견 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>근거 충분성</strong></td>
+<td style="text-align: left;">모든 결론이 데이터와 분석 결과에 근거하고 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>과잉 해석</strong></td>
+<td style="text-align: left;">데이터가 지지하지 않는 범위까지 결론을 확장하지 않았는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>인과 혼동</strong></td>
+<td style="text-align: left;">상관관계를 인과관계로 잘못 해석하고 있지 않은가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>일반화 범위</strong></td>
+<td style="text-align: left;">결론의 적용 범위를 적절하게 제한하고 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>대안 해석</strong></td>
+<td style="text-align: left;">다른 가능한 해석을 고려했는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>한계 인식</strong></td>
+<td style="text-align: left;">분석의 한계점을 명시적으로 인정하고 있는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>교란 변수</strong></td>
+<td style="text-align: left;">제3의 변수(교란 변수)의 가능성을 고려했는가?</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>렌즈 3 종합 의견:</strong></p>
+<blockquote>
+<p>(발견된 핵심 문제와 개선 제안을 구체적으로 작성하세요)</p>
+</blockquote>
+<hr />
+<h2 id="_3">피어리뷰 평가 시각화<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>아래 레이더 차트는 검토 결과를 시각적으로 보여줍니다. 어떤 렌즈에서 강점이 있고 어떤 렌즈에서 보완이 필요한지 한눈에 파악할 수 있습니다.</p>
+<div class="plotly-demo">
+<div class="demo-label">피어리뷰 결과 레이더 차트 — 렌즈별 점수 분포</div>
+<iframe src="../demos/ch08_peer_review_viz.html"></iframe>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">레이더 차트 활용법</p>
+<ul>
+<li>6각형이 고르게 넓으면: 전반적으로 우수한 분석</li>
+<li>한쪽이 움푹 들어가면: 해당 영역에 집중 보완 필요</li>
+<li>학생들에게 "어떤 꼭짓점을 키우고 싶은지" 목표를 설정하게 하세요</li>
+</ul>
+</div>
+<hr />
+<h2 id="_4">피어리뷰 루브릭<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>검토자의 피어리뷰 활동 자체를 평가하는 루브릭입니다. "좋은 피드백"이란 무엇인지 기준을 제시합니다.</p>
+<table class="rubric-table">
+<thead>
+<tr>
+<th>평가 기준</th>
+<th><span class="rubric-level">탁월 (4)</span></th>
+<th><span class="rubric-level">우수 (3)</span></th>
+<th><span class="rubric-level">보통 (2)</span></th>
+<th><span class="rubric-level">미흡 (1)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>피드백 구체성</strong></td>
+<td>구체적인 위치(페이지, 그래프, 수치)를 지정하여 문제를 정확히 짚음</td>
+<td>대부분의 피드백에 구체적 근거가 있으나, 일부 모호한 표현 포함</td>
+<td>피드백이 있으나 "좀 이상하다" 수준의 추상적 표현이 많음</td>
+<td>피드백이 거의 없거나, "좋아요/별로예요" 수준</td>
+</tr>
+<tr>
+<td><strong>근거 제시</strong></td>
+<td>모든 지적에 데이터, 수치, 논리적 이유를 명확히 제시</td>
+<td>대부분의 지적에 근거를 제시하나, 1~2개는 근거 없이 직감적</td>
+<td>일부 지적에만 근거 제시, 나머지는 감상적 판단</td>
+<td>근거 없이 "느낌"으로만 피드백</td>
+</tr>
+<tr>
+<td><strong>대안 제시</strong></td>
+<td>문제마다 실현 가능한 구체적 개선 방안을 제시</td>
+<td>주요 문제에 대안을 제시하나, 구체성이 다소 부족</td>
+<td>문제를 지적하지만 "어떻게 고칠지"는 제시하지 않음</td>
+<td>문제 지적도 없고 대안도 없음</td>
+</tr>
+<tr>
+<td><strong>존중적 표현</strong></td>
+<td>분석을 검토 대상으로 삼으며, 건설적이고 예의 바른 표현 사용</td>
+<td>대체로 존중적이나, 간혹 직설적/날카로운 표현 포함</td>
+<td>피드백 의도는 있으나 표현이 무례하거나 비꼬는 어조</td>
+<td>인신공격, 무시, 비하 등 부적절한 표현 사용</td>
+</tr>
+<tr>
+<td><strong>렌즈 활용</strong></td>
+<td>지정된 렌즈의 모든 항목을 빠짐없이 체계적으로 검토</td>
+<td>렌즈 항목의 70% 이상을 검토하고 기록</td>
+<td>렌즈 항목의 50% 정도만 형식적으로 체크</td>
+<td>렌즈를 무시하고 자유 형식으로만 작성</td>
+</tr>
+</tbody>
+</table>
+
+<div class="admonition note">
+<p class="admonition-title">채점 기준</p>
+<ul>
+<li><strong>16~20점 (탁월)</strong>: 전문 리뷰어 수준의 피드백</li>
+<li><strong>12~15점 (우수)</strong>: 팀에 실질적 도움이 되는 피드백</li>
+<li><strong>8~11점 (보통)</strong>: 기본적 검토는 했으나 깊이 부족</li>
+<li><strong>5~7점 (미흡)</strong>: 피어리뷰의 목적을 달성하지 못함</li>
+</ul>
+</div>
+<hr />
+<h2 id="_5">분석 개선 성찰지<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">사용 안내</p>
+<p>이 양식은 <strong>피검토자(수비 라운드)</strong>가 작성합니다.
+받은 피드백을 읽고, 수용/반론을 결정하고, 개선 계획을 세웁니다.</p>
+</div>
+<h3 id="part-a">Part A: 받은 피드백 정리<a class="headerlink" href="#part-a" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">순번</th>
+<th style="text-align: left;">피드백 내용 요약</th>
+<th style="text-align: center;">렌즈</th>
+<th style="text-align: center;">분류</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">데이터 / 분석 / 해석</td>
+<td style="text-align: center;">수용 / 반론 / 보류</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">데이터 / 분석 / 해석</td>
+<td style="text-align: center;">수용 / 반론 / 보류</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">데이터 / 분석 / 해석</td>
+<td style="text-align: center;">수용 / 반론 / 보류</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">데이터 / 분석 / 해석</td>
+<td style="text-align: center;">수용 / 반론 / 보류</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">데이터 / 분석 / 해석</td>
+<td style="text-align: center;">수용 / 반론 / 보류</td>
+</tr>
+</tbody>
+</table>
+<h3 id="part-b">Part B: 핵심 피드백 분석<a class="headerlink" href="#part-b" title="Permanent link">&para;</a></h3>
+<p><strong>가장 핵심적인 피드백 1가지:</strong></p>
+<blockquote>
+<p>(받은 피드백 중 분석에 가장 큰 영향을 미치는 것을 골라 작성하세요)</p>
+</blockquote>
+<p><strong>이 피드백에 대한 나의 판단:</strong></p>
+<ul>
+<li>[ ] <strong>수용</strong>: 이 지적이 맞다. 내가 놓친 부분이다.</li>
+<li>[ ] <strong>반론</strong>: 이 지적에 반박할 근거가 있다. (아래에 근거 작성)</li>
+<li>[ ] <strong>보류</strong>: 추가 확인이 필요하다. (재분석 방법 기술)</li>
+</ul>
+<p><strong>수용 시 — 어떻게 개선할 것인가:</strong></p>
+<blockquote>
+<p>(구체적 개선 방법을 작성하세요. 예: "Soul Document에 이상치 처리 조건을 추가한다")</p>
+</blockquote>
+<p><strong>반론 시 — 반박 근거:</strong></p>
+<blockquote>
+<p>(데이터나 논리에 기반한 반박 근거를 작성하세요)</p>
+</blockquote>
+<h3 id="part-c">Part C: 개선 계획<a class="headerlink" href="#part-c" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">개선 항목</th>
+<th style="text-align: left;">현재 상태</th>
+<th style="text-align: left;">개선 후 목표</th>
+<th style="text-align: left;">수정할 Soul Document 부분</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="part-d">Part D: 메타인지 성찰<a class="headerlink" href="#part-d" title="Permanent link">&para;</a></h3>
+<details class="question">
+<summary>성찰 질문 — 솔직하게 답해 보세요</summary>
+<ol>
+<li>피어리뷰 전에 내 분석이 완벽하다고 생각했는가? (1: 전혀 ~ 5: 매우)</li>
+<li>피어리뷰 후 내 분석에 대한 확신이 바뀌었는가? 어떻게?</li>
+<li>남의 분석을 검토하면서 <strong>내 분석에서도 같은 문제</strong>를 발견했는가?</li>
+<li>다음에 분석할 때 가장 먼저 주의할 점은 무엇인가?</li>
+</ol>
+</details>
+<hr />
+<h2 id="_6">교사 커스터마이징 가이드<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">상황에 맞게 양식을 조절하세요</p>
+</div>
+<h3 id="_7">난이도 조절<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">수준</th>
+<th style="text-align: left;">렌즈</th>
+<th style="text-align: center;">검토 항목 수</th>
+<th style="text-align: left;">비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>기초</strong></td>
+<td style="text-align: left;">렌즈 1개 (데이터만)</td>
+<td style="text-align: center;">렌즈당 3개</td>
+<td style="text-align: left;">첫 피어리뷰 경험 학생</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>보통</strong></td>
+<td style="text-align: left;">렌즈 2개 (데이터+해석)</td>
+<td style="text-align: center;">렌즈당 5개</td>
+<td style="text-align: left;">기본 피어리뷰 경험 있는 학생</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>심화</strong></td>
+<td style="text-align: left;">렌즈 3개 (전체)</td>
+<td style="text-align: center;">렌즈당 7개</td>
+<td style="text-align: left;">데이터 분석 경험이 풍부한 학생</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">시간 조절<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">활동</th>
+<th style="text-align: center;">50분 수업</th>
+<th style="text-align: center;">40분 수업</th>
+<th style="text-align: center;">30분 수업 (약식)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">도입</td>
+<td style="text-align: center;">5분</td>
+<td style="text-align: center;">3분</td>
+<td style="text-align: center;">2분</td>
+</tr>
+<tr>
+<td style="text-align: left;">공격 라운드</td>
+<td style="text-align: center;">20분 (2회전)</td>
+<td style="text-align: center;">15분 (1회전)</td>
+<td style="text-align: center;">10분 (1회전)</td>
+</tr>
+<tr>
+<td style="text-align: left;">수비 라운드</td>
+<td style="text-align: center;">15분</td>
+<td style="text-align: center;">12분</td>
+<td style="text-align: center;">10분</td>
+</tr>
+<tr>
+<td style="text-align: left;">성찰</td>
+<td style="text-align: center;">10분</td>
+<td style="text-align: center;">10분</td>
+<td style="text-align: center;">8분</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vs">디지털 vs 종이<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">방식</th>
+<th style="text-align: left;">장점</th>
+<th style="text-align: left;">단점</th>
+<th style="text-align: left;">추천 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>종이 양식</strong></td>
+<td style="text-align: left;">손으로 쓰며 생각 정리, 디지털 기기 없어도 가능</td>
+<td style="text-align: left;">보관 어려움, 재활용 불가</td>
+<td style="text-align: left;">첫 피어리뷰, PC 부족 환경</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>구글 폼</strong></td>
+<td style="text-align: left;">자동 집계, 보관 용이</td>
+<td style="text-align: left;">작성 속도 느릴 수 있음</td>
+<td style="text-align: left;">데이터 수집/분석 필요 시</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>공유 문서</strong></td>
+<td style="text-align: left;">실시간 협업 가능, 교사 모니터링 용이</td>
+<td style="text-align: left;">네트워크 필요</td>
+<td style="text-align: left;">PC 환경 충분할 때</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">전체 피어리뷰 프로세스 흐름도<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A[사전 준비: 각 조 분석 완료] --&gt; B[양식 배부 + 렌즈 설명]
+    B --&gt; C[조 배치: 검토 대상 + 렌즈 지정]
+
+    C --&gt; D["공격 라운드 1\n(10분)"]
+    D --&gt; E["공격 라운드 2\n(10분)"]
+
+    E --&gt; F[자리 복귀: 피드백 수령]
+    F --&gt; G[수비: 피드백 읽기 + 분류]
+
+    G --&gt; H{수용?}
+    H --&gt;|Yes| I[개선 계획 작성]
+    H --&gt;|No| J{반론?}
+    J --&gt;|Yes| K[반박 근거 정리]
+    J --&gt;|No| L[보류 → 재분석 예정]
+
+    I --&gt; M[성찰지 Part D 작성]
+    K --&gt; M
+    L --&gt; M
+
+    M --&gt; N[핵심 1문장 공유]
+    N --&gt; O[다음 차시: 독립 프로젝트에 반영]</code></pre>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">이 챕터의 핵심</p>
+<ul>
+<li>피어리뷰 기록 양식은 <strong>3가지 렌즈</strong>에 따라 구조화되어 있다</li>
+<li>루브릭은 "좋은 피드백"의 기준을 명확히 제시한다</li>
+<li>성찰지는 받은 피드백을 <strong>수용/반론/보류</strong>로 분류하고 개선 계획으로 연결한다</li>
+<li>교사는 학생 수준과 수업 시간에 맞게 <strong>양식을 커스터마이징</strong>할 수 있다</li>
+</ul>
+</div>
+<div style="text-align: center; margin-top: 2rem;">
+<p><a class="md-button" href="../chapter07/">← Ch.7 피어리뷰 지도안</a> &nbsp; <a class="md-button md-button--primary" href="../chapter09/">Ch.9 독립 프로젝트 지도안 →</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

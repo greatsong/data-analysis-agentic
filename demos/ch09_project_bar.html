@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학년별 방과후 활동 참여율</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px;
+    width: 100%;
+    max-width: 800px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  #chart { width: 100%; height: 480px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>학년별 방과후 활동 참여율</h1>
+  <p class="subtitle">고등학교 전체 학생 대상 설문 결과</p>
+  <div id="chart"></div>
+</div>
+<script>
+(function() {
+  const activities = ['운동', '음악', '독서', '코딩', '봉사'];
+
+  const trace1 = {
+    x: activities,
+    y: [65, 30, 20, 15, 25],
+    name: '1학년',
+    type: 'bar',
+    marker: {
+      color: '#4361ee',
+      line: { color: '#3451de', width: 1 }
+    },
+    text: [65, 30, 20, 15, 25].map(v => v + '%'),
+    textposition: 'outside',
+    textfont: { size: 12, family: 'Noto Sans KR' }
+  };
+
+  const trace2 = {
+    x: activities,
+    y: [55, 35, 25, 25, 30],
+    name: '2학년',
+    type: 'bar',
+    marker: {
+      color: '#2ec4b6',
+      line: { color: '#1eb4a6', width: 1 }
+    },
+    text: [55, 35, 25, 25, 30].map(v => v + '%'),
+    textposition: 'outside',
+    textfont: { size: 12, family: 'Noto Sans KR' }
+  };
+
+  const trace3 = {
+    x: activities,
+    y: [40, 25, 35, 30, 40],
+    name: '3학년',
+    type: 'bar',
+    marker: {
+      color: '#9b5de5',
+      line: { color: '#8b4dd5', width: 1 }
+    },
+    text: [40, 25, 35, 30, 40].map(v => v + '%'),
+    textposition: 'outside',
+    textfont: { size: 12, family: 'Noto Sans KR' }
+  };
+
+  const layout = {
+    font: { family: 'Noto Sans KR, sans-serif' },
+    barmode: 'group',
+    xaxis: {
+      title: { text: '방과후 활동', font: { size: 14 } },
+      tickfont: { size: 13 }
+    },
+    yaxis: {
+      title: { text: '참여율 (%)', font: { size: 14 } },
+      range: [0, 80],
+      gridcolor: '#f0f0f0',
+      zeroline: false,
+      ticksuffix: '%'
+    },
+    legend: {
+      x: 0.01, y: 0.99,
+      bgcolor: 'rgba(255,255,255,0.9)',
+      bordercolor: '#e0e0e0',
+      borderwidth: 1,
+      font: { size: 13 },
+      orientation: 'h',
+      xanchor: 'left'
+    },
+    bargap: 0.25,
+    bargroupgap: 0.1,
+    margin: { t: 20, r: 30, b: 60, l: 70 },
+    plot_bgcolor: '#fafbfc',
+    paper_bgcolor: '#fff',
+    hovermode: 'x unified'
+  };
+
+  Plotly.newPlot('chart', [trace1, trace2, trace3], layout,
+    { responsive: true, displayModeBar: false });
+})();
+</script>
+</body>
+</html>

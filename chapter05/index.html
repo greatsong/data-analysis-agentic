@@ -1,0 +1,2624 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI를 도구로 활용하는 데이터 분석 수업 시리즈">
+      
+      
+        <meta name="author" content="greatsong">
+      
+      
+      
+        <link rel="prev" href="../chapter04/">
+      
+      
+        <link rel="next" href="../chapter06/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Ch.5 — Soul Document 작성 - 데이터 분석 에이전틱 수업 — 교사용 지도서</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/data-analysis-theme.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ch5-soul-document" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="데이터 분석 에이전틱 수업 — 교사용 지도서" class="md-header__button md-logo" aria-label="데이터 분석 에이전틱 수업 — 교사용 지도서" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            데이터 분석 에이전틱 수업 — 교사용 지도서
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch.5 — Soul Document 작성
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  홈
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+  Part 1: 질문을 설계하라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+  Part 2: AI에게 분석을 시켜라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+  Part 3: 단짝 분석을 부숴라
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter09/" class="md-tabs__link">
+          
+  
+  
+  Part 4: 처음부터 끝까지
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="데이터 분석 에이전틱 수업 — 교사용 지도서" class="md-nav__button md-logo" aria-label="데이터 분석 에이전틱 수업 — 교사용 지도서" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    데이터 분석 에이전틱 수업 — 교사용 지도서
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1: 질문을 설계하라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1: 질문을 설계하라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.1 — 설계 철학
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.2 — 모호함에서 질문으로
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.3 — 상황카드·활동지·루브릭
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2: AI에게 분석을 시켜라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2: AI에게 분석을 시켜라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.4 — 좋은 지시가 좋은 분석을
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.5 — Soul Document 작성
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.5 — Soul Document 작성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Soul Document란?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Soul Document란?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개념 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soul Document 전체 구조 미리보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 섹션별 작성 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 섹션별 작성 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 1: 배경 맥락 --- "왜 이 분석을 하는가"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 1: 배경 맥락 --- &#34;왜 이 분석을 하는가&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 2: 데이터 설명 --- "어떤 데이터를 분석하는가"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 2: 데이터 설명 --- &#34;어떤 데이터를 분석하는가&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 3: 분석 방법 --- "어떻게 분석하라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 3: 분석 방법 --- &#34;어떻게 분석하라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        데이터 유형별 분석 방법 매칭표
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 4: 시각화 요구사항 --- "어떤 그래프를 그려라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 4: 시각화 요구사항 --- &#34;어떤 그래프를 그려라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plotly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plotly 차트 체험
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plotly 차트 체험">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        산점도: 수면시간 vs 피로도
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        막대그래프: 요일별 만족도
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 슬라이더: 이상치가 분석에 미치는 영향
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        히트맵: 변수 간 상관계수
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 5: 해석 기준 --- "결과를 어떤 기준으로 판단하라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 5: 해석 기준 --- &#34;결과를 어떤 기준으로 판단하라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 데이터 미리보기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 데이터 미리보기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        학교 설문 데이터셋
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 이상치와 결측값 처리 지침
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 이상치와 결측값 처리 지침">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soul-document_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soul Document에 이상치 처리를 포함하는 방법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soul Document에 이상치 처리를 포함하는 방법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결측값 처리 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 처리 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실전 연습: 완전한 Soul Document 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 실전 연습: 완전한 Soul Document 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시 1: 수면시간과 피로도의 관계
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시 2: 요일별 급식 만족도 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Soul Document 작성 시 자주 하는 실수
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.6 — 결과 검증과 개선
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3: 단짝 분석을 부숴라
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3: 단짝 분석을 부숴라
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.7 — 피어리뷰
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.8 — 양식·루브릭·성찰지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4: 처음부터 끝까지
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4: 처음부터 끝까지
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.9 — 독립 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch.10 — 템플릿·평가·종합
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Soul Document란?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Soul Document란?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개념 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soul Document 전체 구조 미리보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 섹션별 작성 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 섹션별 작성 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 1: 배경 맥락 --- "왜 이 분석을 하는가"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 1: 배경 맥락 --- &#34;왜 이 분석을 하는가&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 2: 데이터 설명 --- "어떤 데이터를 분석하는가"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 2: 데이터 설명 --- &#34;어떤 데이터를 분석하는가&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 3: 분석 방법 --- "어떻게 분석하라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 3: 분석 방법 --- &#34;어떻게 분석하라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        데이터 유형별 분석 방법 매칭표
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 4: 시각화 요구사항 --- "어떤 그래프를 그려라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 4: 시각화 요구사항 --- &#34;어떤 그래프를 그려라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plotly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plotly 차트 체험
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plotly 차트 체험">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        산점도: 수면시간 vs 피로도
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        막대그래프: 요일별 만족도
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 슬라이더: 이상치가 분석에 미치는 영향
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        히트맵: 변수 간 상관계수
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        섹션 5: 해석 기준 --- "결과를 어떤 기준으로 판단하라"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="섹션 5: 해석 기준 --- &#34;결과를 어떤 기준으로 판단하라&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작성 요령
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좋은 예시 vs 나쁜 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 데이터 미리보기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 데이터 미리보기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        학교 설문 데이터셋
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 이상치와 결측값 처리 지침
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 이상치와 결측값 처리 지침">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soul-document_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soul Document에 이상치 처리를 포함하는 방법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soul Document에 이상치 처리를 포함하는 방법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결측값 처리 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 처리 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실전 연습: 완전한 Soul Document 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 실전 연습: 완전한 Soul Document 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시 1: 수면시간과 피로도의 관계
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시 2: 요일별 급식 만족도 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-soul-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Soul Document 작성 시 자주 하는 실수
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ch5-soul-document">Ch.5 --- 분석 지침서(Soul Document) 작성 가이드<a class="headerlink" href="#ch5-soul-document" title="Permanent link">&para;</a></h1>
+<p><strong>Part 2: AI에게 분석을 시켜라 | 심화 자료</strong></p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">이 장의 목적</p>
+<p>이 장은 Ch.4에서 소개한 Soul Document의 <strong>5개 섹션을 깊이 있게</strong> 다룹니다.
+각 섹션의 작성 요령, 좋은 예시와 나쁜 예시, 교사 코멘트를 제공하며,
+인터랙티브 차트를 통해 데이터 분석의 핵심 개념을 체험할 수 있습니다.</p>
+</div>
+<hr />
+<h2 id="1-soul-document">1. Soul Document란?<a class="headerlink" href="#1-soul-document" title="Permanent link">&para;</a></h2>
+<h3 id="_1">개념 정의<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Soul Document는 <strong>AI에게 데이터 분석을 지시하기 위한 구조화된 문서</strong>입니다.
+단순히 "분석해줘"라고 하는 대신, 분석의 목적, 데이터, 방법, 시각화, 해석 기준을 체계적으로 작성합니다.</p>
+<div class="admonition tip">
+<p class="admonition-title">왜 Soul Document인가?</p>
+<ul>
+<li><strong>Soul</strong> = 분석의 영혼, 핵심 의도</li>
+<li><strong>Document</strong> = 문서화된 지침</li>
+<li>즉, "이 분석이 왜 필요하고, 무엇을 어떻게 분석하고, 결과를 어떻게 판단할지"를
+  <strong>분석의 영혼</strong>까지 담은 문서입니다.</li>
+</ul>
+</div>
+<h3 id="soul-document">Soul Document 전체 구조 미리보기<a class="headerlink" href="#soul-document" title="Permanent link">&para;</a></h3>
+<div class="soul-doc-preview">
+<p><strong>Soul Document 예시: 학년별 수면시간 분석</strong></p>
+<p><strong>1. 배경 맥락</strong>
+이 분석은 우리 학교 학생들의 수면 패턴을 파악하기 위한 것입니다. 특히 학년에 따라 수면시간에 차이가 있는지 확인하여, 학년별 맞춤 수면 교육 프로그램의 필요성을 판단하고자 합니다.</p>
+<p><strong>2. 데이터 설명</strong>
+데이터: school_survey.csv (200명, 12개 변수)
+주요 변수: grade(학년 1/2/3), sleep_weekday(평일 수면시간, 시간), sleep_weekend(주말 수면시간), fatigue(피로도 1~5)</p>
+<p><strong>3. 분석 방법</strong>
+(1) 학년별 기술통계(평균, 표준편차, 중앙값) 계산
+(2) 학년 간 차이에 대해 일원분산분석(ANOVA) 검정
+(3) 유의수준 0.05 기준 p-value 보고</p>
+<p><strong>4. 시각화 요구사항</strong>
+(1) 학년별 수면시간 박스플롯 (한국어 라벨)
+(2) x축: 학년, y축: 평균 수면시간(h)
+(3) 학년별 색상 구분, 그래프 제목 포함</p>
+<p><strong>5. 해석 기준</strong>
+(1) p &lt; 0.05이면 학년 간 차이 유의
+(2) 평균 차이 30분 이상이면 실질적 의미 있음
+(3) 한 문단으로 결론 요약, 한계점 명시</p>
+</div>
+<hr />
+<h2 id="2">2. 섹션별 작성 가이드<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="1-">섹션 1: 배경 맥락 --- "왜 이 분석을 하는가"<a class="headerlink" href="#1-" title="Permanent link">&para;</a></h3>
+<h4 id="_2">작성 요령<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>배경 맥락은 AI에게 <strong>분석의 방향</strong>을 잡아주는 나침반입니다. 이 섹션이 없으면 AI는 데이터에서 아무 패턴이나 찾으려 합니다.</p>
+<p>포함해야 할 요소:</p>
+<ol>
+<li><strong>분석의 동기</strong>: 어떤 문제나 궁금증에서 시작했는가</li>
+<li><strong>분석의 목적</strong>: 결과를 어디에 활용할 것인가</li>
+<li><strong>대상 독자</strong>: 누구를 위한 분석인가</li>
+</ol>
+<h4 id="vs">좋은 예시 vs 나쁜 예시<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h4>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">나쁜 예시</span></p>
+<blockquote>
+<p>"수면 데이터를 분석해줘."</p>
+</blockquote>
+<p><strong>문제점</strong>:</p>
+<ul>
+<li>동기 없음: 왜 수면 데이터?</li>
+<li>목적 없음: 결과로 뭘 하려고?</li>
+<li>방향 없음: 뭘 찾아야 하는지 불명확</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">좋은 예시</span></p>
+<blockquote>
+<p>"우리 학교에서 1교시 수업 집중도가 학년마다 다르다는 교사 관찰이 있습니다. 수면 부족이 원인일 수 있다는 가설하에, 학년별 수면시간 차이를 확인하고자 합니다. 결과는 학년별 조회 시간 조정 건의에 활용할 예정입니다."</p>
+</blockquote>
+<p><strong>강점</strong>:</p>
+<ul>
+<li>동기 명확: 교사 관찰에서 출발</li>
+<li>목적 구체: 조회 시간 조정 건의</li>
+<li>가설 제시: AI에게 분석 방향 안내</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">교사 코멘트</p>
+<p>배경 맥락이 구체적일수록 AI의 분석도 초점이 맞습니다.
+학생들에게 "분석 결과를 가지고 <strong>누구에게 뭘 건의할 것인지</strong>" 먼저 생각하게 하면,
+배경 맥락 작성이 훨씬 수월해집니다.</p>
+</div>
+<hr />
+<h3 id="2-">섹션 2: 데이터 설명 --- "어떤 데이터를 분석하는가"<a class="headerlink" href="#2-" title="Permanent link">&para;</a></h3>
+<h4 id="_3">작성 요령<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>AI는 데이터 파일을 받아도 <strong>맥락을 모릅니다.</strong> "grade"라는 컬럼이 학년인지 성적인지 알려줘야 합니다.</p>
+<p>포함해야 할 요소:</p>
+<ol>
+<li><strong>파일명과 형식</strong>: CSV, Excel 등</li>
+<li><strong>데이터 규모</strong>: 행 수(관측치), 열 수(변수)</li>
+<li><strong>주요 변수 설명</strong>: 변수명, 의미, 단위, 척도</li>
+<li><strong>특이사항</strong>: 결측값, 이상치, 코딩 규칙</li>
+</ol>
+<h4 id="vs_1">좋은 예시 vs 나쁜 예시<a class="headerlink" href="#vs_1" title="Permanent link">&para;</a></h4>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">나쁜 예시</span></p>
+<blockquote>
+<p>"첨부 파일 참고."</p>
+</blockquote>
+<p><strong>문제점</strong>:</p>
+<ul>
+<li>AI가 변수명을 추측해야 함</li>
+<li>단위를 모르면 해석 오류 발생</li>
+<li>결측값 처리 방법을 알 수 없음</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">좋은 예시</span></p>
+<blockquote>
+<p>"파일: school_survey.csv (200행 x 12열)
+주요 변수:
+- grade: 학년 (1, 2, 3)
+- sleep_weekday: 평일 수면시간 (시간, 소수점 1자리)
+- fatigue: 피로도 (1=매우 낮음 ~ 5=매우 높음)
+- stress: 스트레스 (1~10, 연속형)</p>
+<p>결측값: 약 5% 존재, 분석 시 제거(listwise deletion)"</p>
+</blockquote>
+<p><strong>강점</strong>:</p>
+<ul>
+<li>변수마다 의미, 단위, 척도 명시</li>
+<li>결측값 처리 방법 사전 지정</li>
+<li>AI가 추측할 필요 없음</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">교사 코멘트</p>
+<p>데이터 설명은 <strong>지루하지만 가장 중요한</strong> 섹션입니다.
+이 섹션이 부실하면 AI가 변수를 잘못 해석하여 전체 분석이 틀어집니다.
+"귀찮아도 변수 하나하나 설명하세요"라고 강조하세요.</p>
+</div>
+<hr />
+<h3 id="3-">섹션 3: 분석 방법 --- "어떻게 분석하라"<a class="headerlink" href="#3-" title="Permanent link">&para;</a></h3>
+<h4 id="_4">작성 요령<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>AI에게 "알아서 해줘"라고 하면 AI는 가장 기본적인(그리고 종종 부적절한) 방법을 선택합니다. 분석 방법을 지정하면 더 정확한 결과를 얻을 수 있습니다.</p>
+<p>포함해야 할 요소:</p>
+<ol>
+<li><strong>기술통계</strong>: 어떤 요약 통계량을 계산할지</li>
+<li><strong>추론통계</strong>: 어떤 검정/모델을 사용할지</li>
+<li><strong>순서</strong>: 분석을 어떤 순서로 할지</li>
+<li><strong>유의수준</strong>: 통계적 판단의 기준</li>
+</ol>
+<h4 id="_5">데이터 유형별 분석 방법 매칭표<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">이 표를 학생에게 참고자료로 제공하세요</p>
+<p>학생들은 어떤 분석 방법을 써야 할지 모르는 경우가 많습니다.
+아래 매칭표를 보고 자신의 질문에 맞는 방법을 선택할 수 있습니다.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>데이터 유형</th>
+<th>질문 유형</th>
+<th>추천 분석 방법</th>
+<th>추천 시각화</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>두 연속변수</strong></td>
+<td>"A가 커지면 B도 커지는가?"</td>
+<td>상관분석, 회귀분석</td>
+<td>산점도</td>
+</tr>
+<tr>
+<td><strong>범주 x 연속</strong></td>
+<td>"그룹 A와 B의 평균이 다른가?"</td>
+<td>t검정(2그룹), ANOVA(3+그룹)</td>
+<td>박스플롯, 막대그래프</td>
+</tr>
+<tr>
+<td><strong>시계열</strong></td>
+<td>"시간에 따라 변하는가?"</td>
+<td>추세분석, 이동평균</td>
+<td>선그래프</td>
+</tr>
+<tr>
+<td><strong>여러 변수 관계</strong></td>
+<td>"변수들 간 관계가 어떤가?"</td>
+<td>상관행렬</td>
+<td>히트맵</td>
+</tr>
+<tr>
+<td><strong>범주 x 범주</strong></td>
+<td>"두 범주 간 연관이 있는가?"</td>
+<td>카이제곱 검정</td>
+<td>모자이크 플롯</td>
+</tr>
+<tr>
+<td><strong>비율 비교</strong></td>
+<td>"이 비율이 기대와 다른가?"</td>
+<td>이항검정, 비율검정</td>
+<td>파이차트, 막대그래프</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vs_2">좋은 예시 vs 나쁜 예시<a class="headerlink" href="#vs_2" title="Permanent link">&para;</a></h4>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">나쁜 예시</span></p>
+<blockquote>
+<p>"통계 분석을 해줘."</p>
+</blockquote>
+<p><strong>문제점</strong>:</p>
+<ul>
+<li>어떤 통계? 기술? 추론?</li>
+<li>AI가 임의로 방법 선택</li>
+<li>결과의 의미를 해석할 수 없음</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">좋은 예시</span></p>
+<blockquote>
+<p>"분석 순서:
+1) 학년별 기술통계: 평균, 표준편차, 중앙값, 최솟값, 최댓값
+2) 정규성 검정: Shapiro-Wilk (각 학년별)
+3) 등분산 검정: Levene's test
+4) 학년 간 비교: 정규성 충족 시 ANOVA, 미충족 시 Kruskal-Wallis
+5) 사후검정: Tukey HSD (ANOVA인 경우)
+6) 유의수준: 0.05"</p>
+</blockquote>
+<p><strong>강점</strong>:</p>
+<ul>
+<li>단계별 순서 명확</li>
+<li>조건부 방법 지정</li>
+<li>유의수준 사전 설정</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">교사 코멘트</p>
+<p>학생 수준에 따라 분석 방법의 상세도를 조절하세요.
+초보 학생은 "평균 비교 → 박스플롯" 수준으로도 충분합니다.
+상위 학생은 검정 방법까지 지정하도록 유도할 수 있습니다.</p>
+</div>
+<hr />
+<h3 id="4-">섹션 4: 시각화 요구사항 --- "어떤 그래프를 그려라"<a class="headerlink" href="#4-" title="Permanent link">&para;</a></h3>
+<h4 id="_6">작성 요령<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>시각화를 지정하지 않으면 AI는 기본 설정의 투박한 그래프를 생성합니다. 좋은 시각화 지시는 <strong>그래프 유형, 축, 색상, 라벨</strong>을 모두 포함합니다.</p>
+<p>포함해야 할 요소:</p>
+<ol>
+<li><strong>그래프 유형</strong>: 산점도, 막대그래프, 박스플롯, 히트맵 등</li>
+<li><strong>축 설정</strong>: x축, y축 변수와 라벨</li>
+<li><strong>색상/스타일</strong>: 그룹별 색상, 글꼴 크기 등</li>
+<li><strong>제목과 범례</strong>: 그래프 제목, 범례 위치</li>
+<li><strong>추가 요소</strong>: 추세선, 평균선, 신뢰구간 등</li>
+</ol>
+<h3 id="plotly">Plotly 차트 체험<a class="headerlink" href="#plotly" title="Permanent link">&para;</a></h3>
+<p>아래 인터랙티브 차트를 직접 조작하며 각 시각화 유형의 특징을 체험하세요.</p>
+<h4 id="vs_3">산점도: 수면시간 vs 피로도<a class="headerlink" href="#vs_3" title="Permanent link">&para;</a></h4>
+<div class="plotly-demo">
+<div class="demo-label">산점도 --- 두 연속변수의 관계를 한눈에</div>
+<iframe src="../demos/ch05_scatter_sleep.html"></iframe>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">산점도를 쓸 때</p>
+<ul>
+<li><strong>두 연속변수</strong>의 관계를 보고 싶을 때 사용합니다</li>
+<li>추세선을 추가하면 관계의 방향(양/음)과 강도를 파악할 수 있습니다</li>
+<li>Soul Document에 "추세선과 R-squared 값을 표시하세요"라고 추가하면 좋습니다</li>
+</ul>
+</div>
+<h4 id="_7">막대그래프: 요일별 만족도<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="plotly-demo">
+<div class="demo-label">막대그래프 --- 그룹별 평균 비교에 최적</div>
+<iframe src="../demos/ch05_bar_weekday.html"></iframe>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">막대그래프를 쓸 때</p>
+<ul>
+<li><strong>범주별 평균</strong>을 비교할 때 사용합니다</li>
+<li>오차 막대(error bar)를 추가하면 변동성도 함께 표현할 수 있습니다</li>
+<li>Soul Document에 "오차 막대(표준편차)를 포함하세요"라고 추가하면 좋습니다</li>
+</ul>
+</div>
+<h4 id="_8">이상치 슬라이더: 이상치가 분석에 미치는 영향<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<div class="plotly-demo">
+<div class="demo-label">이상치를 제거하면 상관관계가 어떻게 변하나? --- 슬라이더를 움직여 보세요</div>
+<iframe src="../demos/ch05_outlier_slider.html"></iframe>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">이상치의 영향</p>
+<ul>
+<li>이상치 1~2개가 상관관계를 크게 바꿀 수 있습니다</li>
+<li>"이상치를 포함한 결과"와 "제거한 결과"를 <strong>모두 보고</strong>하는 것이 좋습니다</li>
+<li>Soul Document에 "이상치 탐지(IQR 방법)를 수행하고, 이상치 포함/제외 두 가지 결과를 비교하세요"라고 작성할 수 있습니다</li>
+</ul>
+</div>
+<h4 id="_9">히트맵: 변수 간 상관계수<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="plotly-demo">
+<div class="demo-label">상관 히트맵 --- 여러 변수의 관계를 한눈에 파악</div>
+<iframe src="../demos/ch05_correlation_heatmap.html"></iframe>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">히트맵을 쓸 때</p>
+<ul>
+<li><strong>여러 변수 간의 관계</strong>를 한눈에 보고 싶을 때 사용합니다</li>
+<li>색상이 진할수록 상관관계가 강합니다 (빨강 = 양의 상관, 파랑 = 음의 상관)</li>
+<li>Soul Document에 "모든 연속변수 간 상관행렬 히트맵을 그리고, 상관계수를 셀에 표시하세요"라고 작성합니다</li>
+</ul>
+</div>
+<h4 id="vs_4">좋은 예시 vs 나쁜 예시<a class="headerlink" href="#vs_4" title="Permanent link">&para;</a></h4>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">나쁜 예시</span></p>
+<blockquote>
+<p>"그래프 그려줘."</p>
+</blockquote>
+<p><strong>문제점</strong>:</p>
+<ul>
+<li>어떤 그래프? 어떤 변수?</li>
+<li>AI가 아무 그래프나 생성</li>
+<li>라벨이 영어, 크기가 작음</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">좋은 예시</span></p>
+<blockquote>
+<p>"시각화 요구사항:
+1) 학년별 수면시간 박스플롯
+   - x축: '학년' (1학년/2학년/3학년)
+   - y축: '평균 수면시간(h)' (범위: 4~10)
+   - 색상: 1학년=파랑, 2학년=초록, 3학년=빨강
+   - 제목: '학년별 평일 수면시간 분포'
+   - 개별 데이터 포인트를 점으로 표시
+2) 수면시간 vs 피로도 산점도
+   - 추세선 포함, R-squared 표시
+   - 모든 라벨 한국어"</p>
+</blockquote>
+<p><strong>강점</strong>:</p>
+<ul>
+<li>그래프 유형 + 변수 지정</li>
+<li>축 라벨, 색상, 제목 모두 포함</li>
+<li>한국어 라벨 명시</li>
+</ul>
+</div>
+</div>
+<hr />
+<h3 id="5-">섹션 5: 해석 기준 --- "결과를 어떤 기준으로 판단하라"<a class="headerlink" href="#5-" title="Permanent link">&para;</a></h3>
+<h4 id="_10">작성 요령<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>AI는 숫자를 보고하지만, 그 숫자가 <strong>의미 있는지</strong>는 기준이 있어야 판단할 수 있습니다. 해석 기준을 미리 정해두면 결과를 일관되게 해석할 수 있습니다.</p>
+<p>포함해야 할 요소:</p>
+<ol>
+<li><strong>통계적 유의성 기준</strong>: p-value 임계값</li>
+<li><strong>실질적 유의성 기준</strong>: 차이가 "의미 있으려면" 얼마나 커야 하는가</li>
+<li><strong>해석 형식</strong>: 결론을 어떤 형태로 작성할 것인가</li>
+<li><strong>주의사항</strong>: 인과 추론 금지, 한계점 명시 등</li>
+</ol>
+<h4 id="vs_5">좋은 예시 vs 나쁜 예시<a class="headerlink" href="#vs_5" title="Permanent link">&para;</a></h4>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">나쁜 예시</span></p>
+<blockquote>
+<p>"결과를 해석해줘."</p>
+</blockquote>
+<p><strong>문제점</strong>:</p>
+<ul>
+<li>AI가 "상관관계가 있습니다"라고만 말함</li>
+<li>수치적 기준 없이 주관적 해석</li>
+<li>한계점 무시</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">좋은 예시</span></p>
+<blockquote>
+<p>"해석 기준:
+1) 통계적 유의성: p &lt; 0.05 → 차이 유의, p &gt;= 0.05 → 차이 없음
+2) 실질적 유의성: 평균 차이 30분 이상 → 의미 있는 차이
+3) 효과 크기: Cohen's d 보고 (0.2=작음, 0.5=중간, 0.8=큼)
+4) 결론 형식: 한 문단 요약 + 근거 수치 인용
+5) 주의사항: '이 결과는 상관관계이며, 인과관계를 의미하지 않습니다' 포함
+6) 한계점: 표본의 대표성, 자기보고 편향 등 명시"</p>
+</blockquote>
+<p><strong>강점</strong>:</p>
+<ul>
+<li>이중 기준 (통계적 + 실질적)</li>
+<li>결론 형식 지정</li>
+<li>한계점 요구</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">교사 코멘트</p>
+<p>해석 기준 섹션은 <strong>비판적 사고</strong>를 가장 잘 반영하는 부분입니다.
+"p-value만 보면 되는 거 아니에요?"라는 질문이 나오면,
+"p-value가 작아도 차이가 5분뿐이면 의미가 있을까?"라고 되물어보세요.
+통계적 유의성과 실질적 유의성의 차이를 깨닫는 순간이 됩니다.</p>
+</div>
+<hr />
+<h2 id="3">3. 데이터 미리보기<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="_11">학교 설문 데이터셋<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div class="plotly-demo">
+<div class="demo-label">school_survey.csv --- 200명 학생 설문 결과 미리보기</div>
+<iframe src="../demos/data_preview_school.html"></iframe>
+</div>
+<table>
+<thead>
+<tr>
+<th>변수명</th>
+<th>설명</th>
+<th>유형</th>
+<th>범위/값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>student_id</td>
+<td>학생 ID</td>
+<td>식별자</td>
+<td>S001~S200</td>
+</tr>
+<tr>
+<td>grade</td>
+<td>학년</td>
+<td>범주</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>성별</td>
+<td>범주</td>
+<td>M, F</td>
+</tr>
+<tr>
+<td>sleep_weekday</td>
+<td>평일 수면시간</td>
+<td>연속</td>
+<td>4.0~10.0 (시간)</td>
+</tr>
+<tr>
+<td>sleep_weekend</td>
+<td>주말 수면시간</td>
+<td>연속</td>
+<td>5.0~12.0 (시간)</td>
+</tr>
+<tr>
+<td>fatigue</td>
+<td>피로도</td>
+<td>순서</td>
+<td>1~5 (5=매우 높음)</td>
+</tr>
+<tr>
+<td>stress</td>
+<td>스트레스</td>
+<td>연속</td>
+<td>1~10</td>
+</tr>
+<tr>
+<td>satisfaction</td>
+<td>학교 만족도</td>
+<td>연속</td>
+<td>1~10</td>
+</tr>
+<tr>
+<td>screen_time</td>
+<td>일일 스크린타임</td>
+<td>연속</td>
+<td>0.5~8.0 (시간)</td>
+</tr>
+<tr>
+<td>exercise</td>
+<td>주당 운동 횟수</td>
+<td>이산</td>
+<td>0~7 (회)</td>
+</tr>
+<tr>
+<td>commute</td>
+<td>통학시간</td>
+<td>연속</td>
+<td>5~90 (분)</td>
+</tr>
+<tr>
+<td>club</td>
+<td>동아리 참여</td>
+<td>이진</td>
+<td>Y, N</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 이상치와 결측값 처리 지침<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="soul-document_1">Soul Document에 이상치 처리를 포함하는 방법<a class="headerlink" href="#soul-document_1" title="Permanent link">&para;</a></h3>
+<p>이상치와 결측값은 분석 결과를 크게 좌우합니다. Soul Document에 처리 방법을 명시하면 AI가 일관되게 처리합니다.</p>
+<h4 id="_12">결측값 처리 옵션<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>설명</th>
+<th>Soul Document 작성 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>제거(Listwise)</strong></td>
+<td>결측값이 있는 행 전체 삭제</td>
+<td>"결측값이 있는 행은 분석에서 제외하세요"</td>
+</tr>
+<tr>
+<td><strong>평균 대체</strong></td>
+<td>해당 변수의 평균으로 대체</td>
+<td>"결측값은 해당 변수의 평균으로 대체하세요"</td>
+</tr>
+<tr>
+<td><strong>중앙값 대체</strong></td>
+<td>해당 변수의 중앙값으로 대체</td>
+<td>"결측값은 중앙값으로 대체하세요 (이상치 영향 최소화)"</td>
+</tr>
+<tr>
+<td><strong>보고만</strong></td>
+<td>결측값 현황만 보고</td>
+<td>"결측값 현황(변수별 개수, 비율)을 먼저 보고하세요"</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">학생 수준별 추천</p>
+<ul>
+<li><strong>초보</strong>: "결측값이 있는 행은 제외하세요" (가장 단순)</li>
+<li><strong>중급</strong>: "결측값 현황을 보고한 후, 제거하세요"</li>
+<li><strong>상급</strong>: "결측값 비율이 5% 미만이면 제거, 이상이면 평균 대체"</li>
+</ul>
+</div>
+<h4 id="_13">이상치 처리 옵션<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>설명</th>
+<th>Soul Document 작성 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IQR 방법</strong></td>
+<td>Q1-1.5xIQR ~ Q3+1.5xIQR 범위 밖 제거</td>
+<td>"IQR 방법으로 이상치를 탐지하고 제거하세요"</td>
+</tr>
+<tr>
+<td><strong>Z-score</strong></td>
+<td>평균에서 3 표준편차 이상 벗어난 값</td>
+<td>"Z-score 3 이상인 값을 이상치로 표시하세요"</td>
+</tr>
+<tr>
+<td><strong>보고만</strong></td>
+<td>이상치 목록만 보고</td>
+<td>"이상치를 탐지하되 제거하지 말고, 포함/제외 두 결과를 비교하세요"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-soul-document">5. 실전 연습: 완전한 Soul Document 예시<a class="headerlink" href="#5-soul-document" title="Permanent link">&para;</a></h2>
+<h3 id="1">예시 1: 수면시간과 피로도의 관계<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="soul-doc-preview">
+<p><strong>Soul Document: 수면시간과 피로도의 관계 분석</strong></p>
+<hr />
+<p><strong>1. 배경 맥락</strong></p>
+<p>우리 학교 보건교사가 최근 보건실 방문 학생 중 "피곤하다"고 호소하는 비율이 증가했다고 보고했습니다. 수면 부족이 원인인지 확인하기 위해, 수면시간과 피로도의 관계를 분석하고자 합니다. 분석 결과는 "적정 수면시간 가이드라인" 제작에 활용할 예정입니다.</p>
+<p><strong>2. 데이터 설명</strong></p>
+<ul>
+<li>파일: school_survey.csv (200행 x 12열)</li>
+<li>분석 대상 변수:<ul>
+<li>sleep_weekday: 평일 평균 수면시간 (시간, 연속형, 소수점 1자리)</li>
+<li>fatigue: 피로도 (1=매우 낮음 ~ 5=매우 높음, 순서형)</li>
+<li>grade: 학년 (1, 2, 3, 범주형) --- 보조 변수</li>
+</ul>
+</li>
+<li>결측값: 약 5% 존재, 해당 행 제거(listwise deletion)</li>
+</ul>
+<p><strong>3. 분석 방법</strong></p>
+<p>1) 전체 기술통계: sleep_weekday, fatigue의 평균, 표준편차, 중앙값
+2) 상관분석: sleep_weekday와 fatigue의 Pearson 상관계수 계산
+3) 학년별 상관분석: 학년을 나누어 각각의 상관계수 비교
+4) 단순 회귀분석: sleep_weekday → fatigue (예측 모델)
+5) 이상치 탐지: IQR 방법으로 수면시간 이상치 확인</p>
+<p><strong>4. 시각화 요구사항</strong></p>
+<p>1) 수면시간 vs 피로도 산점도
+   - x축: '평일 수면시간(h)', y축: '피로도(점)'
+   - 학년별 색상 구분 (1학년=파랑, 2학년=초록, 3학년=빨강)
+   - 전체 추세선(검정 점선) + R-squared 표시
+   - 제목: '수면시간과 피로도의 관계'
+2) 학년별 수면시간 박스플롯
+   - 개별 데이터 포인트 표시, 한국어 라벨
+3) 모든 텍스트 한국어, 글꼴 크기 12pt 이상</p>
+<p><strong>5. 해석 기준</strong></p>
+<p>1) 상관계수: |r| &gt; 0.3이면 의미 있는 상관, |r| &gt; 0.5이면 강한 상관
+2) p-value: &lt; 0.05이면 통계적으로 유의
+3) 결론 형식: 3문장 이내 요약 + 근거 수치 인용
+4) "이 결과는 상관관계이며, 수면시간이 피로도를 직접 유발한다는 인과적 해석은 불가합니다" 포함
+5) 한계점: 자기보고식 설문의 편향 가능성, 교란 변수(운동량, 카페인 섭취 등) 미통제 명시</p>
+</div>
+<h3 id="2_1">예시 2: 요일별 급식 만족도 비교<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<div class="soul-doc-preview">
+<p><strong>Soul Document: 요일별 급식 만족도 분석</strong></p>
+<hr />
+<p><strong>1. 배경 맥락</strong></p>
+<p>학생회에서 "금요일 급식이 월요일보다 맛없다"는 민원이 있었습니다. 요일에 따라 급식 만족도에 실제로 차이가 있는지 데이터로 확인하여, 영양사 선생님과의 간담회 자료로 활용하고자 합니다.</p>
+<p><strong>2. 데이터 설명</strong></p>
+<ul>
+<li>파일: lunch_survey.csv (150행 x 5열)</li>
+<li>변수: student_id, weekday(월~금), satisfaction(1~5점), menu_type(한식/양식/중식), grade</li>
+<li>결측값: 없음 (사전 정제 완료)</li>
+</ul>
+<p><strong>3. 분석 방법</strong></p>
+<p>1) 요일별 만족도 기술통계 (평균, 표준편차)
+2) 요일 간 차이: ANOVA 검정 (5그룹 비교)
+3) 사후검정: Tukey HSD로 어떤 요일 간 차이가 유의한지 확인
+4) 메뉴 유형별 추가 분석 (탐색적)</p>
+<p><strong>4. 시각화</strong></p>
+<p>1) 요일별 만족도 막대그래프 + 오차 막대(표준편차)
+2) 요일별 만족도 박스플롯
+3) 한국어 라벨, 제목: '요일별 급식 만족도 비교'</p>
+<p><strong>5. 해석 기준</strong></p>
+<p>1) p &lt; 0.05 → 요일 간 차이 유의
+2) 평균 차이 0.5점 이상 → 실질적 차이
+3) "이 분석은 특정 주의 데이터에 기반하므로 일반화에 한계가 있습니다" 명시</p>
+</div>
+<hr />
+<h2 id="6-soul-document">6. Soul Document 작성 시 자주 하는 실수<a class="headerlink" href="#6-soul-document" title="Permanent link">&para;</a></h2>
+<details class="question">
+<summary>실수 1: 배경 맥락을 생략하는 경우</summary>
+<p><strong>증상</strong>: "데이터 분석해줘"로 시작
+<strong>문제</strong>: AI가 방향 없이 모든 변수를 탐색, 의미 없는 결과 생성
+<strong>해결</strong>: "왜 이 분석을 하는지, 결과를 어디에 쓸 것인지" 먼저 작성</p>
+</details>
+<details class="question">
+<summary>실수 2: 변수 설명 없이 파일만 첨부하는 경우</summary>
+<p><strong>증상</strong>: "첨부 파일 분석해줘"
+<strong>문제</strong>: AI가 변수명을 추측, "grade"를 성적으로 오해 가능
+<strong>해결</strong>: 주요 변수의 의미, 단위, 범위를 명시</p>
+</details>
+<details class="question">
+<summary>실수 3: 시각화를 요청하지 않는 경우</summary>
+<p><strong>증상</strong>: 분석만 요청, 그래프 없음
+<strong>문제</strong>: 숫자만 나열된 결과, 패턴 파악 어려움
+<strong>해결</strong>: 최소 1~2개의 그래프 유형과 축 라벨을 지정</p>
+</details>
+<details class="question">
+<summary>실수 4: 해석 기준 없이 '결론을 내려줘'라고 하는 경우</summary>
+<p><strong>증상</strong>: "결과를 해석해줘"
+<strong>문제</strong>: AI가 "차이가 있습니다" 수준의 피상적 해석
+<strong>해결</strong>: p-value 임계값, 실질적 차이 기준, 한계점 요구를 명시</p>
+</details>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">다음 장 미리보기</p>
+<p><strong>Ch.6 --- 3차시 지도안: 단짝 분석을 부숴라</strong></p>
+<p>2차시에서 완성한 분석을 가지고, 짝의 분석을 3가지 렌즈(데이터, 분석, 해석)로 비판적으로 검토하는 World Cafe 피어리뷰 수업입니다. 내가 놓친 약점을 짝이 찾아주는 경험을 통해 비판적 사고를 키웁니다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
