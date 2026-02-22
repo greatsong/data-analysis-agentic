@@ -8,11 +8,37 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
-  #chart { width:100%; height:100%; }
+  #container { width:100%; height:100%; display:flex; flex-direction:column; }
+  #chart { flex:1; min-height:0; }
+  #infoBar {
+    flex-shrink:0; height:46px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    font-size:13px;
+  }
+  .ib-item { display:flex; align-items:center; gap:5px; }
+  .ib-label { color:#6b7280; font-size:11px; }
+  .ib-value { color:#1e1b4b; font-weight:700; font-size:14px; }
+  .ib-divider { width:1px; height:18px; background:#c7d2fe; }
+  .ib-high { color:#10b981; }
+  @media(max-width:600px){
+    #infoBar { height:40px; gap:8px; }
+    .ib-label { font-size:10px; } .ib-value { font-size:12px; }
+  }
 </style>
 </head>
 <body>
-<div id="chart"></div>
+<div id="container">
+  <div id="chart"></div>
+  <div id="infoBar">
+    <div class="ib-item"><span class="ib-label">구간 수</span><span class="ib-value">5개</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">최고 만족도</span><span class="ib-value ib-high">7-8시간 수면</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">분석 방법</span><span class="ib-value">박스플롯 + 개별 점</span></div>
+  </div>
+</div>
 <script>
 // 시드 기반 결정적 난수 생성기 (매번 동일한 데이터 보장)
 let _seed = 2026;

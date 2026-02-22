@@ -8,53 +8,42 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 16px;
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #container { width:100%; height:100%; display:flex; flex-direction:column; }
+  #chart { flex:1; min-height:0; }
+  #statsBar {
+    flex-shrink:0; height:48px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    font-size:13px;
   }
-  .container {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 24px rgba(99,102,241,0.08);
-    padding: 28px 24px;
-    width: 100%;
-    max-width: 800px;
-  }
-  h1 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1e1b4b;
-    text-align: center;
-    margin-bottom: 6px;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 0.88rem;
-    color: #6b7280;
-    margin-bottom: 20px;
-  }
-  #chart { width: 100%; height: 500px; }
-  @media (max-width: 600px) {
-    .container { padding: 16px 12px; border-radius: 12px; }
-    h1 { font-size: 1.1rem; }
-    #chart { height: 380px; }
+  .sb-item { display:flex; align-items:center; gap:5px; }
+  .sb-label { color:#6b7280; font-size:11px; }
+  .sb-value { color:#1e1b4b; font-weight:700; font-size:14px; }
+  .sb-divider { width:1px; height:20px; background:#c7d2fe; }
+  .sb-neg { color:#06b6d4; }
+  @media(max-width:600px){
+    #statsBar { height:42px; gap:10px; font-size:11px; }
+    .sb-label { font-size:10px; } .sb-value { font-size:12px; }
   }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>주당 운동 횟수와 스트레스 수준의 관계</h1>
-  <p class="subtitle">독립 프로젝트 예시 — 학생 40명 설문 데이터</p>
+<div id="container">
   <div id="chart"></div>
+  <div id="statsBar">
+    <div class="sb-item"><span class="sb-label">데이터</span><span class="sb-value" id="sN">-</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">상관계수</span><span class="sb-value sb-neg" id="sR">-</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">평균 운동</span><span class="sb-value" id="sEx">-</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">평균 스트레스</span><span class="sb-value" id="sSt">-</span></div>
+  </div>
 </div>
 <script>
 (function() {
-  // Seeded random for reproducibility
   let seed = 42;
   function rand() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
 
@@ -67,20 +56,17 @@
     const ex = Math.round(rand() * 7 * 10) / 10;
     exercise.push(Math.round(ex));
     gender.push(rand() > 0.5 ? '남' : '여');
-    // negative correlation: stress ≈ 8 - 0.7*exercise + noise
     let s = 8 - 0.7 * exercise[i] + (rand() - 0.5) * 4;
     s = Math.max(1, Math.min(10, Math.round(s * 10) / 10));
     stress.push(s);
   }
 
-  // Split by gender
   const maleX = [], maleY = [], femaleX = [], femaleY = [];
   for (let i = 0; i < n; i++) {
     if (gender[i] === '남') { maleX.push(exercise[i]); maleY.push(stress[i]); }
     else { femaleX.push(exercise[i]); femaleY.push(stress[i]); }
   }
 
-  // Compute trendline for all data
   const meanX = exercise.reduce((a,b) => a+b, 0) / n;
   const meanY = stress.reduce((a,b) => a+b, 0) / n;
   let num = 0, den = 0;
@@ -93,78 +79,53 @@
   const trendX = [0, 7];
   const trendY = trendX.map(x => slope * x + intercept);
 
+  // 상관계수 계산
+  let sy2 = 0;
+  for (let i = 0; i < n; i++) sy2 += (stress[i] - meanY) ** 2;
+  const r = num / Math.sqrt(den * sy2);
+
+  // 하단 바 업데이트
+  document.getElementById('sN').textContent = n + '명';
+  document.getElementById('sR').textContent = r.toFixed(2);
+  document.getElementById('sEx').textContent = meanX.toFixed(1) + '회/주';
+  document.getElementById('sSt').textContent = meanY.toFixed(1) + '점';
+
+  const mob = window.innerWidth < 600;
+
   const traceMale = {
-    x: maleX, y: maleY,
-    mode: 'markers',
-    type: 'scatter',
-    name: '남학생',
-    marker: { color: '#6366f1', size: 11, opacity: 0.85,
-      line: { color: '#fff', width: 1.5 } }
+    x: maleX, y: maleY, mode: 'markers', type: 'scatter', name: '남학생',
+    marker: { color: '#6366f1', size: mob?9:11, opacity: 0.85, line: { color: '#fff', width: 1.5 } },
+    hovertemplate: '남학생<br>운동: %{x}회/주<br>스트레스: %{y}<extra></extra>'
   };
 
   const traceFemale = {
-    x: femaleX, y: femaleY,
-    mode: 'markers',
-    type: 'scatter',
-    name: '여학생',
-    marker: { color: '#8b5cf6', size: 11, opacity: 0.85,
-      line: { color: '#fff', width: 1.5 } }
+    x: femaleX, y: femaleY, mode: 'markers', type: 'scatter', name: '여학생',
+    marker: { color: '#8b5cf6', size: mob?9:11, opacity: 0.85, line: { color: '#fff', width: 1.5 } },
+    hovertemplate: '여학생<br>운동: %{x}회/주<br>스트레스: %{y}<extra></extra>'
   };
 
   const traceTrend = {
-    x: trendX, y: trendY,
-    mode: 'lines',
-    type: 'scatter',
-    name: '추세선',
-    line: { color: '#06b6d4', width: 2.5, dash: 'dash' },
-    showlegend: true
+    x: trendX, y: trendY, mode: 'lines', type: 'scatter', name: '추세선 (r=' + r.toFixed(2) + ')',
+    line: { color: '#06b6d4', width: 2.5, dash: 'dash' }, hoverinfo: 'skip'
   };
 
-  const isMobile = window.innerWidth < 600;
-
   const layout = {
-    font: { family: 'Noto Sans KR, sans-serif', color: '#1e1b4b' },
-    xaxis: {
-      title: { text: '주당 운동 횟수 (회)', font: { size: 13, color: '#1e1b4b' } },
-      range: [-0.5, 7.5],
-      gridcolor: '#f0f0f5',
-      zeroline: false,
-      tickfont: { size: 12, color: '#6b7280' }
-    },
-    yaxis: {
-      title: { text: '스트레스 수준 (1-10)', font: { size: 13, color: '#1e1b4b' } },
-      range: [0, 11],
-      gridcolor: '#f0f0f5',
-      zeroline: false,
-      tickfont: { size: 12, color: '#6b7280' }
-    },
-    legend: {
-      x: 0.01, y: 0.99,
-      bgcolor: 'rgba(255,255,255,0.95)',
-      bordercolor: '#e5e7eb',
-      borderwidth: 1,
-      font: { size: 13, color: '#1e1b4b' }
-    },
+    title: { text: '주당 운동 횟수와 스트레스 수준의 관계', font: { family:'Noto Sans KR', size: mob?15:18, color: '#1e1b4b', weight: 700 }, x: 0.5 },
+    font: { family: 'Noto Sans KR', color: '#1e1b4b' },
+    paper_bgcolor: '#fff', plot_bgcolor: '#fafbfe',
+    xaxis: { title: { text: '주당 운동 횟수 (회)', font: { size: mob?11:14, color: '#6b7280' } }, range: [-0.5, 7.5], gridcolor: '#f0f0f5', zeroline: false, tickfont: { size: mob?10:12, color: '#6b7280' } },
+    yaxis: { title: { text: '스트레스 수준 (1-10)', font: { size: mob?11:14, color: '#6b7280' } }, range: [0, 11], gridcolor: '#f0f0f5', zeroline: false, tickfont: { size: mob?10:12, color: '#6b7280' } },
+    legend: { x: 0.99, y: 0.99, xanchor: 'right', bgcolor: 'rgba(255,255,255,0.95)', bordercolor: '#e5e7eb', borderwidth: 1, font: { size: mob?10:13, color: '#1e1b4b' } },
     annotations: [{
-      x: 5.5, y: 9.5,
-      text: '<b>r = -0.55</b>',
-      showarrow: false,
-      font: { size: 14, color: '#06b6d4' },
-      bgcolor: 'rgba(255,255,255,0.9)',
-      bordercolor: '#06b6d4',
-      borderwidth: 1,
-      borderpad: 6
+      text: '<b>r = ' + r.toFixed(2) + '</b>', font: { size: mob?14:16, color: '#06b6d4' }, showarrow: false,
+      x: 0.02, y: 0.02, xref: 'paper', yref: 'paper', xanchor: 'left', yanchor: 'bottom',
+      bgcolor: 'rgba(255,255,255,0.95)', bordercolor: '#06b6d4', borderwidth: 1, borderpad: 8
     }],
-    margin: isMobile
-      ? { t: 12, r: 12, b: 48, l: 44 }
-      : { t: 20, r: 30, b: 60, l: 60 },
-    plot_bgcolor: '#fafbfe',
-    paper_bgcolor: '#fff',
+    margin: mob ? { t: 55, r: 12, b: 48, l: 44 } : { t: 65, r: 30, b: 55, l: 60 },
     hovermode: 'closest'
   };
 
-  Plotly.newPlot('chart', [traceMale, traceFemale, traceTrend], layout,
-    { responsive: true, displayModeBar: false });
+  Plotly.newPlot('chart', [traceMale, traceFemale, traceTrend], layout, { responsive: true, displayModeBar: false });
 })();
 </script>
 </body>

@@ -126,11 +126,34 @@
   .temp-low { color: #6366f1; font-weight: 500; }
   .footer {
     text-align: center;
-    padding: 16px;
+    padding: 12px 16px;
     font-size: 0.85rem;
     color: #9ca3af;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
+  .btn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    background: #eef2ff;
+    color: #6366f1;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-more:hover { background: #e0e7ff; transform: translateY(-1px); }
+  .btn-more:active { transform: translateY(0); }
+  .btn-more:disabled { opacity: 0.4; cursor: default; transform: none; }
   @media (max-width: 600px) {
     .container { padding: 16px 12px; border-radius: 12px; }
     h1 { font-size: 1.1rem; }
@@ -168,7 +191,10 @@
       <tbody id="tableBody"></tbody>
     </table>
   </div>
-  <div class="footer" id="footerText">24 / 132행 표시 중</div>
+  <div class="footer">
+    <span id="footerText">24 / 132행 표시 중</span>
+    <button class="btn-more" id="btnMore">더 보기 (+24)</button>
+  </div>
 </div>
 
 <script>
@@ -205,12 +231,14 @@
     }
   }
 
-  const DISPLAY_LIMIT = 24;
+  const DISPLAY_STEP = 24;
+  let displayLimit = DISPLAY_STEP;
   const tbody = document.getElementById('tableBody');
   const footerText = document.getElementById('footerText');
+  const btnMore = document.getElementById('btnMore');
   const yearFilter = document.getElementById('yearFilter');
   let filteredRows = [...allRows];
-  let displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+  let displayRows = filteredRows.slice(0, displayLimit);
 
   // 연도 필터 옵션 생성
   for (let y = 2015; y <= 2025; y++) {
@@ -239,6 +267,9 @@
     const shown = Math.min(displayRows.length, filteredRows.length);
     footerText.textContent = shown + ' / ' + filteredRows.length + '행 표시 중' +
       (filteredRows.length < allRows.length ? ' (필터 적용)' : '');
+    const hasMore = shown < filteredRows.length;
+    btnMore.disabled = !hasMore;
+    btnMore.textContent = hasMore ? '더 보기 (+' + Math.min(DISPLAY_STEP, filteredRows.length - shown) + ')' : '전체 표시 중';
   }
 
   function applyYearFilter(yearVal) {
@@ -251,13 +282,22 @@
     sortCol = -1;
     sortDir = 'none';
     document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
-    displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+    displayLimit = DISPLAY_STEP;
+    displayRows = filteredRows.slice(0, displayLimit);
     renderTable(displayRows);
     updateFooter();
   }
 
   renderTable(displayRows);
   updateFooter();
+
+  // 더 보기
+  btnMore.addEventListener('click', function() {
+    displayLimit += DISPLAY_STEP;
+    displayRows = filteredRows.slice(0, displayLimit);
+    renderTable(displayRows);
+    updateFooter();
+  });
 
   yearFilter.addEventListener('change', function() {
     applyYearFilter(this.value);
@@ -296,7 +336,7 @@
       }
 
       if (sortDir === 'none') {
-        displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+        displayRows = filteredRows.slice(0, displayLimit);
       } else {
         const sorted = [...filteredRows].sort((a, b) => {
           return sortDir === 'asc' ? a[col] - b[col] : b[col] - a[col];

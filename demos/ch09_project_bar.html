@@ -8,134 +8,81 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 16px;
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #container { width:100%; height:100%; display:flex; flex-direction:column; }
+  #chart { flex:1; min-height:0; }
+  #infoBar {
+    flex-shrink:0; height:46px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    font-size:13px;
   }
-  .container {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 24px rgba(99,102,241,0.08);
-    padding: 28px 24px;
-    width: 100%;
-    max-width: 800px;
-  }
-  h1 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1e1b4b;
-    text-align: center;
-    margin-bottom: 6px;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 0.88rem;
-    color: #6b7280;
-    margin-bottom: 20px;
-  }
-  #chart { width: 100%; height: 480px; }
-  @media (max-width: 600px) {
-    .container { padding: 16px 12px; border-radius: 12px; }
-    h1 { font-size: 1.1rem; }
-    #chart { height: 380px; }
+  .ib-item { display:flex; align-items:center; gap:5px; }
+  .ib-label { color:#6b7280; font-size:11px; }
+  .ib-value { color:#1e1b4b; font-weight:700; font-size:14px; }
+  .ib-divider { width:1px; height:18px; background:#c7d2fe; }
+  .ib-high { color:#4338ca; }
+  @media(max-width:600px){
+    #infoBar { height:40px; gap:8px; }
+    .ib-label { font-size:10px; } .ib-value { font-size:12px; }
   }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>학년별 방과후 활동 참여율</h1>
-  <p class="subtitle">고등학교 전체 학생 대상 설문 결과</p>
+<div id="container">
   <div id="chart"></div>
+  <div id="infoBar">
+    <div class="ib-item"><span class="ib-label">1위</span><span class="ib-value ib-high">운동 (65%)</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">학년별 변화</span><span class="ib-value">운동 -25%p, 코딩 +15%p</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">학년 수</span><span class="ib-value">3개 학년</span></div>
+  </div>
 </div>
 <script>
 (function() {
   const activities = ['운동', '음악', '독서', '코딩', '봉사'];
+  const mob = window.innerWidth < 600;
 
   const trace1 = {
-    x: activities,
-    y: [65, 30, 20, 15, 25],
-    name: '1학년',
-    type: 'bar',
-    marker: {
-      color: '#6366f1',
-      line: { color: '#4f46e5', width: 1 }
-    },
-    text: [65, 30, 20, 15, 25].map(v => v + '%'),
-    textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
+    x: activities, y: [65, 30, 20, 15, 25], name: '1학년', type: 'bar',
+    marker: { color: '#6366f1', line: { color: '#4f46e5', width: 1 } },
+    text: [65, 30, 20, 15, 25].map(v => v + '%'), textposition: 'outside',
+    textfont: { size: mob?10:12, family: 'Noto Sans KR', color: '#1e1b4b' },
+    hovertemplate: '1학년 — %{x}<br>참여율: %{y}%<extra></extra>'
   };
 
   const trace2 = {
-    x: activities,
-    y: [55, 35, 25, 25, 30],
-    name: '2학년',
-    type: 'bar',
-    marker: {
-      color: '#8b5cf6',
-      line: { color: '#7c3aed', width: 1 }
-    },
-    text: [55, 35, 25, 25, 30].map(v => v + '%'),
-    textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
+    x: activities, y: [55, 35, 25, 25, 30], name: '2학년', type: 'bar',
+    marker: { color: '#8b5cf6', line: { color: '#7c3aed', width: 1 } },
+    text: [55, 35, 25, 25, 30].map(v => v + '%'), textposition: 'outside',
+    textfont: { size: mob?10:12, family: 'Noto Sans KR', color: '#1e1b4b' },
+    hovertemplate: '2학년 — %{x}<br>참여율: %{y}%<extra></extra>'
   };
 
   const trace3 = {
-    x: activities,
-    y: [40, 25, 35, 30, 40],
-    name: '3학년',
-    type: 'bar',
-    marker: {
-      color: '#06b6d4',
-      line: { color: '#0891b2', width: 1 }
-    },
-    text: [40, 25, 35, 30, 40].map(v => v + '%'),
-    textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
+    x: activities, y: [40, 25, 35, 30, 40], name: '3학년', type: 'bar',
+    marker: { color: '#06b6d4', line: { color: '#0891b2', width: 1 } },
+    text: [40, 25, 35, 30, 40].map(v => v + '%'), textposition: 'outside',
+    textfont: { size: mob?10:12, family: 'Noto Sans KR', color: '#1e1b4b' },
+    hovertemplate: '3학년 — %{x}<br>참여율: %{y}%<extra></extra>'
   };
 
-  const isMobile = window.innerWidth < 600;
-
   const layout = {
-    font: { family: 'Noto Sans KR, sans-serif', color: '#1e1b4b' },
+    title: { text: '학년별 방과후 활동 참여율', font: { family:'Noto Sans KR', size: mob?15:18, color: '#1e1b4b', weight: 700 }, x: 0.5, y: 0.97 },
+    font: { family: 'Noto Sans KR', color: '#1e1b4b' },
+    paper_bgcolor: '#fff', plot_bgcolor: '#fafbfe',
     barmode: 'group',
-    xaxis: {
-      title: { text: '방과후 활동', font: { size: 13, color: '#1e1b4b' } },
-      tickfont: { size: 13, color: '#6b7280' }
-    },
-    yaxis: {
-      title: { text: '참여율 (%)', font: { size: 13, color: '#1e1b4b' } },
-      range: [0, 80],
-      gridcolor: '#f0f0f5',
-      zeroline: false,
-      ticksuffix: '%',
-      tickfont: { size: 12, color: '#6b7280' }
-    },
-    legend: {
-      x: 0.01, y: 0.99,
-      bgcolor: 'rgba(255,255,255,0.95)',
-      bordercolor: '#e5e7eb',
-      borderwidth: 1,
-      font: { size: 13, color: '#1e1b4b' },
-      orientation: 'h',
-      xanchor: 'left'
-    },
-    bargap: 0.25,
-    bargroupgap: 0.1,
-    margin: isMobile
-      ? { t: 12, r: 12, b: 48, l: 52 }
-      : { t: 20, r: 30, b: 60, l: 70 },
-    plot_bgcolor: '#fafbfe',
-    paper_bgcolor: '#fff',
+    xaxis: { title: { text: '방과후 활동', font: { size: mob?11:14, color: '#6b7280' } }, tickfont: { size: mob?11:13, color: '#6b7280' } },
+    yaxis: { title: { text: '참여율 (%)', font: { size: mob?11:14, color: '#6b7280' } }, range: [0, 80], gridcolor: '#f0f0f5', zeroline: false, ticksuffix: '%', tickfont: { size: mob?10:12, color: '#6b7280' } },
+    legend: { x: 0.5, y: 0.99, xanchor: 'center', bgcolor: 'rgba(255,255,255,0.95)', bordercolor: '#e5e7eb', borderwidth: 1, font: { size: mob?10:13, color: '#1e1b4b' }, orientation: 'h' },
+    bargap: 0.25, bargroupgap: 0.1,
+    margin: mob ? { t: 55, r: 10, b: 50, l: 45 } : { t: 60, r: 25, b: 60, l: 60 },
     hovermode: 'x unified'
   };
 
-  Plotly.newPlot('chart', [trace1, trace2, trace3], layout,
-    { responsive: true, displayModeBar: false });
+  Plotly.newPlot('chart', [trace1, trace2, trace3], layout, { responsive: true, displayModeBar: false });
 })();
 </script>
 </body>

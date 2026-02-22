@@ -124,11 +124,34 @@
   tr:hover td { background: #eef2ff; }
   .footer {
     text-align: center;
-    padding: 16px;
+    padding: 12px 16px;
     font-size: 0.85rem;
     color: #9ca3af;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
+  .btn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    background: #eef2ff;
+    color: #6366f1;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-more:hover { background: #e0e7ff; transform: translateY(-1px); }
+  .btn-more:active { transform: translateY(0); }
+  .btn-more:disabled { opacity: 0.4; cursor: default; transform: none; }
   @media (max-width: 600px) {
     .container { padding: 16px 12px; border-radius: 12px; }
     h1 { font-size: 1.1rem; }
@@ -167,7 +190,10 @@
       <tbody id="tableBody"></tbody>
     </table>
   </div>
-  <div class="footer" id="footerText">20 / 200행 표시 중</div>
+  <div class="footer">
+    <span id="footerText">20 / 200행 표시 중</span>
+    <button class="btn-more" id="btnMore">더 보기 (+20)</button>
+  </div>
 </div>
 
 <script>
@@ -192,11 +218,13 @@
     allRows.push([i, grade, gender, phone, sleep, fatigue, satisfaction, exercise, study]);
   }
 
-  const DISPLAY_LIMIT = 20;
+  const DISPLAY_STEP = 20;
+  let displayLimit = DISPLAY_STEP;
   const tbody = document.getElementById('tableBody');
   const footerText = document.getElementById('footerText');
+  const btnMore = document.getElementById('btnMore');
   let filteredRows = [...allRows];
-  let displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+  let displayRows = filteredRows.slice(0, displayLimit);
 
   function renderTable(data) {
     tbody.innerHTML = '';
@@ -215,6 +243,9 @@
     const shown = Math.min(displayRows.length, filteredRows.length);
     footerText.textContent = shown + ' / ' + filteredRows.length + '행 표시 중' +
       (filteredRows.length < allRows.length ? ' (필터 적용)' : '');
+    const hasMore = shown < filteredRows.length;
+    btnMore.disabled = !hasMore;
+    btnMore.textContent = hasMore ? '더 보기 (+' + Math.min(DISPLAY_STEP, filteredRows.length - shown) + ')' : '전체 표시 중';
   }
 
   function applyFilter(query) {
@@ -226,13 +257,22 @@
         row.some(cell => String(cell).toLowerCase().includes(q))
       );
     }
-    displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+    displayLimit = DISPLAY_STEP;
+    displayRows = filteredRows.slice(0, displayLimit);
     renderTable(displayRows);
     updateFooter();
   }
 
   renderTable(displayRows);
   updateFooter();
+
+  // 더 보기
+  btnMore.addEventListener('click', function() {
+    displayLimit += DISPLAY_STEP;
+    displayRows = filteredRows.slice(0, displayLimit);
+    renderTable(displayRows);
+    updateFooter();
+  });
 
   // 검색 필터
   document.getElementById('searchInput').addEventListener('input', function() {
@@ -275,7 +315,7 @@
       }
 
       if (sortDir === 'none') {
-        displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+        displayRows = filteredRows.slice(0, displayLimit);
       } else {
         const sorted = [...filteredRows].sort((a, b) => {
           let va = a[col], vb = b[col];

@@ -15,11 +15,11 @@
   --part2-light: #d4f5f2;
   --part2-dark: #1f9a8e;
   --part2-gradient: linear-gradient(135deg, #2ec4b6, #5dd9ce);
-  /* 파트 3: 피어리뷰 — Amber */
-  --part3-color: #f4a261;
-  --part3-light: #fdebd6;
-  --part3-dark: #d47f3a;
-  --part3-gradient: linear-gradient(135deg, #f4a261, #f7bc8a);
+  /* 파트 3: 피어리뷰 — Rose */
+  --part3-color: #e11d48;
+  --part3-light: #ffe4e6;
+  --part3-dark: #be123c;
+  --part3-gradient: linear-gradient(135deg, #e11d48, #f43f5e);
   /* 파트 4: 독립 프로젝트 — Violet */
   --part4-color: #9b5de5;
   --part4-light: #ede0fa;
@@ -290,8 +290,8 @@
   line-height: 1.5;
 }
 .rubric-table tbody tr:last-child td { border-bottom: none; }
-.rubric-table tbody tr:nth-child(even) { background: rgba(244, 162, 97, 0.04); }
-.rubric-table tbody tr:hover { background: rgba(244, 162, 97, 0.08); }
+.rubric-table tbody tr:nth-child(even) { background: rgba(225, 29, 72, 0.04); }
+.rubric-table tbody tr:hover { background: rgba(225, 29, 72, 0.08); }
 .rubric-table .rubric-level { font-weight: 700; color: var(--part3-dark); white-space: nowrap; }
 
 /* ===== Before/After 비교 그리드 (.ba-grid) ===== */
@@ -447,39 +447,63 @@
 
 /* ===== 파트 헤더 (.part-header) ===== */
 .part-header {
-  padding: 2rem 2rem 1.5rem;
-  border-radius: 16px;
-  margin: 2rem 0 1.5rem;
+  padding: 2.5rem 2.5rem 2rem;
+  border-radius: 20px;
+  margin: 2.5rem 0 2rem;
   color: white;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 .part-header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 300px;
-  height: 300px;
+  top: -40%;
+  right: -15%;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+.part-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
   pointer-events: none;
 }
 .part-header h2 {
-  margin: 0 0 0.4rem;
-  font-size: 1.6rem;
+  margin: 0 0 0.6rem;
+  font-size: 1.7rem;
   font-family: var(--da-font-kr);
+  font-weight: 800;
   color: white;
+  border: none;
+  padding: 0;
 }
-.part-header p { margin: 0; font-size: 0.95rem; opacity: 0.9; line-height: 1.6; }
+.part-header p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.88;
+  line-height: 1.7;
+  max-width: 600px;
+}
 .part-header .part-number {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.8;
-  margin-bottom: 0.3rem;
-  display: block;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
 }
 .part-header[data-part="1"] { background: var(--part1-gradient); }
 .part-header[data-part="2"] { background: var(--part2-gradient); }
@@ -617,12 +641,12 @@
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="analysis"] { background: linear-gradient(135deg, rgba(46,196,182,0.1), rgba(46,196,182,0.05)); border-color: rgba(46,196,182,0.4); }
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="analysis"] h4 { color: #5dd9ce; }
 [data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] { background: linear-gradient(135deg, rgba(244,162,97,0.1), rgba(244,162,97,0.05)); border-color: rgba(244,162,97,0.4); }
-[data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] h4 { color: #f7bc8a; }
+[data-md-color-scheme="slate"] .peer-review-lens[data-lens="interpretation"] h4 { color: #fb7185; }
 
 [data-md-color-scheme="slate"] .rubric-table tbody td { border-bottom-color: rgba(255,255,255,0.06); }
 [data-md-color-scheme="slate"] .rubric-table tbody tr:nth-child(even) { background: rgba(244,162,97,0.04); }
 [data-md-color-scheme="slate"] .rubric-table tbody tr:hover { background: rgba(244,162,97,0.08); }
-[data-md-color-scheme="slate"] .rubric-table .rubric-level { color: #f7bc8a; }
+[data-md-color-scheme="slate"] .rubric-table .rubric-level { color: #fb7185; }
 
 [data-md-color-scheme="slate"] .ba-before { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.04)); }
 [data-md-color-scheme="slate"] .ba-after  { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.04)); }
