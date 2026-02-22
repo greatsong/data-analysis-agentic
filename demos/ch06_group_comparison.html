@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -32,8 +32,17 @@ function generateBoxData(median, spread, count, min, max) {
 const groups = ['5시간 미만', '5-6시간', '6-7시간', '7-8시간', '8시간 이상'];
 const medians = [3.5, 4.8, 6.2, 7.5, 7.8];
 const spreads = [0.8, 1.0, 1.1, 1.0, 0.9];
-const colors = ['#E53935', '#FB8C00', '#FDD835', '#66BB6A', '#2E7D32'];
-const markerColors = ['rgba(229,57,53,0.5)', 'rgba(251,140,0,0.5)', 'rgba(253,216,53,0.5)', 'rgba(102,187,106,0.5)', 'rgba(46,125,50,0.5)'];
+const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'];
+const markerColors = [
+  'rgba(99,102,241,0.5)',
+  'rgba(139,92,246,0.5)',
+  'rgba(6,182,212,0.5)',
+  'rgba(16,185,129,0.5)',
+  'rgba(245,158,11,0.5)'
+];
+
+// 모바일 감지
+const isMobile = window.innerWidth < 600;
 
 const data = groups.map((group, i) => {
   const values = generateBoxData(medians[i], spreads[i], 30, 1, 10);
@@ -47,11 +56,11 @@ const data = groups.map((group, i) => {
     pointpos: -1.5,
     marker: {
       color: markerColors[i],
-      size: 5,
+      size: isMobile ? 4 : 5,
       line: { color: colors[i], width: 1 }
     },
     line: { color: colors[i], width: 2 },
-    fillcolor: colors[i] + '30',
+    fillcolor: colors[i] + '20',
     hovertemplate: '%{x}<br>만족도: %{y}<extra></extra>'
   };
 });
@@ -59,19 +68,22 @@ const data = groups.map((group, i) => {
 const layout = {
   title: {
     text: '수면시간 구간별 학교생활 만족도',
-    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    font: { family: 'Noto Sans KR', size: isMobile ? 15 : 20, weight: 700, color: '#1e1b4b' },
     y: 0.96
   },
   xaxis: {
-    title: { text: '수면시간 구간', font: { family: 'Noto Sans KR', size: 14 } },
-    tickfont: { family: 'Noto Sans KR', size: 12 }
+    title: { text: '수면시간 구간', font: { family: 'Noto Sans KR', size: isMobile ? 11 : 14, color: '#1e1b4b' } },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 9 : 12, color: '#6b7280' },
+    tickangle: isMobile ? -30 : 0
   },
   yaxis: {
-    title: { text: '학교생활 만족도', font: { family: 'Noto Sans KR', size: 14 } },
-    tickfont: { family: 'Noto Sans KR', size: 12 },
+    title: { text: '학교생활 만족도', font: { family: 'Noto Sans KR', size: isMobile ? 11 : 14, color: '#1e1b4b' } },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 12, color: '#6b7280' },
     range: [0, 11],
     dtick: 2,
-    gridcolor: '#eee'
+    gridcolor: '#f0f0f5',
+    linecolor: '#f0f0f5',
+    zerolinecolor: '#f0f0f5'
   },
   showlegend: false,
   annotations: [{
@@ -84,18 +96,20 @@ const layout = {
     arrowhead: 2,
     arrowsize: 1,
     arrowwidth: 2,
-    arrowcolor: '#2E7D32',
-    ax: -30,
+    arrowcolor: '#10b981',
+    ax: isMobile ? -15 : -30,
     ay: -30,
-    font: { family: 'Noto Sans KR', size: 13, color: '#2E7D32' },
-    bgcolor: 'rgba(255,255,255,0.9)',
-    bordercolor: '#2E7D32',
+    font: { family: 'Noto Sans KR', size: isMobile ? 11 : 13, color: '#10b981' },
+    bgcolor: 'rgba(255,255,255,0.95)',
+    bordercolor: '#10b981',
     borderwidth: 1,
-    borderpad: 6
+    borderpad: isMobile ? 4 : 6
   }],
-  margin: { l: 70, r: 30, t: 60, b: 70 },
-  paper_bgcolor: '#fff',
-  plot_bgcolor: '#fafafa'
+  margin: isMobile
+    ? { l: 45, r: 10, t: 50, b: 65 }
+    : { l: 70, r: 30, t: 60, b: 70 },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#fafbfe'
 };
 
 Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });

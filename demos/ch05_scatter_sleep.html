@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -79,9 +79,9 @@ const trendY = trendX.map(x => reg.slope * x + reg.intercept);
 
 // --- 학년별 트레이스 ---
 const gradeConfig = {
-  1: { name: '1학년', color: '#4d96ff' },
-  2: { name: '2학년', color: '#6bcb77' },
-  3: { name: '3학년', color: '#ff922b' }
+  1: { name: '1학년', color: '#6366f1' },
+  2: { name: '2학년', color: '#10b981' },
+  3: { name: '3학년', color: '#f59e0b' }
 };
 
 const traces = [];
@@ -97,9 +97,9 @@ for (const g of [1, 2, 3]) {
     name: cfg.name,
     marker: {
       color: cfg.color,
-      size: 10,
+      size: 11,
       opacity: 0.85,
-      line: { color: '#fff', width: 1 }
+      line: { color: '#ffffff', width: 1.5 }
     },
     hovertemplate: `학년: ${cfg.name}<br>스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>`
   });
@@ -128,7 +128,7 @@ traces.push({
   mode: 'lines',
   type: 'scatter',
   name: '추세선',
-  line: { color: '#ef4444', width: 2, dash: 'dash' },
+  line: { color: '#6366f1', width: 2, dash: 'dash' },
   hoverinfo: 'skip'
 });
 
@@ -136,45 +136,45 @@ traces.push({
 const layout = {
   title: {
     text: '스마트폰 사용과 수면의 관계',
-    font: { family: 'Noto Sans KR', size: 20, color: '#1e293b', weight: 700 },
+    font: { family: 'Noto Sans KR', size: 20, color: '#1e1b4b', weight: 700 },
     x: 0.5
   },
-  font: { family: 'Noto Sans KR', color: '#334155' },
-  paper_bgcolor: '#fff',
-  plot_bgcolor: '#fafbfc',
-  margin: { l: 70, r: 40, t: 70, b: 70 },
+  font: { family: 'Noto Sans KR', color: '#1e1b4b' },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#fafbfe',
+  margin: { l: 60, r: 30, t: 70, b: 60 },
   xaxis: {
-    title: { text: '일일 스마트폰 사용시간 (시간)', font: { size: 14 } },
+    title: { text: '일일 스마트폰 사용시간 (시간)', font: { size: 14, color: '#6b7280' } },
     range: [0, 8],
-    gridcolor: '#e2e8f0',
+    gridcolor: '#f0f0f5',
     zeroline: false,
-    tickfont: { size: 12 }
+    tickfont: { size: 12, color: '#6b7280' }
   },
   yaxis: {
-    title: { text: '일일 수면시간 (시간)', font: { size: 14 } },
+    title: { text: '일일 수면시간 (시간)', font: { size: 14, color: '#6b7280' } },
     range: [3.5, 10.5],
-    gridcolor: '#e2e8f0',
+    gridcolor: '#f0f0f5',
     zeroline: false,
-    tickfont: { size: 12 }
+    tickfont: { size: 12, color: '#6b7280' }
   },
   legend: {
     x: 0.99, y: 0.99,
     xanchor: 'right',
-    bgcolor: 'rgba(255,255,255,0.9)',
-    bordercolor: '#e2e8f0',
+    bgcolor: 'rgba(255,255,255,0.95)',
+    bordercolor: '#e5e7eb',
     borderwidth: 1,
-    font: { size: 12 }
+    font: { size: 13, color: '#1e1b4b' }
   },
   annotations: [
     {
       text: `<b>r = ${r.toFixed(2)}</b>`,
-      font: { size: 16, color: '#1e40af', family: 'Noto Sans KR' },
+      font: { size: 16, color: '#4338ca', family: 'Noto Sans KR' },
       showarrow: false,
       x: 0.98, y: 0.02,
       xref: 'paper', yref: 'paper',
       xanchor: 'right', yanchor: 'bottom',
-      bgcolor: 'rgba(219, 234, 254, 0.9)',
-      bordercolor: '#3b82f6',
+      bgcolor: 'rgba(238, 242, 255, 0.95)',
+      bordercolor: '#6366f1',
       borderwidth: 1,
       borderpad: 8
     }

@@ -9,35 +9,38 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #f8f9fa;
+    background: #ffffff;
     min-height: 100vh;
     padding: 40px 20px;
   }
   .page-title {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 8px;
+    color: #1e1b4b;
+    margin-bottom: 6px;
   }
   .page-subtitle {
     text-align: center;
-    font-size: 0.95rem;
-    color: #6c757d;
+    font-size: 0.9rem;
+    color: #6b7280;
     margin-bottom: 36px;
   }
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 20px;
     max-width: 1000px;
     margin: 0 auto;
   }
   @media (max-width: 768px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    body { padding: 28px 16px; }
   }
-  @media (max-width: 500px) {
-    .grid { grid-template-columns: 1fr; }
+  @media (max-width: 540px) {
+    .grid { grid-template-columns: 1fr; gap: 14px; max-width: 400px; }
+    .page-title { font-size: 1.2rem; }
+    .page-subtitle { margin-bottom: 24px; }
   }
 
   .card-wrapper {
@@ -61,9 +64,10 @@
     height: 100%;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(99,102,241,0.07);
+    border: 1px solid #f0f0f5;
   }
 
   /* Front */
@@ -77,29 +81,29 @@
     background: #fff;
   }
   .card-front .emoji {
-    font-size: 3rem;
-    margin-bottom: 12px;
+    font-size: 2.8rem;
+    margin-bottom: 14px;
   }
   .card-front .category {
     display: inline-block;
     padding: 4px 14px;
     border-radius: 20px;
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
     margin-bottom: 16px;
     letter-spacing: 0.5px;
   }
   .card-front .situation {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
-    color: #333;
-    line-height: 1.6;
+    color: #1e1b4b;
+    line-height: 1.65;
     margin-bottom: 20px;
   }
   .card-front .hint {
-    font-size: 0.78rem;
-    color: #adb5bd;
+    font-size: 0.76rem;
+    color: #9ca3af;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -113,7 +117,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 4px;
   }
 
   /* Back */
@@ -130,10 +134,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 4px;
   }
   .card-back .section-label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -144,12 +148,12 @@
     margin-top: 0;
   }
   .card-back .question {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 500;
-    color: #333;
+    color: #1e1b4b;
     line-height: 1.5;
     padding: 8px 12px;
-    background: #f8f9fa;
+    background: #fafbfe;
     border-radius: 8px;
     border-left: 3px solid;
   }
@@ -159,8 +163,8 @@
     margin: 4px 0 0 0;
   }
   .card-back ul li {
-    font-size: 0.85rem;
-    color: #555;
+    font-size: 0.84rem;
+    color: #4b5563;
     padding: 2px 0;
     padding-left: 16px;
     position: relative;
@@ -172,8 +176,8 @@
     font-weight: bold;
   }
   .card-back .source {
-    font-size: 0.85rem;
-    color: #555;
+    font-size: 0.84rem;
+    color: #4b5563;
     margin-top: 4px;
   }
 </style>
@@ -190,7 +194,7 @@ const cards = [
   {
     emoji: '🏫',
     category: '학교생활',
-    color: '#4361ee',
+    color: '#6366f1',
     situation: '"우리 학교 학생들이 잠을 너무 못 자는 것 같아요"',
     question: '학년별 수면시간에 차이가 있는가?',
     data: ['학년 (1, 2, 3학년)', '일평균 수면시간', '표본 90명 이상'],
@@ -199,7 +203,7 @@ const cards = [
   {
     emoji: '🌍',
     category: '환경',
-    color: '#2ec4b6',
+    color: '#10b981',
     situation: '"여름이 점점 더 더워지는 것 같아요"',
     question: '서울 여름 평균기온이 10년간 올랐는가?',
     data: ['연도 (2015~2025)', '월별 평균기온', '측정 지역: 서울'],
@@ -208,7 +212,7 @@ const cards = [
   {
     emoji: '💪',
     category: '건강',
-    color: '#e63946',
+    color: '#ef4444',
     situation: '"스마트폰을 많이 하면 피곤한 것 같아요"',
     question: '스마트폰 사용시간과 피로도의 상관관계가 있는가?',
     data: ['일평균 스마트폰 사용시간', '자기보고 피로도 (1~10)'],
@@ -217,7 +221,7 @@ const cards = [
   {
     emoji: '💰',
     category: '경제',
-    color: '#f4a261',
+    color: '#f59e0b',
     situation: '"용돈이 항상 부족한 것 같아요"',
     question: '고등학생 월평균 지출은 용돈의 몇 %인가?',
     data: ['월 용돈 금액', '항목별 지출 금액', '저축 금액'],
@@ -226,7 +230,7 @@ const cards = [
   {
     emoji: '🎭',
     category: '문화',
-    color: '#9b5de5',
+    color: '#8b5cf6',
     situation: '"요즘 다들 같은 노래만 듣는 것 같아요"',
     question: '연령대별 음악 장르 선호도에 차이가 있는가?',
     data: ['연령대', '선호 음악 장르', '주간 청취 시간'],
@@ -235,7 +239,7 @@ const cards = [
   {
     emoji: '💻',
     category: '기술',
-    color: '#00b4d8',
+    color: '#06b6d4',
     situation: '"AI가 모든 걸 대신해줄 것 같아요"',
     question: 'AI 활용 빈도와 학습 효과는 관련이 있는가?',
     data: ['주간 AI 사용 빈도', '과목별 성적 변화', '자기효능감 점수'],
@@ -264,7 +268,7 @@ cards.forEach((c) => {
         <div class="section-label" style="color:${c.color}">예시 분석 질문:</div>
         <div class="question" style="border-left-color:${c.color}">${c.question}</div>
         <div class="section-label" style="color:${c.color}">필요 데이터:</div>
-        <ul>${c.data.map(d => `<li style="color:#444">${d}</li>`).join('')}</ul>
+        <ul>${c.data.map(d => `<li style="color:#4b5563">${d}</li>`).join('')}</ul>
         <div class="section-label" style="color:${c.color}">데이터 출처:</div>
         <p class="source">${c.source}</p>
       </div>

@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -32,44 +32,56 @@ const textMatrix = matrix.map(row =>
   row.map(val => val.toFixed(2))
 );
 
+// 모바일 감지
+const isMobile = window.innerWidth < 600;
+
 const data = [{
   z: matrix,
   x: labels,
   y: labels,
   type: 'heatmap',
-  colorscale: 'RdBu_r',
+  colorscale: [
+    [0, '#06b6d4'],
+    [0.25, '#a5f3fc'],
+    [0.5, '#fafbfe'],
+    [0.75, '#a5b4fc'],
+    [1, '#6366f1']
+  ],
   zmin: -1,
   zmax: 1,
   text: textMatrix,
   texttemplate: '%{text}',
-  textfont: { family: 'Noto Sans KR', size: 13, color: '#222' },
+  textfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
   hovertemplate: '%{y} ↔ %{x}<br>상관계수: %{z:.2f}<extra></extra>',
   colorbar: {
-    title: { text: '상관계수', font: { family: 'Noto Sans KR', size: 13 } },
-    tickfont: { family: 'Noto Sans KR', size: 11 },
-    thickness: 15,
-    len: 0.75
+    title: { text: '상관계수', font: { family: 'Noto Sans KR', size: 13, color: '#1e1b4b' } },
+    tickfont: { family: 'Noto Sans KR', size: 11, color: '#6b7280' },
+    thickness: isMobile ? 12 : 15,
+    len: 0.75,
+    outlinewidth: 0
   }
 }];
 
 const layout = {
   title: {
     text: '변수 간 상관계수 히트맵',
-    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    font: { family: 'Noto Sans KR', size: isMobile ? 16 : 20, weight: 700, color: '#1e1b4b' },
     y: 0.97
   },
   xaxis: {
-    tickfont: { family: 'Noto Sans KR', size: 13 },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
     side: 'bottom',
-    tickangle: 0
+    tickangle: isMobile ? -45 : 0
   },
   yaxis: {
-    tickfont: { family: 'Noto Sans KR', size: 13 },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, color: '#1e1b4b' },
     autorange: 'reversed'
   },
-  margin: { l: 80, r: 80, t: 60, b: 60 },
-  paper_bgcolor: '#fff',
-  plot_bgcolor: '#fff'
+  margin: isMobile
+    ? { l: 55, r: 40, t: 50, b: 55 }
+    : { l: 80, r: 80, t: 60, b: 60 },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#ffffff'
 };
 
 Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });

@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -28,6 +28,9 @@ const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
 const intercept = (sumY - slope * sumX) / n;
 const regression = years.map(x => Math.round((slope * x + intercept) * 100) / 100);
 
+// 모바일 감지
+const isMobile = window.innerWidth < 600;
+
 const data = [
   // 영역 채우기 (실제 데이터 아래)
   {
@@ -36,7 +39,7 @@ const data = [
     type: 'scatter',
     mode: 'none',
     fill: 'tozeroy',
-    fillcolor: 'rgba(135, 206, 235, 0.2)',
+    fillcolor: 'rgba(99,102,241,0.08)',
     showlegend: false,
     hoverinfo: 'skip'
   },
@@ -47,8 +50,8 @@ const data = [
     type: 'scatter',
     mode: 'lines+markers',
     name: '실측 기온',
-    line: { color: '#2196F3', width: 2.5 },
-    marker: { size: 9, color: '#2196F3', line: { color: '#fff', width: 1.5 } },
+    line: { color: '#6366f1', width: 2.5 },
+    marker: { size: isMobile ? 7 : 9, color: '#6366f1', line: { color: '#fff', width: 1.5 } },
     hovertemplate: '%{x}년<br>평균기온: %{y}°C<extra></extra>'
   },
   // 회귀선
@@ -58,7 +61,7 @@ const data = [
     type: 'scatter',
     mode: 'lines',
     name: '추세선 (선형 회귀)',
-    line: { color: '#E53935', width: 2, dash: 'dash' },
+    line: { color: '#8b5cf6', width: 2, dash: 'dash' },
     hovertemplate: '%{x}년<br>추세값: %{y:.2f}°C<extra></extra>'
   }
 ];
@@ -66,27 +69,31 @@ const data = [
 const layout = {
   title: {
     text: '서울 8월 평균기온 추세 (2015-2025)',
-    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    font: { family: 'Noto Sans KR', size: isMobile ? 15 : 20, weight: 700, color: '#1e1b4b' },
     y: 0.96
   },
   xaxis: {
-    title: { text: '연도', font: { family: 'Noto Sans KR', size: 14 } },
-    tickfont: { family: 'Noto Sans KR', size: 12 },
-    dtick: 1,
+    title: { text: '연도', font: { family: 'Noto Sans KR', size: isMobile ? 12 : 14, color: '#1e1b4b' } },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 12, color: '#6b7280' },
+    dtick: isMobile ? 2 : 1,
     range: [2014.5, 2025.5],
-    gridcolor: '#eee'
+    gridcolor: '#f0f0f5',
+    linecolor: '#f0f0f5',
+    zerolinecolor: '#f0f0f5'
   },
   yaxis: {
-    title: { text: '평균기온 (°C)', font: { family: 'Noto Sans KR', size: 14 } },
-    tickfont: { family: 'Noto Sans KR', size: 12 },
+    title: { text: '평균기온 (°C)', font: { family: 'Noto Sans KR', size: isMobile ? 12 : 14, color: '#1e1b4b' } },
+    tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 12, color: '#6b7280' },
     range: [24.5, 27.5],
-    gridcolor: '#eee'
+    gridcolor: '#f0f0f5',
+    linecolor: '#f0f0f5',
+    zerolinecolor: '#f0f0f5'
   },
   legend: {
-    font: { family: 'Noto Sans KR', size: 12 },
+    font: { family: 'Noto Sans KR', size: isMobile ? 10 : 12, color: '#1e1b4b' },
     x: 0.02, y: 0.98,
-    bgcolor: 'rgba(255,255,255,0.85)',
-    bordercolor: '#ddd',
+    bgcolor: 'rgba(255,255,255,0.9)',
+    bordercolor: '#f0f0f5',
     borderwidth: 1
   },
   annotations: [{
@@ -99,18 +106,20 @@ const layout = {
     arrowhead: 2,
     arrowsize: 1,
     arrowwidth: 2,
-    arrowcolor: '#E53935',
+    arrowcolor: '#8b5cf6',
     ax: 0,
     ay: -40,
-    font: { family: 'Noto Sans KR', size: 14, color: '#E53935' },
-    bgcolor: 'rgba(255,255,255,0.9)',
-    bordercolor: '#E53935',
+    font: { family: 'Noto Sans KR', size: isMobile ? 11 : 14, color: '#8b5cf6' },
+    bgcolor: 'rgba(255,255,255,0.95)',
+    bordercolor: '#8b5cf6',
     borderwidth: 1,
-    borderpad: 6
+    borderpad: isMobile ? 4 : 6
   }],
-  margin: { l: 70, r: 40, t: 60, b: 60 },
-  paper_bgcolor: '#fff',
-  plot_bgcolor: '#fafafa'
+  margin: isMobile
+    ? { l: 50, r: 15, t: 50, b: 50 }
+    : { l: 70, r: 40, t: 60, b: 60 },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#fafbfe'
 };
 
 Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
