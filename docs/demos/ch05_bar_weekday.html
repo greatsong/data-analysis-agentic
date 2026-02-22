@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -18,8 +18,8 @@ const days = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 const values = [5.2, 6.1, 6.8, 6.3, 7.5];
 const errors = [0.45, 0.35, 0.30, 0.40, 0.50];
 
-// 인디고 → 라이트블루 그라디언트
-const barColors = ['#312e81', '#3730a3', '#4338ca', '#4f46e5', '#6366f1'];
+// 인디고 그라디언트: 연한 → 진한
+const barColors = ['#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1', '#4f46e5'];
 
 const trace = {
   x: days,
@@ -27,20 +27,20 @@ const trace = {
   type: 'bar',
   marker: {
     color: barColors,
-    line: { color: '#1e1b4b', width: 1 },
+    line: { color: '#4338ca', width: 1 },
     cornerradius: 4
   },
   error_y: {
     type: 'data',
     array: errors,
     visible: true,
-    color: '#64748b',
+    color: '#6b7280',
     thickness: 2,
     width: 6
   },
   text: values.map(v => v.toFixed(1)),
   textposition: 'outside',
-  textfont: { family: 'Noto Sans KR', size: 14, color: '#334155', weight: 600 },
+  textfont: { family: 'Noto Sans KR', size: 14, color: '#1e1b4b', weight: 600 },
   hovertemplate: '%{x}<br>만족도: %{y}점 (±%{error_y.array})<extra></extra>',
   width: 0.6
 };
@@ -48,27 +48,27 @@ const trace = {
 const layout = {
   title: {
     text: '요일별 학교생활 만족도',
-    font: { family: 'Noto Sans KR', size: 22, color: '#1e293b', weight: 700 },
+    font: { family: 'Noto Sans KR', size: 22, color: '#1e1b4b', weight: 700 },
     x: 0.5,
     y: 0.95
   },
-  font: { family: 'Noto Sans KR', color: '#334155' },
-  paper_bgcolor: '#fff',
-  plot_bgcolor: '#fafbfc',
-  margin: { l: 70, r: 40, t: 80, b: 70 },
+  font: { family: 'Noto Sans KR', color: '#1e1b4b' },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#fafbfe',
+  margin: { l: 55, r: 25, t: 75, b: 60 },
   xaxis: {
-    title: { text: '요일', font: { size: 15, color: '#475569' } },
-    tickfont: { size: 14, color: '#334155' },
+    title: { text: '요일', font: { size: 15, color: '#6b7280' } },
+    tickfont: { size: 14, color: '#1e1b4b' },
     gridcolor: 'rgba(0,0,0,0)'
   },
   yaxis: {
-    title: { text: '만족도 (1-10)', font: { size: 15, color: '#475569' } },
+    title: { text: '만족도 (1-10)', font: { size: 15, color: '#6b7280' } },
     range: [0, 9.5],
-    gridcolor: '#e2e8f0',
-    tickfont: { size: 12 },
+    gridcolor: '#f0f0f5',
+    tickfont: { size: 12, color: '#6b7280' },
     dtick: 2,
     zeroline: true,
-    zerolinecolor: '#cbd5e1'
+    zerolinecolor: '#e5e7eb'
   },
   annotations: [
     {

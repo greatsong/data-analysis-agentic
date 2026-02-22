@@ -10,35 +10,40 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #f8f9fa;
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 16px;
   }
   .container {
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 24px rgba(99,102,241,0.08);
+    padding: 28px 24px;
     width: 100%;
     max-width: 800px;
   }
   h1 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: #1e1b4b;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .subtitle {
     text-align: center;
-    font-size: 0.9rem;
-    color: #6c757d;
+    font-size: 0.88rem;
+    color: #6b7280;
     margin-bottom: 20px;
   }
   #chart { width: 100%; height: 480px; }
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px; border-radius: 12px; }
+    h1 { font-size: 1.1rem; }
+    #chart { height: 380px; }
+  }
 </style>
 </head>
 <body>
@@ -57,12 +62,12 @@
     name: '1학년',
     type: 'bar',
     marker: {
-      color: '#4361ee',
-      line: { color: '#3451de', width: 1 }
+      color: '#6366f1',
+      line: { color: '#4f46e5', width: 1 }
     },
     text: [65, 30, 20, 15, 25].map(v => v + '%'),
     textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR' }
+    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
   };
 
   const trace2 = {
@@ -71,12 +76,12 @@
     name: '2학년',
     type: 'bar',
     marker: {
-      color: '#2ec4b6',
-      line: { color: '#1eb4a6', width: 1 }
+      color: '#8b5cf6',
+      line: { color: '#7c3aed', width: 1 }
     },
     text: [55, 35, 25, 25, 30].map(v => v + '%'),
     textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR' }
+    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
   };
 
   const trace3 = {
@@ -85,41 +90,46 @@
     name: '3학년',
     type: 'bar',
     marker: {
-      color: '#9b5de5',
-      line: { color: '#8b4dd5', width: 1 }
+      color: '#06b6d4',
+      line: { color: '#0891b2', width: 1 }
     },
     text: [40, 25, 35, 30, 40].map(v => v + '%'),
     textposition: 'outside',
-    textfont: { size: 12, family: 'Noto Sans KR' }
+    textfont: { size: 12, family: 'Noto Sans KR', color: '#1e1b4b' }
   };
 
+  const isMobile = window.innerWidth < 600;
+
   const layout = {
-    font: { family: 'Noto Sans KR, sans-serif' },
+    font: { family: 'Noto Sans KR, sans-serif', color: '#1e1b4b' },
     barmode: 'group',
     xaxis: {
-      title: { text: '방과후 활동', font: { size: 14 } },
-      tickfont: { size: 13 }
+      title: { text: '방과후 활동', font: { size: 13, color: '#1e1b4b' } },
+      tickfont: { size: 13, color: '#6b7280' }
     },
     yaxis: {
-      title: { text: '참여율 (%)', font: { size: 14 } },
+      title: { text: '참여율 (%)', font: { size: 13, color: '#1e1b4b' } },
       range: [0, 80],
-      gridcolor: '#f0f0f0',
+      gridcolor: '#f0f0f5',
       zeroline: false,
-      ticksuffix: '%'
+      ticksuffix: '%',
+      tickfont: { size: 12, color: '#6b7280' }
     },
     legend: {
       x: 0.01, y: 0.99,
-      bgcolor: 'rgba(255,255,255,0.9)',
-      bordercolor: '#e0e0e0',
+      bgcolor: 'rgba(255,255,255,0.95)',
+      bordercolor: '#e5e7eb',
       borderwidth: 1,
-      font: { size: 13 },
+      font: { size: 13, color: '#1e1b4b' },
       orientation: 'h',
       xanchor: 'left'
     },
     bargap: 0.25,
     bargroupgap: 0.1,
-    margin: { t: 20, r: 30, b: 60, l: 70 },
-    plot_bgcolor: '#fafbfc',
+    margin: isMobile
+      ? { t: 12, r: 12, b: 48, l: 52 }
+      : { t: 20, r: 30, b: 60, l: 70 },
+    plot_bgcolor: '#fafbfe',
     paper_bgcolor: '#fff',
     hovermode: 'x unified'
   };

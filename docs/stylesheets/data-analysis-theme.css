@@ -26,12 +26,12 @@
   --part4-dark: #7b3fc5;
   --part4-gradient: linear-gradient(135deg, #9b5de5, #b585ec);
   /* 상황 카테고리 색상 */
-  --cat-school: #4361ee;
-  --cat-environment: #2ec4b6;
-  --cat-health: #e63946;
-  --cat-economy: #f4a261;
-  --cat-culture: #9b5de5;
-  --cat-technology: #00b4d8;
+  --cat-school: #6366f1;
+  --cat-environment: #10b981;
+  --cat-health: #ef4444;
+  --cat-economy: #f59e0b;
+  --cat-culture: #8b5cf6;
+  --cat-technology: #06b6d4;
   /* 공통 유틸리티 */
   --da-radius: 12px;
   --da-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -44,13 +44,13 @@
 .plotly-demo {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 비율 */
+  padding-top: 56.25%; /* 16:9 비율 (데스크탑) */
   border-radius: var(--da-radius);
   overflow: hidden;
-  box-shadow: var(--da-shadow);
-  margin: 1rem 0;
-  border: 2px solid var(--md-primary-fg-color);
-  background: #fafafa;
+  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+  margin: 1.5rem 0;
+  border: 1px solid #e0e7ff;
+  background: #fafbfe;
 }
 .plotly-demo iframe {
   position: absolute;
@@ -634,8 +634,10 @@
 
 /* ===== 반응형 — 태블릿 (768px) ===== */
 @media (max-width: 768px) {
+  /* Plotly iframe: 태블릿에서 4:3 비율로 높이 확보 */
+  .plotly-demo { padding-top: 75%; margin: 1.2rem 0; }
   .hero-dashboard { grid-template-columns: 1fr; padding: 1rem; }
-  .hero-dashboard .chart-cell iframe { height: 220px; }
+  .hero-dashboard .chart-cell iframe { height: 260px; }
   .situation-cards { grid-template-columns: 1fr 1fr; }
   .peer-review-lenses { grid-template-columns: 1fr; }
   .ba-grid { grid-template-columns: 1fr; }
@@ -664,8 +666,12 @@
 
 /* ===== 반응형 — 모바일 (480px) ===== */
 @media (max-width: 480px) {
+  /* Plotly iframe: 모바일에서 정사각형에 가깝게 높이 확보 → 텍스트 겹침 방지 */
+  .plotly-demo { padding-top: 90%; margin: 1rem 0; border-radius: 8px; }
+  .plotly-demo .demo-label { font-size: 0.68rem; padding: 0.25rem 0.6rem; }
+
   .situation-cards { grid-template-columns: 1fr; }
-  .hero-dashboard .chart-cell iframe { height: 180px; }
+  .hero-dashboard .chart-cell iframe { height: 220px; }
 
   .analysis-step { padding-left: 3.2rem; }
   .analysis-step .step-number {

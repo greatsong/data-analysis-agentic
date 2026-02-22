@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
   #chart { width:100%; height:100%; }
 </style>
 </head>
@@ -23,15 +23,18 @@ const groupA = [8, 6, 7, 5, 8, 8];
 const groupB = [6, 8, 8, 7, 5, 6];
 const groupC = [7, 7, 5, 8, 7, 7];
 
+// 모바일 감지
+const isMobile = window.innerWidth < 600;
+
 const data = [
   {
     type: 'scatterpolar',
     r: groupA,
     theta: closedDimensions,
     fill: 'toself',
-    fillcolor: 'rgba(33, 150, 243, 0.15)',
-    line: { color: '#2196F3', width: 2.5 },
-    marker: { color: '#2196F3', size: 7 },
+    fillcolor: 'rgba(99,102,241,0.12)',
+    line: { color: '#6366f1', width: 2.5 },
+    marker: { color: '#6366f1', size: isMobile ? 5 : 7 },
     name: 'A모둠',
     hovertemplate: 'A모둠<br>%{theta}: %{r}점<extra></extra>'
   },
@@ -40,9 +43,9 @@ const data = [
     r: groupB,
     theta: closedDimensions,
     fill: 'toself',
-    fillcolor: 'rgba(76, 175, 80, 0.15)',
-    line: { color: '#4CAF50', width: 2.5 },
-    marker: { color: '#4CAF50', size: 7 },
+    fillcolor: 'rgba(139,92,246,0.12)',
+    line: { color: '#8b5cf6', width: 2.5 },
+    marker: { color: '#8b5cf6', size: isMobile ? 5 : 7 },
     name: 'B모둠',
     hovertemplate: 'B모둠<br>%{theta}: %{r}점<extra></extra>'
   },
@@ -51,9 +54,9 @@ const data = [
     r: groupC,
     theta: closedDimensions,
     fill: 'toself',
-    fillcolor: 'rgba(255, 152, 0, 0.15)',
-    line: { color: '#FF9800', width: 2.5 },
-    marker: { color: '#FF9800', size: 7 },
+    fillcolor: 'rgba(6,182,212,0.12)',
+    line: { color: '#06b6d4', width: 2.5 },
+    marker: { color: '#06b6d4', size: isMobile ? 5 : 7 },
     name: 'C모둠',
     hovertemplate: 'C모둠<br>%{theta}: %{r}점<extra></extra>'
   }
@@ -62,7 +65,7 @@ const data = [
 const layout = {
   title: {
     text: '모둠별 피어리뷰 평가 결과',
-    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    font: { family: 'Noto Sans KR', size: isMobile ? 16 : 20, weight: 700, color: '#1e1b4b' },
     y: 0.97
   },
   polar: {
@@ -70,27 +73,30 @@ const layout = {
       visible: true,
       range: [0, 10],
       dtick: 2,
-      tickfont: { family: 'Noto Sans KR', size: 11, color: '#888' },
-      gridcolor: '#e0e0e0',
-      linecolor: '#ccc'
+      tickfont: { family: 'Noto Sans KR', size: isMobile ? 9 : 11, color: '#6b7280' },
+      gridcolor: '#f0f0f5',
+      linecolor: '#e0e7ff'
     },
     angularaxis: {
-      tickfont: { family: 'Noto Sans KR', size: 13, weight: 600 },
-      linecolor: '#ccc',
-      gridcolor: '#e0e0e0'
+      tickfont: { family: 'Noto Sans KR', size: isMobile ? 10 : 13, weight: 600, color: '#1e1b4b' },
+      linecolor: '#e0e7ff',
+      gridcolor: '#f0f0f5'
     },
-    bgcolor: '#fafafa'
+    bgcolor: '#fafbfe'
   },
   legend: {
-    font: { family: 'Noto Sans KR', size: 13 },
-    x: 0.85,
-    y: 0.95,
-    bgcolor: 'rgba(255,255,255,0.9)',
-    bordercolor: '#ddd',
+    font: { family: 'Noto Sans KR', size: isMobile ? 11 : 13, color: '#1e1b4b' },
+    x: isMobile ? 0.3 : 0.85,
+    y: isMobile ? -0.15 : 0.95,
+    orientation: isMobile ? 'h' : 'v',
+    bgcolor: 'rgba(255,255,255,0.95)',
+    bordercolor: '#f0f0f5',
     borderwidth: 1
   },
-  margin: { l: 60, r: 60, t: 70, b: 40 },
-  paper_bgcolor: '#fff'
+  margin: isMobile
+    ? { l: 30, r: 30, t: 55, b: 50 }
+    : { l: 60, r: 60, t: 70, b: 40 },
+  paper_bgcolor: '#ffffff'
 };
 
 Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
