@@ -1937,10 +1937,10 @@
 <h2 id="3_1">3분 발표 구조 가이드<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
 <h3 id="_3">시간 배분<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>flowchart LR
-    A["질문\n30초"] --&gt; B["방법\n30초"]
-    B --&gt; C["결과\n60초"]
-    C --&gt; D["한계\n30초"]
-    D --&gt; E["의의\n30초"]</code></pre>
+    A["질문&lt;br&gt;30초"] --&gt; B["방법&lt;br&gt;30초"]
+    B --&gt; C["결과&lt;br&gt;60초"]
+    C --&gt; D["한계&lt;br&gt;30초"]
+    D --&gt; E["의의&lt;br&gt;30초"]</code></pre>
 <h3 id="_4">구간별 상세 가이드<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <h4 id="30">질문 (30초)<a class="headerlink" href="#30" title="Permanent link">&para;</a></h4>
 <blockquote>
@@ -2167,23 +2167,23 @@
 <p>4차시 전체의 학습 여정을 한눈에 볼 수 있는 종합 흐름도입니다.</p>
 <pre class="mermaid"><code>flowchart TD
     subgraph P1["Part 1: 질문을 설계하라"]
-        A["상황 인식\n상황카드 → 궁금증 발견"] --&gt; B["3단 변환\n궁금증 → 분석 질문"]
-        B --&gt; C["데이터 역설계\n변수 + 수집 방법 설계"]
+        A["상황 인식&lt;br&gt;상황카드 → 궁금증 발견"] --&gt; B["3단 변환&lt;br&gt;궁금증 → 분석 질문"]
+        B --&gt; C["데이터 역설계&lt;br&gt;변수 + 수집 방법 설계"]
     end
 
     subgraph P2["Part 2: AI에게 분석을 시켜라"]
-        D["Soul Document 작성\nAI 지시서 완성"] --&gt; E["AI 분석 실행\n결과 수신"]
-        E --&gt; F["결과 검증\n5단계 프로세스"]
+        D["분석 지침서 작성&lt;br&gt;AI 지시서 완성"] --&gt; E["AI 분석 실행&lt;br&gt;결과 수신"]
+        E --&gt; F["결과 검증&lt;br&gt;5단계 프로세스"]
     end
 
-    subgraph P3["Part 3: 단짝 분석을 부숴라"]
-        G["교차 검토\n3가지 렌즈로 피어리뷰"] --&gt; H["피드백 반영\n수용/반론/보류"]
-        H --&gt; I["분석 개선\nSoul Document 수정"]
+    subgraph P3["Part 3: 서로의 분석을 검증하라"]
+        G["교차 검토&lt;br&gt;3가지 렌즈로 피어리뷰"] --&gt; H["피드백 반영&lt;br&gt;수용/반론/보류"]
+        H --&gt; I["분석 개선&lt;br&gt;지침서 수정"]
     end
 
     subgraph P4["Part 4: 처음부터 끝까지"]
-        J["전체 파이프라인\n독립 수행"] --&gt; K["3분 발표\n질문→방법→결과→한계→의의"]
-        K --&gt; L["동료 평가\n+ 종합 성찰"]
+        J["전체 파이프라인&lt;br&gt;독립 수행"] --&gt; K["3분 발표&lt;br&gt;질문→방법→결과→한계→의의"]
+        K --&gt; L["동료 평가&lt;br&gt;+ 종합 성찰"]
     end
 
     P1 --&gt; P2

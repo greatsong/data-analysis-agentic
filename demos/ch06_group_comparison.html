@@ -14,13 +14,16 @@
 <body>
 <div id="chart"></div>
 <script>
-// 난수 시드 역할을 하는 간단한 데이터 생성 함수
+// 시드 기반 결정적 난수 생성기 (매번 동일한 데이터 보장)
+let _seed = 2026;
+function seededRandom() { _seed = (_seed * 16807) % 2147483647; return _seed / 2147483647; }
+
 function generateBoxData(median, spread, count, min, max) {
   const data = [];
   for (let i = 0; i < count; i++) {
     // Box-Muller 변환으로 정규분포 근사
-    const u1 = Math.random();
-    const u2 = Math.random();
+    const u1 = seededRandom();
+    const u2 = seededRandom();
     const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
     let val = median + z * spread;
     val = Math.max(min, Math.min(max, val));

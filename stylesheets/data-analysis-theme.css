@@ -60,6 +60,11 @@
   display: block;
   overflow: hidden;
 }
+/* demo-label이 있을 때 iframe을 라벨 높이만큼 아래로 밀어 겹침 방지 */
+.plotly-demo .demo-label + iframe {
+  top: 28px;
+  height: calc(100% - 28px);
+}
 .plotly-demo .demo-label {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -662,6 +667,7 @@
   .rubric-table thead th,
   .rubric-table tbody td { padding: 0.5rem 0.6rem; }
   .plotly-demo .demo-label { font-size: 0.72rem; padding: 0.3rem 0.8rem; }
+  .plotly-demo .demo-label + iframe { top: 24px; height: calc(100% - 24px); }
 }
 
 /* ===== 반응형 — 모바일 (480px) ===== */
@@ -669,6 +675,7 @@
   /* Plotly iframe: 모바일에서 정사각형에 가깝게 높이 확보 → 텍스트 겹침 방지 */
   .plotly-demo { padding-top: 90%; margin: 1rem 0; border-radius: 8px; }
   .plotly-demo .demo-label { font-size: 0.68rem; padding: 0.25rem 0.6rem; }
+  .plotly-demo .demo-label + iframe { top: 22px; height: calc(100% - 22px); }
 
   .situation-cards { grid-template-columns: 1fr; }
   .hero-dashboard .chart-cell iframe { height: 220px; }
