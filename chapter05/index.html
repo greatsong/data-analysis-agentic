@@ -1123,6 +1123,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 데이터 리터러시 함정: 숫자가 거짓말하는 순간
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 데이터 리터러시 함정: 숫자가 거짓말하는 순간">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        함정 1: 심슨의 역설 — 전체와 부분이 반대 결론을 말한다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "스마트폰을 많이 쓸수록 성적이 높다"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "학년 내에서는 반대: 스마트폰을 많이 쓸수록 성적이 낮다"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        함정 2: 작은 표본의 함정 — 데이터가 적으면 상관계수도 불안정하다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        데이터 리터러시 핵심 정리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1884,6 +1956,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 데이터 리터러시 함정: 숫자가 거짓말하는 순간
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 데이터 리터러시 함정: 숫자가 거짓말하는 순간">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        함정 1: 심슨의 역설 — 전체와 부분이 반대 결론을 말한다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "스마트폰을 많이 쓸수록 성적이 높다"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "학년 내에서는 반대: 스마트폰을 많이 쓸수록 성적이 낮다"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        함정 2: 작은 표본의 함정 — 데이터가 적으면 상관계수도 불안정하다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        데이터 리터러시 핵심 정리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2551,6 +2695,172 @@
 <strong>문제</strong>: AI가 "차이가 있습니다" 수준의 피상적 해석
 <strong>해결</strong>: p-value 임계값, 실질적 차이 기준, 한계점 요구를 명시</p>
 </details>
+<hr />
+<h2 id="7">7. 데이터 리터러시 함정: 숫자가 거짓말하는 순간<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>데이터를 다룰 때 가장 위험한 것은 <strong>"숫자니까 객관적이다"</strong>라는 착각입니다. 같은 데이터에서도 보는 방식에 따라 정반대의 결론이 나올 수 있습니다. 이 섹션에서는 데이터 분석에서 반드시 알아야 할 두 가지 함정을 인터랙티브 차트로 체험합니다.</p>
+<h3 id="1_1">함정 1: 심슨의 역설 — 전체와 부분이 반대 결론을 말한다<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">심슨의 역설(Simpson's Paradox)이란?</p>
+<p><strong>전체 데이터를 합쳐서 보면 A라는 결론</strong>이 나오지만,
+<strong>하위 그룹별로 나눠서 보면 정반대인 B라는 결론</strong>이 나오는 현상입니다.
+이것은 통계적 오류가 아니라, 데이터에 숨겨진 <strong>교란 변수(confounding variable)</strong> 때문에 발생합니다.</p>
+</div>
+<p>아래 차트를 직접 조작해 보세요. "전체 데이터"와 "학년별 분리" 버튼을 번갈아 눌러보면 같은 데이터에서 정반대 결론이 나오는 것을 확인할 수 있습니다.</p>
+<div class="plotly-demo">
+<div class="demo-label">심슨의 역설 — 전체 vs 학년별로 보면 결론이 뒤집힌다</div>
+<iframe src="../demos/ch05_simpsons_paradox.html"></iframe>
+</div>
+<div class="ba-grid">
+<div class="ba-before">
+<p><span class="ba-label">전체 데이터</span></p>
+<h3 id="_14">"스마트폰을 많이 쓸수록 성적이 높다"<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>양의 상관관계 (r &gt; 0)</li>
+<li><strong>잘못된 결론</strong>: 스마트폰이 성적에 도움?</li>
+<li>교란 변수(학년)를 무시한 결과</li>
+</ul>
+</div>
+<div class="ba-after">
+<p><span class="ba-label">학년별 분리</span></p>
+<h3 id="_15">"학년 내에서는 반대: 스마트폰을 많이 쓸수록 성적이 낮다"<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li>각 학년 내 음의 상관관계 (r &lt; 0)</li>
+<li><strong>올바른 결론</strong>: 스마트폰 사용은 성적에 부정적</li>
+<li>3학년이 기본 성적과 스마트폰 사용 모두 높아서 전체를 왜곡</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Soul Document에 반영하기</p>
+<p>심슨의 역설을 방지하려면 Soul Document에 다음을 추가하세요:</p>
+<blockquote>
+<p>"분석 시 전체 데이터뿐만 아니라, <strong>주요 하위 그룹(학년, 성별 등)별로 분리 분석</strong>도 수행하세요.
+전체 결과와 하위 그룹 결과가 다를 경우, 교란 변수의 존재를 보고하세요."</p>
+</blockquote>
+</div>
+<details class="question">
+<summary>교사를 위한 심화: 왜 이런 일이 일어나는가?</summary>
+<p>심슨의 역설은 <strong>교란 변수(confounding variable)</strong> 때문에 발생합니다.</p>
+<p>이 예시에서는 <strong>학년</strong>이 교란 변수입니다:</p>
+<ul>
+<li>3학년은 1학년보다 <strong>기본 성적이 높고</strong> (학습 누적 효과)</li>
+<li>3학년은 1학년보다 <strong>스마트폰 사용시간도 길다</strong> (자율성 증가)</li>
+<li>학년이라는 공통 원인이 두 변수를 동시에 높이므로, 전체를 합치면 양의 상관처럼 보입니다</li>
+</ul>
+<p><strong>교실 활용법</strong>: "전체로 보니까 A인데, 그룹별로 보니까 B다. 어느 것이 진실인가?"라고 토론을 유도하세요.
+정답은 "<strong>연구 질문에 따라 다르다</strong>"이지만, 대부분의 경우 하위 그룹 분석이 더 정확합니다.</p>
+</details>
+<hr />
+<h3 id="2_2">함정 2: 작은 표본의 함정 — 데이터가 적으면 상관계수도 불안정하다<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">표본 크기가 작을 때의 문제</p>
+<p>데이터가 5~10개뿐일 때 계산한 상관계수는 <strong>매번 크게 달라집니다.</strong>
+같은 모집단에서 표본을 다시 뽑으면 r = -0.80이 나올 수도, r = +0.20이 나올 수도 있습니다.
+이것은 데이터 자체의 문제가 아니라, <strong>표본이 모집단을 충분히 대표하지 못하기</strong> 때문입니다.</p>
+</div>
+<p>아래 차트에서 표본 크기 슬라이더를 움직여 보세요. 작은 표본에서는 상관계수가 불안정하고, 큰 표본에서는 안정적으로 수렴하는 것을 확인할 수 있습니다.</p>
+<div class="plotly-demo">
+<div class="demo-label">표본 크기 효과 — 데이터가 적으면 결론이 매번 달라진다</div>
+<iframe src="../demos/ch05_sample_size.html"></iframe>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">표본 크기</th>
+<th style="text-align: center;">상관계수 범위 (20회 반복)</th>
+<th style="text-align: center;">해석</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>5개</strong></td>
+<td style="text-align: center;">r = -0.90 ~ +0.40</td>
+<td style="text-align: center;">결론 불가능 (방향조차 불안정)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>10개</strong></td>
+<td style="text-align: center;">r = -0.80 ~ -0.10</td>
+<td style="text-align: center;">방향은 보이지만 강도 불안정</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>30개</strong></td>
+<td style="text-align: center;">r = -0.70 ~ -0.35</td>
+<td style="text-align: center;">대략적 경향 파악 가능</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>100개</strong></td>
+<td style="text-align: center;">r = -0.60 ~ -0.45</td>
+<td style="text-align: center;">안정적 결론 가능</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>200개</strong></td>
+<td style="text-align: center;">r = -0.58 ~ -0.50</td>
+<td style="text-align: center;">모집단 수준의 정확도</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Soul Document에 반영하기</p>
+<p>표본 크기의 함정을 방지하려면 Soul Document에 다음을 추가하세요:</p>
+<blockquote>
+<p>"분석 결과에 <strong>표본 크기(N)를 반드시 보고</strong>하세요.
+N &lt; 30인 경우 '표본 크기가 작아 결론의 일반화에 한계가 있음'을 명시하세요.
+가능하면 <strong>부트스트랩 신뢰구간</strong>을 제시하여 결과의 불확실성을 표현하세요."</p>
+</blockquote>
+</div>
+<details class="question">
+<summary>교사를 위한 심화: '30개 규칙'의 근거</summary>
+<p>"표본 30개 이상이면 된다"는 흔한 경험적 기준이지만, 정확한 근거가 있습니다:</p>
+<ul>
+<li><strong>중심극한정리</strong>: 표본 크기가 약 30 이상이면 표본 평균의 분포가 정규분포에 근사</li>
+<li><strong>상관계수의 표준오차</strong>: SE(r) ≈ (1-r²)/√(n-2)이므로, n이 커질수록 SE가 급격히 감소</li>
+<li><strong>실질적 기준</strong>: n=30일 때 |r| &gt; 0.35가 p &lt; 0.05를 만족 (양측 검정)</li>
+</ul>
+<p>단, 이는 <strong>최소</strong> 기준이며, 효과 크기가 작을 것으로 예상되면 더 큰 표본이 필요합니다.
+학생들에게는 "<strong>최소 30개, 가능하면 100개 이상</strong>"으로 안내하세요.</p>
+</details>
+<hr />
+<h3 id="_16">데이터 리터러시 핵심 정리<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">함정</th>
+<th style="text-align: center;">증상</th>
+<th style="text-align: center;">해결</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>심슨의 역설</strong></td>
+<td style="text-align: center;">전체 결과와 그룹별 결과가 정반대</td>
+<td style="text-align: center;">Soul Document에 <strong>하위 그룹 분리 분석</strong> 요구</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>작은 표본</strong></td>
+<td style="text-align: center;">상관계수가 매번 크게 달라짐</td>
+<td style="text-align: center;"><strong>N ≥ 30</strong> 확보, 표본 한계 명시</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>상관 ≠ 인과</strong></td>
+<td style="text-align: center;">"A가 B를 일으킨다"고 잘못 결론</td>
+<td style="text-align: center;">"상관관계이며 인과 해석 불가" 명시</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>이상치 영향</strong></td>
+<td style="text-align: center;">극단값 1~2개가 결론을 지배</td>
+<td style="text-align: center;">이상치 <strong>포함/제외 두 결과</strong> 비교</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>체리피킹</strong></td>
+<td style="text-align: center;">원하는 결론에 맞는 기간/변수만 선택</td>
+<td style="text-align: center;">분석 <strong>전에</strong> 가설과 기간을 확정</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">데이터 리터러시의 핵심 한 문장</p>
+<p><strong>"숫자가 말하는 것"이 아니라 "숫자가 말하지 않는 것"을 찾아라.</strong></p>
+</div>
 <hr />
 <div class="admonition abstract">
 <p class="admonition-title">다음 장 미리보기</p>

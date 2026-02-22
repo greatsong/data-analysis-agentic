@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;font-family:'Noto Sans KR',sans-serif;background:#fff;overflow:hidden;}
+  #container{width:100%;height:100%;display:flex;flex-direction:column;}
+  #chart{flex:1;min-height:0;}
+  #infoPanel{
+    flex-shrink:0;padding:12px 20px;
+    background:linear-gradient(135deg,#fef2f2 0%,#fef9c3 50%,#ecfdf5 100%);
+    border-top:2px solid #e0e7ff;
+    text-align:center;font-size:13px;color:#1e1b4b;line-height:1.6;
+  }
+  #infoPanel .warn{color:#dc2626;font-weight:700;}
+  #infoPanel .ok{color:#059669;font-weight:700;}
+  #infoPanel .label{font-weight:600;font-size:14px;}
+  @media(max-width:600px){#infoPanel{font-size:11px;padding:10px 12px;}}
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="chart"></div>
+  <div id="infoPanel">
+    <span class="label" id="panelTitle">전체 데이터: 스마트폰 사용과 성적에 양의 상관?</span><br>
+    <span id="panelDesc" class="warn">교란 변수(학년)를 무시하면 잘못된 결론을 내립니다</span>
+  </div>
+</div>
+<script>
+// 시드 RNG
+function seededRng(seed){let s=seed;return function(){s=(s*16807)%2147483647;return s/2147483647;};}
+const rng=seededRng(2026);
+function rNorm(){return(rng()+rng()+rng()+rng()-2)*1.2;}
+
+// 데이터: 학년별로 기본 범위가 다름 (교란 변수)
+const allX=[],allY=[],allG=[];
+const cfg={
+  1:{spMin:1,spMax:3.5,grBase:65,grSlope:-4,n:20,name:'1학년',color:'#6366f1'},
+  2:{spMin:2,spMax:5.5,grBase:72,grSlope:-3.5,n:20,name:'2학년',color:'#10b981'},
+  3:{spMin:3,spMax:7,grBase:80,grSlope:-3,n:20,name:'3학년',color:'#f59e0b'}
+};
+
+for(const g of [1,2,3]){
+  const c=cfg[g];
+  for(let i=0;i<c.n;i++){
+    const sp=c.spMin+rng()*(c.spMax-c.spMin);
+    const gr=c.grBase+c.grSlope*(sp-c.spMin)+rNorm()*5;
+    allX.push(+sp.toFixed(1));
+    allY.push(+Math.max(45,Math.min(100,gr)).toFixed(1));
+    allG.push(g);
+  }
+}
+
+// 통계
+function pearson(x,y){const n=x.length;let sx=0,sy=0,sxy=0,sx2=0,sy2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];sy2+=y[i]*y[i];}return(n*sxy-sx*sy)/Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy));}
+function linReg(x,y){const n=x.length;let sx=0,sy=0,sxy=0,sx2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];}const sl=(n*sxy-sx*sy)/(n*sx2-sx*sx);return{slope:sl,intercept:(sy-sl*sx)/n};}
+
+const rAll=pearson(allX,allY);
+const regAll=linReg(allX,allY);
+const tXa=[0.5,7.5],tYa=tXa.map(x=>regAll.slope*x+regAll.intercept);
+
+const mob=window.innerWidth<600;
+
+// === 전체 보기 트레이스 ===
+const trAll={x:allX,y:allY,mode:'markers',type:'scatter',name:'전체 학생',
+  marker:{color:'#94a3b8',size:mob?8:10,opacity:0.7,line:{color:'#64748b',width:1}},
+  hovertemplate:'스마트폰: %{x}h<br>성적: %{y}점<extra></extra>',visible:true};
+const trAllLine={x:tXa,y:tYa,mode:'lines',type:'scatter',name:'전체 추세 (r='+rAll.toFixed(2)+')',
+  line:{color:'#ef4444',width:3},hoverinfo:'skip',visible:true};
+
+// === 학년별 트레이스 ===
+const grTraces=[];
+for(const g of [1,2,3]){
+  const c=cfg[g];
+  const gx=allX.filter((_,i)=>allG[i]===g),gy=allY.filter((_,i)=>allG[i]===g);
+  const rg=pearson(gx,gy);
+  const reg=linReg(gx,gy);
+  const tx=[c.spMin-0.3,c.spMax+0.3],ty=tx.map(x=>reg.slope*x+reg.intercept);
+
+  grTraces.push({x:gx,y:gy,mode:'markers',type:'scatter',name:c.name,
+    marker:{color:c.color,size:mob?9:11,opacity:0.85,line:{color:'#fff',width:1.5}},
+    hovertemplate:c.name+'<br>스마트폰: %{x}h<br>성적: %{y}점<extra></extra>',visible:false});
+  grTraces.push({x:tx,y:ty,mode:'lines',type:'scatter',name:c.name+' 추세 (r='+rg.toFixed(2)+')',
+    line:{color:c.color,width:2.5,dash:'dash'},hoverinfo:'skip',visible:false});
+}
+
+// 총 8개 트레이스: [0]전체점, [1]전체선, [2-7] 학년별 점+선 x3
+const allData=[trAll,trAllLine,...grTraces];
+const visAll=[true,true,false,false,false,false,false,false];
+const visSep=[false,false,true,true,true,true,true,true];
+
+const layout={
+  title:{text:'심슨의 역설: 스마트폰 사용 vs 성적',font:{family:'Noto Sans KR',size:mob?14:18,weight:700,color:'#1e1b4b'},x:0.5,y:0.97},
+  font:{family:'Noto Sans KR',color:'#1e1b4b'},
+  paper_bgcolor:'#fff',plot_bgcolor:'#fafbfe',
+  margin:mob?{l:40,r:10,t:75,b:45}:{l:60,r:30,t:75,b:55},
+  xaxis:{title:{text:'일일 스마트폰 사용시간 (시간)',font:{size:mob?11:14,color:'#6b7280'}},range:[0,8],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:mob?10:12,color:'#6b7280'}},
+  yaxis:{title:{text:'성적 (점)',font:{size:mob?11:14,color:'#6b7280'}},range:[40,105],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:mob?10:12,color:'#6b7280'}},
+  legend:{x:0.01,y:0.99,xanchor:'left',bgcolor:'rgba(255,255,255,0.95)',bordercolor:'#e5e7eb',borderwidth:1,font:{size:mob?10:12}},
+  updatemenus:[{type:'buttons',direction:mob?'down':'right',x:0.5,xanchor:'center',y:mob?1.16:1.12,showactive:true,active:0,
+    font:{family:'Noto Sans KR',size:mob?11:13},bgcolor:'#fafbfe',bordercolor:'#e0e7ff',borderwidth:1,
+    buttons:[
+      {label:'\uD83D\uDCCA 전체 데이터',method:'update',args:[{visible:visAll},{title:{text:'심슨의 역설: 전체 → 양의 상관 (r='+rAll.toFixed(2)+')',font:{family:'Noto Sans KR',size:mob?14:18,weight:700,color:'#1e1b4b'}}}]},
+      {label:'\uD83D\uDD0D 학년별 분리',method:'update',args:[{visible:visSep},{title:{text:'심슨의 역설: 학년별 → 음의 상관!',font:{family:'Noto Sans KR',size:mob?14:18,weight:700,color:'#1e1b4b'}}}]}
+    ]}],
+  annotations:[{text:'<b>r = '+rAll.toFixed(2)+'</b>',font:{size:16,color:'#dc2626'},showarrow:false,x:0.98,y:0.02,xref:'paper',yref:'paper',xanchor:'right',yanchor:'bottom',bgcolor:'rgba(254,242,242,0.95)',bordercolor:'#fca5a5',borderwidth:1,borderpad:8}]
+};
+
+Plotly.newPlot('chart',allData,layout,{responsive:true,displayModeBar:false});
+
+// 패널 업데이트
+const pTitle=document.getElementById('panelTitle'),pDesc=document.getElementById('panelDesc');
+document.getElementById('chart').on('plotly_buttonclicked',function(e){
+  if(e.active===0){
+    pTitle.textContent='전체 데이터: 스마트폰 사용과 성적에 양의 상관?';
+    pDesc.className='warn';
+    pDesc.textContent='교란 변수(학년)를 무시하면 잘못된 결론을 내립니다';
+  }else{
+    pTitle.textContent='학년별 분리: 각 학년 내에서는 음의 상관!';
+    pDesc.className='ok';
+    pDesc.textContent='이것이 심슨의 역설입니다 — 전체와 부분이 반대 결론을 말합니다';
+  }
+});
+</script>
+</body>
+</html>

@@ -6,184 +6,105 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
-  #chart { width:100%; height:100%; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;font-family:'Noto Sans KR',sans-serif;background:#fff;overflow:hidden;}
+  #container{width:100%;height:100%;display:flex;flex-direction:column;}
+  #chart{flex:1;min-height:0;}
+  #statsBar{
+    flex-shrink:0;height:48px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex;align-items:center;justify-content:center;gap:20px;
+    font-size:13px;
+  }
+  .sb-item{display:flex;align-items:center;gap:5px;}
+  .sb-label{color:#6b7280;font-size:11px;}
+  .sb-value{color:#1e1b4b;font-weight:700;font-size:14px;}
+  .sb-divider{width:1px;height:20px;background:#c7d2fe;}
+  .sb-neg{color:#dc2626;}
+  @media(max-width:600px){
+    #statsBar{height:42px;gap:10px;font-size:11px;}
+    .sb-label{font-size:10px;}.sb-value{font-size:12px;}
+  }
 </style>
 </head>
 <body>
-<div id="chart"></div>
+<div id="container">
+  <div id="chart"></div>
+  <div id="statsBar">
+    <div class="sb-item"><span class="sb-label">데이터</span><span class="sb-value" id="sN">53개</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">상관계수</span><span class="sb-value sb-neg" id="sR">-</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">평균 스마트폰</span><span class="sb-value" id="sSP">-</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-item"><span class="sb-label">평균 수면</span><span class="sb-value" id="sSL">-</span></div>
+  </div>
+</div>
 <script>
-// --- 50개 데이터 생성: 음의 상관 (r ~ -0.45) ---
-// 시드 기반 결정적 데이터 (재현 가능)
-function seededRandom(seed) {
-  let s = seed;
-  return function() {
-    s = (s * 16807 + 0) % 2147483647;
-    return s / 2147483647;
-  };
+function seededRandom(seed){let s=seed;return function(){s=(s*16807+0)%2147483647;return s/2147483647;};}
+const rng=seededRandom(42);
+const grades=[],smartphone=[],sleep=[];
+for(let i=0;i<50;i++){
+  grades.push(i<17?1:i<34?2:3);
+  const sp=1+rng()*6;smartphone.push(+(sp).toFixed(1));
+  const noise=(rng()-0.5)*3.5;
+  sleep.push(+(Math.max(4,Math.min(10,9.5-sp*0.4+noise))).toFixed(1));
 }
-const rng = seededRandom(42);
+const outlierSP=[6.5,1.0,6.8],outlierSL=[9.5,4.5,9.8],outlierGrades=[1,2,3];
+const allSP=[...smartphone,...outlierSP],allSL=[...sleep,...outlierSL];
 
-const grades = [];
-const smartphone = [];
-const sleep = [];
+function pearsonR(x,y){const n=x.length;let sx=0,sy=0,sxy=0,sx2=0,sy2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];sy2+=y[i]*y[i];}return(n*sxy-sx*sy)/Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy));}
+function linReg(x,y){const n=x.length;let sx=0,sy=0,sxy=0,sx2=0;for(let i=0;i<n;i++){sx+=x[i];sy+=y[i];sxy+=x[i]*y[i];sx2+=x[i]*x[i];}const sl=(n*sxy-sx*sy)/(n*sx2-sx*sx);return{slope:sl,intercept:(sy-sl*sx)/n};}
 
-for (let i = 0; i < 50; i++) {
-  // 학년 배분: 1학년 17, 2학년 17, 3학년 16
-  const grade = i < 17 ? 1 : (i < 34 ? 2 : 3);
-  grades.push(grade);
+const r=pearsonR(allSP,allSL);
+const reg=linReg(allSP,allSL);
+const trendX=[0.5,7.5],trendY=trendX.map(x=>reg.slope*x+reg.intercept);
+const avgSP=allSP.reduce((a,b)=>a+b,0)/allSP.length;
+const avgSL=allSL.reduce((a,b)=>a+b,0)/allSL.length;
 
-  // 스마트폰: 1~7시간
-  const sp = 1 + rng() * 6;
-  smartphone.push(Math.round(sp * 10) / 10);
+document.getElementById('sN').textContent=allSP.length+'개';
+document.getElementById('sR').textContent=r.toFixed(2);
+document.getElementById('sSP').textContent=avgSP.toFixed(1)+'h';
+document.getElementById('sSL').textContent=avgSL.toFixed(1)+'h';
 
-  // 수면: 기본 9시간에서 스마트폰 비례 감소 + 노이즈
-  // r ~ -0.45 정도 되게 노이즈 크기 조절
-  const noise = (rng() - 0.5) * 3.5;
-  const sl = 9.5 - sp * 0.4 + noise;
-  sleep.push(Math.round(Math.max(4, Math.min(10, sl)) * 10) / 10);
+const mob=window.innerWidth<600;
+const gcfg={1:{name:'1학년',color:'#6366f1'},2:{name:'2학년',color:'#10b981'},3:{name:'3학년',color:'#f59e0b'}};
+
+const traces=[];
+for(const g of[1,2,3]){
+  const c=gcfg[g];
+  traces.push({x:smartphone.filter((_,i)=>grades[i]===g),y:sleep.filter((_,i)=>grades[i]===g),
+    mode:'markers',type:'scatter',name:c.name,
+    marker:{color:c.color,size:mob?9:11,opacity:0.85,line:{color:'#fff',width:1.5}},
+    hovertemplate:c.name+'<br>스마트폰: %{x}h<br>수면: %{y}h<extra></extra>'});
 }
+traces.push({x:outlierSP,y:outlierSL,mode:'markers',type:'scatter',name:'이상치',
+  marker:{color:'#ef4444',size:mob?12:14,symbol:'x',line:{color:'#dc2626',width:2.5}},
+  hovertemplate:'이상치<br>스마트폰: %{x}h<br>수면: %{y}h<extra></extra>'});
+traces.push({x:trendX,y:trendY,mode:'lines',type:'scatter',name:'추세선 (r='+r.toFixed(2)+')',
+  line:{color:'#8b5cf6',width:2.5,dash:'dash'},hoverinfo:'skip'});
 
-// 3개 이상치 추가 (패턴 벗어남)
-const outlierIndices = [50, 51, 52];
-const outlierSP = [6.5, 1.0, 6.8];
-const outlierSL = [9.5, 4.5, 9.8];
-const outlierGrades = [1, 2, 3];
-
-// --- 상관계수 계산 ---
-function pearsonR(x, y) {
-  const n = x.length;
-  let sumX=0, sumY=0, sumXY=0, sumX2=0, sumY2=0;
-  for (let i=0; i<n; i++) {
-    sumX+=x[i]; sumY+=y[i]; sumXY+=x[i]*y[i]; sumX2+=x[i]*x[i]; sumY2+=y[i]*y[i];
-  }
-  return (n*sumXY - sumX*sumY) / Math.sqrt((n*sumX2 - sumX*sumX)*(n*sumY2 - sumY*sumY));
-}
-const allSP = [...smartphone, ...outlierSP];
-const allSL = [...sleep, ...outlierSL];
-const r = pearsonR(allSP, allSL);
-
-// --- 추세선 (전체 데이터) ---
-function linearReg(x, y) {
-  const n = x.length;
-  let sumX=0, sumY=0, sumXY=0, sumX2=0;
-  for (let i=0; i<n; i++) { sumX+=x[i]; sumY+=y[i]; sumXY+=x[i]*y[i]; sumX2+=x[i]*x[i]; }
-  const slope = (n*sumXY - sumX*sumY) / (n*sumX2 - sumX*sumX);
-  const intercept = (sumY - slope*sumX) / n;
-  return { slope, intercept };
-}
-const reg = linearReg(allSP, allSL);
-const trendX = [0.5, 7.5];
-const trendY = trendX.map(x => reg.slope * x + reg.intercept);
-
-// --- 학년별 트레이스 ---
-const gradeConfig = {
-  1: { name: '1학년', color: '#6366f1' },
-  2: { name: '2학년', color: '#10b981' },
-  3: { name: '3학년', color: '#f59e0b' }
-};
-
-const traces = [];
-for (const g of [1, 2, 3]) {
-  const cfg = gradeConfig[g];
-  const xData = smartphone.filter((_, i) => grades[i] === g);
-  const yData = sleep.filter((_, i) => grades[i] === g);
-  traces.push({
-    x: xData,
-    y: yData,
-    mode: 'markers',
-    type: 'scatter',
-    name: cfg.name,
-    marker: {
-      color: cfg.color,
-      size: 11,
-      opacity: 0.85,
-      line: { color: '#ffffff', width: 1.5 }
-    },
-    hovertemplate: `학년: ${cfg.name}<br>스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>`
-  });
-}
-
-// 이상치 트레이스
-traces.push({
-  x: outlierSP,
-  y: outlierSL,
-  mode: 'markers',
-  type: 'scatter',
-  name: '이상치',
-  marker: {
-    color: '#ef4444',
-    size: 14,
-    symbol: 'x',
-    line: { color: '#dc2626', width: 2 }
-  },
-  hovertemplate: '이상치<br>스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>'
-});
-
-// 추세선 트레이스
-traces.push({
-  x: trendX,
-  y: trendY,
-  mode: 'lines',
-  type: 'scatter',
-  name: '추세선',
-  line: { color: '#6366f1', width: 2, dash: 'dash' },
-  hoverinfo: 'skip'
-});
-
-// --- 레이아웃 ---
-const layout = {
-  title: {
-    text: '스마트폰 사용과 수면의 관계',
-    font: { family: 'Noto Sans KR', size: 20, color: '#1e1b4b', weight: 700 },
-    x: 0.5
-  },
-  font: { family: 'Noto Sans KR', color: '#1e1b4b' },
-  paper_bgcolor: '#ffffff',
-  plot_bgcolor: '#fafbfe',
-  margin: { l: 60, r: 30, t: 70, b: 60 },
-  xaxis: {
-    title: { text: '일일 스마트폰 사용시간 (시간)', font: { size: 14, color: '#6b7280' } },
-    range: [0, 8],
-    gridcolor: '#f0f0f5',
-    zeroline: false,
-    tickfont: { size: 12, color: '#6b7280' }
-  },
-  yaxis: {
-    title: { text: '일일 수면시간 (시간)', font: { size: 14, color: '#6b7280' } },
-    range: [3.5, 10.5],
-    gridcolor: '#f0f0f5',
-    zeroline: false,
-    tickfont: { size: 12, color: '#6b7280' }
-  },
-  legend: {
-    x: 0.99, y: 0.99,
-    xanchor: 'right',
-    bgcolor: 'rgba(255,255,255,0.95)',
-    bordercolor: '#e5e7eb',
-    borderwidth: 1,
-    font: { size: 13, color: '#1e1b4b' }
-  },
-  annotations: [
-    {
-      text: `<b>r = ${r.toFixed(2)}</b>`,
-      font: { size: 16, color: '#4338ca', family: 'Noto Sans KR' },
-      showarrow: false,
-      x: 0.98, y: 0.02,
-      xref: 'paper', yref: 'paper',
-      xanchor: 'right', yanchor: 'bottom',
-      bgcolor: 'rgba(238, 242, 255, 0.95)',
-      bordercolor: '#6366f1',
-      borderwidth: 1,
-      borderpad: 8
-    }
+const layout={
+  title:{text:'스마트폰 사용과 수면의 관계',font:{family:'Noto Sans KR',size:mob?15:18,color:'#1e1b4b',weight:700},x:0.5},
+  font:{family:'Noto Sans KR',color:'#1e1b4b'},
+  paper_bgcolor:'#fff',plot_bgcolor:'#fafbfe',
+  margin:mob?{l:40,r:10,t:55,b:45}:{l:60,r:30,t:65,b:55},
+  xaxis:{title:{text:'일일 스마트폰 사용시간 (시간)',font:{size:mob?11:14,color:'#6b7280'}},range:[0,8],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:mob?10:12,color:'#6b7280'}},
+  yaxis:{title:{text:'일일 수면시간 (시간)',font:{size:mob?11:14,color:'#6b7280'}},range:[3.5,10.5],gridcolor:'#f0f0f5',zeroline:false,tickfont:{size:mob?10:12,color:'#6b7280'}},
+  legend:{x:0.99,y:0.99,xanchor:'right',bgcolor:'rgba(255,255,255,0.95)',bordercolor:'#e5e7eb',borderwidth:1,font:{size:mob?10:13,color:'#1e1b4b'}},
+  annotations:[
+    {text:'<b>r = '+r.toFixed(2)+'</b>',font:{size:mob?14:16,color:'#4338ca'},showarrow:false,
+     x:0.98,y:0.02,xref:'paper',yref:'paper',xanchor:'right',yanchor:'bottom',
+     bgcolor:'rgba(238,242,255,0.95)',bordercolor:'#6366f1',borderwidth:1,borderpad:8},
+    {text:'이상치: 전체 경향에서<br>벗어난 데이터',font:{size:mob?10:12,color:'#ef4444'},
+     showarrow:true,arrowcolor:'#fca5a5',arrowwidth:1.5,arrowhead:2,
+     ax:mob?30:50,ay:mob?-25:-35,x:6.5,y:9.5,xref:'x',yref:'y',
+     bgcolor:'rgba(254,242,242,0.95)',bordercolor:'#fca5a5',borderwidth:1,borderpad:5}
   ]
 };
 
-const config = { responsive: true, displayModeBar: false };
-
-Plotly.newPlot('chart', traces, layout, config);
+Plotly.newPlot('chart',traces,layout,{responsive:true,displayModeBar:false});
 </script>
 </body>
 </html>

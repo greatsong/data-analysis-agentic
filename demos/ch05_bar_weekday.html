@@ -6,97 +6,78 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#ffffff; overflow:hidden; }
-  #chart { width:100%; height:100%; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;font-family:'Noto Sans KR',sans-serif;background:#fff;overflow:hidden;}
+  #container{width:100%;height:100%;display:flex;flex-direction:column;}
+  #chart{flex:1;min-height:0;}
+  #infoBar{
+    flex-shrink:0;height:46px;
+    background:linear-gradient(135deg,#f8faff 0%,#eef2ff 100%);
+    border-top:1px solid #e0e7ff;
+    display:flex;align-items:center;justify-content:center;gap:20px;
+    font-size:13px;
+  }
+  .ib-item{display:flex;align-items:center;gap:5px;}
+  .ib-label{color:#6b7280;font-size:11px;}
+  .ib-value{color:#1e1b4b;font-weight:700;font-size:14px;}
+  .ib-divider{width:1px;height:18px;background:#c7d2fe;}
+  .ib-high{color:#4338ca;}
+  .ib-low{color:#9ca3af;}
+  @media(max-width:600px){
+    #infoBar{height:40px;gap:8px;}
+    .ib-label{font-size:10px;}.ib-value{font-size:12px;}
+  }
 </style>
 </head>
 <body>
-<div id="chart"></div>
+<div id="container">
+  <div id="chart"></div>
+  <div id="infoBar">
+    <div class="ib-item"><span class="ib-label">최고</span><span class="ib-value ib-high">금요일 7.5</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">최저</span><span class="ib-value ib-low">월요일 5.2</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">평균</span><span class="ib-value">6.4점</span></div>
+    <div class="ib-divider"></div>
+    <div class="ib-item"><span class="ib-label">차이</span><span class="ib-value ib-high">+2.3</span></div>
+  </div>
+</div>
 <script>
-const days = ['월요일', '화요일', '수요일', '목요일', '금요일'];
-const values = [5.2, 6.1, 6.8, 6.3, 7.5];
-const errors = [0.45, 0.35, 0.30, 0.40, 0.50];
+const days=['월요일','화요일','수요일','목요일','금요일'];
+const values=[5.2,6.1,6.8,6.3,7.5];
+const errors=[0.45,0.35,0.30,0.40,0.50];
+const avg=values.reduce((a,b)=>a+b,0)/values.length;
+const barColors=['#c7d2fe','#a5b4fc','#818cf8','#6366f1','#4f46e5'];
+const mob=window.innerWidth<600;
 
-// 인디고 그라디언트: 연한 → 진한
-const barColors = ['#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1', '#4f46e5'];
+const trace={x:days,y:values,type:'bar',
+  marker:{color:barColors,line:{color:'#4338ca',width:1},cornerradius:4},
+  error_y:{type:'data',array:errors,visible:true,color:'#6b7280',thickness:2,width:6},
+  text:values.map(v=>v.toFixed(1)),textposition:'outside',
+  textfont:{family:'Noto Sans KR',size:mob?12:14,color:'#1e1b4b',weight:600},
+  hovertemplate:'%{x}<br>만족도: %{y}점 (±%{error_y.array})<extra></extra>',
+  width:0.6};
 
-const trace = {
-  x: days,
-  y: values,
-  type: 'bar',
-  marker: {
-    color: barColors,
-    line: { color: '#4338ca', width: 1 },
-    cornerradius: 4
-  },
-  error_y: {
-    type: 'data',
-    array: errors,
-    visible: true,
-    color: '#6b7280',
-    thickness: 2,
-    width: 6
-  },
-  text: values.map(v => v.toFixed(1)),
-  textposition: 'outside',
-  textfont: { family: 'Noto Sans KR', size: 14, color: '#1e1b4b', weight: 600 },
-  hovertemplate: '%{x}<br>만족도: %{y}점 (±%{error_y.array})<extra></extra>',
-  width: 0.6
-};
-
-const layout = {
-  title: {
-    text: '요일별 학교생활 만족도',
-    font: { family: 'Noto Sans KR', size: 22, color: '#1e1b4b', weight: 700 },
-    x: 0.5,
-    y: 0.95
-  },
-  font: { family: 'Noto Sans KR', color: '#1e1b4b' },
-  paper_bgcolor: '#ffffff',
-  plot_bgcolor: '#fafbfe',
-  margin: { l: 55, r: 25, t: 75, b: 60 },
-  xaxis: {
-    title: { text: '요일', font: { size: 15, color: '#6b7280' } },
-    tickfont: { size: 14, color: '#1e1b4b' },
-    gridcolor: 'rgba(0,0,0,0)'
-  },
-  yaxis: {
-    title: { text: '만족도 (1-10)', font: { size: 15, color: '#6b7280' } },
-    range: [0, 9.5],
-    gridcolor: '#f0f0f5',
-    tickfont: { size: 12, color: '#6b7280' },
-    dtick: 2,
-    zeroline: true,
-    zerolinecolor: '#e5e7eb'
-  },
-  annotations: [
-    {
-      text: '금요일에 가장 높다!',
-      font: { size: 14, color: '#4338ca', family: 'Noto Sans KR', weight: 600 },
-      showarrow: true,
-      arrowhead: 2,
-      arrowsize: 1.2,
-      arrowwidth: 2,
-      arrowcolor: '#6366f1',
-      ax: -60,
-      ay: -45,
-      x: '금요일',
-      y: 7.5 + 0.5,
-      xref: 'x',
-      yref: 'y',
-      bgcolor: 'rgba(238, 242, 255, 0.95)',
-      bordercolor: '#6366f1',
-      borderwidth: 1.5,
-      borderpad: 8
-    }
+const layout={
+  title:{text:'요일별 학교생활 만족도',font:{family:'Noto Sans KR',size:mob?16:20,color:'#1e1b4b',weight:700},x:0.5,y:0.96},
+  font:{family:'Noto Sans KR',color:'#1e1b4b'},
+  paper_bgcolor:'#fff',plot_bgcolor:'#fafbfe',
+  margin:mob?{l:40,r:10,t:60,b:50}:{l:55,r:25,t:70,b:60},
+  xaxis:{title:{text:'요일',font:{size:mob?12:15,color:'#6b7280'}},tickfont:{size:mob?12:14,color:'#1e1b4b'},gridcolor:'rgba(0,0,0,0)'},
+  yaxis:{title:{text:'만족도 (1-10)',font:{size:mob?12:15,color:'#6b7280'}},range:[0,9.5],gridcolor:'#f0f0f5',tickfont:{size:mob?10:12,color:'#6b7280'},dtick:2,zeroline:true,zerolinecolor:'#e5e7eb'},
+  shapes:[{type:'line',x0:-0.5,x1:4.5,y0:avg,y1:avg,line:{color:'#ef4444',width:1.5,dash:'dot'}}],
+  annotations:[
+    {text:'금요일에 가장 높다!',font:{size:mob?12:14,color:'#4338ca',family:'Noto Sans KR',weight:600},
+     showarrow:true,arrowhead:2,arrowsize:1.2,arrowwidth:2,arrowcolor:'#6366f1',
+     ax:-60,ay:-45,x:'금요일',y:8,xref:'x',yref:'y',
+     bgcolor:'rgba(238,242,255,0.95)',bordercolor:'#6366f1',borderwidth:1.5,borderpad:8},
+    {text:'평균 '+avg.toFixed(1),font:{size:mob?10:11,color:'#ef4444'},
+     showarrow:false,x:mob?4:4.5,y:avg+0.25,xref:'x',yref:'y',xanchor:'right'}
   ],
-  bargap: 0.25
+  bargap:0.25
 };
 
-const config = { responsive: true, displayModeBar: false };
-
-Plotly.newPlot('chart', [trace], layout, config);
+Plotly.newPlot('chart',[trace],layout,{responsive:true,displayModeBar:false});
 </script>
 </body>
 </html>

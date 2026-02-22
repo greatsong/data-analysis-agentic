@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>서울 월별 기온 데이터</title>
+<title>서울 월별 기온 데이터 (2015-2025)</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,11 +34,62 @@
     color: #6b7280;
     margin-bottom: 20px;
   }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .year-filter {
+    padding: 10px 14px;
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.88rem;
+    color: #1e1b4b;
+    background: #fafbfe;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-width: 120px;
+  }
+  .year-filter:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  .btn-download:hover {
+    background: #4f46e5;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-download:active { transform: translateY(0); }
+  .btn-download svg { width: 16px; height: 16px; }
   .table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
+    max-height: 520px;
+    overflow-y: auto;
   }
   table {
     width: 100%;
@@ -46,11 +97,7 @@
     font-size: 0.88rem;
     white-space: nowrap;
   }
-  thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
+  thead { position: sticky; top: 0; z-index: 2; }
   th {
     background: #6366f1;
     color: #fff;
@@ -62,29 +109,19 @@
     user-select: none;
     transition: background 0.2s;
   }
-  th:hover {
-    background: #4f46e5;
-  }
-  th .sort-icon {
-    margin-left: 4px;
-    font-size: 0.72rem;
-    opacity: 0.6;
-  }
-  th.asc .sort-icon::after { content: ' ▲'; opacity: 1; }
-  th.desc .sort-icon::after { content: ' ▼'; opacity: 1; }
-  th:not(.asc):not(.desc) .sort-icon::after { content: ' ⇅'; }
+  th:hover { background: #4f46e5; }
+  th .sort-icon { margin-left: 4px; font-size: 0.72rem; opacity: 0.6; }
+  th.asc .sort-icon::after { content: ' \u25B2'; opacity: 1; }
+  th.desc .sort-icon::after { content: ' \u25BC'; opacity: 1; }
+  th:not(.asc):not(.desc) .sort-icon::after { content: ' \u21C5'; }
   td {
     padding: 10px 18px;
     text-align: center;
     color: #1e1b4b;
     border-bottom: 1px solid #f0f0f5;
   }
-  tr:nth-child(even) td {
-    background: #fafbfe;
-  }
-  tr:hover td {
-    background: #eef2ff;
-  }
+  tr:nth-child(even) td { background: #fafbfe; }
+  tr:hover td { background: #eef2ff; }
   .temp-high { color: #ef4444; font-weight: 500; }
   .temp-low { color: #6366f1; font-weight: 500; }
   .footer {
@@ -98,6 +135,9 @@
     .container { padding: 16px 12px; border-radius: 12px; }
     h1 { font-size: 1.1rem; }
     th, td { padding: 8px 12px; font-size: 0.82rem; }
+    .toolbar { flex-direction: column; }
+    .btn-download { margin-left: 0; width: 100%; justify-content: center; }
+    .year-filter { width: 100%; }
   }
 </style>
 </head>
@@ -105,27 +145,34 @@
 <div class="container">
   <h1>서울 월별 기온 데이터 (2015-2025)</h1>
   <p class="subtitle">정렬하려면 열 제목을 클릭하세요 | 출처: 기상청</p>
+  <div class="toolbar">
+    <select class="year-filter" id="yearFilter">
+      <option value="all">전체 연도</option>
+    </select>
+    <button class="btn-download" id="btnDownload">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      CSV 다운로드 (132행)
+    </button>
+  </div>
   <div class="table-wrap">
     <table id="dataTable">
       <thead>
         <tr>
           <th data-col="0">연도<span class="sort-icon"></span></th>
           <th data-col="1">월<span class="sort-icon"></span></th>
-          <th data-col="2">평균기온(℃)<span class="sort-icon"></span></th>
-          <th data-col="3">최고기온(℃)<span class="sort-icon"></span></th>
-          <th data-col="4">최저기온(℃)<span class="sort-icon"></span></th>
+          <th data-col="2">평균기온(&#8451;)<span class="sort-icon"></span></th>
+          <th data-col="3">최고기온(&#8451;)<span class="sort-icon"></span></th>
+          <th data-col="4">최저기온(&#8451;)<span class="sort-icon"></span></th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
     </table>
   </div>
-  <div class="footer">... 외 108건 더 보기</div>
+  <div class="footer" id="footerText">24 / 132행 표시 중</div>
 </div>
 
 <script>
 (function() {
-  // Realistic Seoul monthly average temperatures (approximate)
-  // [avg, high, low] per month
   const baseline = [
     [-2.4, 1.5, -5.9],   // 1월
     [0.4, 4.7, -3.1],    // 2월
@@ -145,22 +192,33 @@
   function rand() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
   function vary(base, range) { return +(base + (rand() - 0.5) * range).toFixed(1); }
 
-  const rows = [];
+  const allRows = [];
 
-  for (let year = 2015; year <= 2016; year++) {
+  for (let year = 2015; year <= 2025; year++) {
     for (let month = 1; month <= 12; month++) {
       const b = baseline[month - 1];
-      // Slight warming trend: +0.05 per year from 2015
       const offset = (year - 2015) * 0.05;
       const avg = vary(b[0] + offset, 2.0);
       const high = vary(b[1] + offset, 2.5);
       const low = vary(b[2] + offset, 2.0);
-      rows.push([year, month, avg, Math.max(avg, high), Math.min(avg, low)]);
+      allRows.push([year, month, avg, Math.max(avg, high), Math.min(avg, low)]);
     }
   }
 
+  const DISPLAY_LIMIT = 24;
   const tbody = document.getElementById('tableBody');
-  let currentData = [...rows];
+  const footerText = document.getElementById('footerText');
+  const yearFilter = document.getElementById('yearFilter');
+  let filteredRows = [...allRows];
+  let displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+
+  // 연도 필터 옵션 생성
+  for (let y = 2015; y <= 2025; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y + '년';
+    yearFilter.appendChild(opt);
+  }
 
   function renderTable(data) {
     tbody.innerHTML = '';
@@ -177,19 +235,58 @@
     });
   }
 
-  renderTable(currentData);
+  function updateFooter() {
+    const shown = Math.min(displayRows.length, filteredRows.length);
+    footerText.textContent = shown + ' / ' + filteredRows.length + '행 표시 중' +
+      (filteredRows.length < allRows.length ? ' (필터 적용)' : '');
+  }
 
-  // Sort logic
+  function applyYearFilter(yearVal) {
+    if (yearVal === 'all') {
+      filteredRows = [...allRows];
+    } else {
+      const y = parseInt(yearVal);
+      filteredRows = allRows.filter(row => row[0] === y);
+    }
+    sortCol = -1;
+    sortDir = 'none';
+    document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
+    displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+    renderTable(displayRows);
+    updateFooter();
+  }
+
+  renderTable(displayRows);
+  updateFooter();
+
+  yearFilter.addEventListener('change', function() {
+    applyYearFilter(this.value);
+  });
+
+  // CSV 다운로드
+  document.getElementById('btnDownload').addEventListener('click', function() {
+    const headers = ['연도','월','평균기온(℃)','최고기온(℃)','최저기온(℃)'];
+    let csv = '\uFEFF' + headers.join(',') + '\n';
+    allRows.forEach(row => { csv += row.join(',') + '\n'; });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'seoul_temperature_2015_2025.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // 정렬
   let sortCol = -1;
   let sortDir = 'none';
 
   document.querySelectorAll('th').forEach(th => {
     th.addEventListener('click', function() {
       const col = parseInt(this.dataset.col);
-
-      document.querySelectorAll('th').forEach(h => {
-        h.classList.remove('asc', 'desc');
-      });
+      document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
 
       if (sortCol === col) {
         sortDir = sortDir === 'asc' ? 'desc' : sortDir === 'desc' ? 'none' : 'asc';
@@ -199,18 +296,17 @@
       }
 
       if (sortDir === 'none') {
-        currentData = [...rows];
+        displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
       } else {
-        currentData = [...rows].sort((a, b) => {
+        const sorted = [...filteredRows].sort((a, b) => {
           return sortDir === 'asc' ? a[col] - b[col] : b[col] - a[col];
         });
+        displayRows = sorted.slice(0, DISPLAY_LIMIT);
       }
 
-      if (sortDir !== 'none') {
-        this.classList.add(sortDir);
-      }
-
-      renderTable(currentData);
+      if (sortDir !== 'none') this.classList.add(sortDir);
+      renderTable(displayRows);
+      updateFooter();
     });
   });
 })();

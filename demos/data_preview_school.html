@@ -34,11 +34,62 @@
     color: #6b7280;
     margin-bottom: 20px;
   }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .search-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px 10px 36px;
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.88rem;
+    color: #1e1b4b;
+    background: #fafbfe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") 12px center no-repeat;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  }
+  .search-input::placeholder { color: #9ca3af; }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+    white-space: nowrap;
+  }
+  .btn-download:hover {
+    background: #4f46e5;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-download:active { transform: translateY(0); }
+  .btn-download svg { width: 16px; height: 16px; }
   .table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
+    max-height: 520px;
+    overflow-y: auto;
   }
   table {
     width: 100%;
@@ -46,11 +97,7 @@
     font-size: 0.88rem;
     white-space: nowrap;
   }
-  thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
+  thead { position: sticky; top: 0; z-index: 2; }
   th {
     background: #6366f1;
     color: #fff;
@@ -61,31 +108,20 @@
     cursor: pointer;
     user-select: none;
     transition: background 0.2s;
-    position: relative;
   }
-  th:hover {
-    background: #4f46e5;
-  }
-  th .sort-icon {
-    margin-left: 4px;
-    font-size: 0.72rem;
-    opacity: 0.6;
-  }
-  th.asc .sort-icon::after { content: ' ▲'; opacity: 1; }
-  th.desc .sort-icon::after { content: ' ▼'; opacity: 1; }
-  th:not(.asc):not(.desc) .sort-icon::after { content: ' ⇅'; }
+  th:hover { background: #4f46e5; }
+  th .sort-icon { margin-left: 4px; font-size: 0.72rem; opacity: 0.6; }
+  th.asc .sort-icon::after { content: ' \u25B2'; opacity: 1; }
+  th.desc .sort-icon::after { content: ' \u25BC'; opacity: 1; }
+  th:not(.asc):not(.desc) .sort-icon::after { content: ' \u21C5'; }
   td {
     padding: 10px 16px;
     text-align: center;
     color: #1e1b4b;
     border-bottom: 1px solid #f0f0f5;
   }
-  tr:nth-child(even) td {
-    background: #fafbfe;
-  }
-  tr:hover td {
-    background: #eef2ff;
-  }
+  tr:nth-child(even) td { background: #fafbfe; }
+  tr:hover td { background: #eef2ff; }
   .footer {
     text-align: center;
     padding: 16px;
@@ -97,6 +133,8 @@
     .container { padding: 16px 12px; border-radius: 12px; }
     h1 { font-size: 1.1rem; }
     th, td { padding: 8px 10px; font-size: 0.82rem; }
+    .toolbar { flex-direction: column; }
+    .search-input { min-width: 100%; }
   }
 </style>
 </head>
@@ -104,6 +142,13 @@
 <div class="container">
   <h1>학교 생활 설문조사 데이터 (200명)</h1>
   <p class="subtitle">정렬하려면 열 제목을 클릭하세요</p>
+  <div class="toolbar">
+    <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요 (예: 여, 3, 5.0)">
+    <button class="btn-download" id="btnDownload">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      CSV 다운로드 (200행)
+    </button>
+  </div>
   <div class="table-wrap">
     <table id="dataTable">
       <thead>
@@ -122,7 +167,7 @@
       <tbody id="tableBody"></tbody>
     </table>
   </div>
-  <div class="footer">... 외 180건 더 보기</div>
+  <div class="footer" id="footerText">20 / 200행 표시 중</div>
 </div>
 
 <script>
@@ -133,9 +178,9 @@
   function randFloat(min, max, dec) { return +(min + rand() * (max - min)).toFixed(dec); }
 
   const genders = ['남', '여'];
-  const rows = [];
+  const allRows = [];
 
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 200; i++) {
     const grade = randInt(1, 3);
     const gender = genders[randInt(0, 1)];
     const phone = randFloat(1.0, 6.5, 1);
@@ -144,11 +189,14 @@
     const satisfaction = randInt(1, 10);
     const exercise = randInt(0, 7);
     const study = randFloat(0.5, 5.0, 1);
-    rows.push([i, grade, gender, phone, sleep, fatigue, satisfaction, exercise, study]);
+    allRows.push([i, grade, gender, phone, sleep, fatigue, satisfaction, exercise, study]);
   }
 
+  const DISPLAY_LIMIT = 20;
   const tbody = document.getElementById('tableBody');
-  let currentData = [...rows];
+  const footerText = document.getElementById('footerText');
+  let filteredRows = [...allRows];
+  let displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
 
   function renderTable(data) {
     tbody.innerHTML = '';
@@ -163,20 +211,61 @@
     });
   }
 
-  renderTable(currentData);
+  function updateFooter() {
+    const shown = Math.min(displayRows.length, filteredRows.length);
+    footerText.textContent = shown + ' / ' + filteredRows.length + '행 표시 중' +
+      (filteredRows.length < allRows.length ? ' (필터 적용)' : '');
+  }
 
-  // Sort logic
+  function applyFilter(query) {
+    if (!query.trim()) {
+      filteredRows = [...allRows];
+    } else {
+      const q = query.trim().toLowerCase();
+      filteredRows = allRows.filter(row =>
+        row.some(cell => String(cell).toLowerCase().includes(q))
+      );
+    }
+    displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
+    renderTable(displayRows);
+    updateFooter();
+  }
+
+  renderTable(displayRows);
+  updateFooter();
+
+  // 검색 필터
+  document.getElementById('searchInput').addEventListener('input', function() {
+    applyFilter(this.value);
+    sortCol = -1;
+    sortDir = 'none';
+    document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
+  });
+
+  // CSV 다운로드 (전체 200행)
+  document.getElementById('btnDownload').addEventListener('click', function() {
+    const headers = ['번호','학년','성별','스마트폰(시간)','수면(시간)','피로도','만족도','운동(일/주)','공부(시간)'];
+    let csv = '\uFEFF' + headers.join(',') + '\n';
+    allRows.forEach(row => { csv += row.join(',') + '\n'; });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'school_survey_200.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // 정렬
   let sortCol = -1;
   let sortDir = 'none';
 
   document.querySelectorAll('th').forEach(th => {
     th.addEventListener('click', function() {
       const col = parseInt(this.dataset.col);
-
-      // Reset other headers
-      document.querySelectorAll('th').forEach(h => {
-        h.classList.remove('asc', 'desc');
-      });
+      document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
 
       if (sortCol === col) {
         sortDir = sortDir === 'asc' ? 'desc' : sortDir === 'desc' ? 'none' : 'asc';
@@ -186,22 +275,21 @@
       }
 
       if (sortDir === 'none') {
-        currentData = [...rows];
+        displayRows = filteredRows.slice(0, DISPLAY_LIMIT);
       } else {
-        currentData = [...rows].sort((a, b) => {
+        const sorted = [...filteredRows].sort((a, b) => {
           let va = a[col], vb = b[col];
           if (typeof va === 'string') {
             return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
           }
           return sortDir === 'asc' ? va - vb : vb - va;
         });
+        displayRows = sorted.slice(0, DISPLAY_LIMIT);
       }
 
-      if (sortDir !== 'none') {
-        this.classList.add(sortDir);
-      }
-
-      renderTable(currentData);
+      if (sortDir !== 'none') this.classList.add(sortDir);
+      renderTable(displayRows);
+      updateFooter();
     });
   });
 })();
