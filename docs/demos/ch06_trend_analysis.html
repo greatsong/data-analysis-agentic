@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+const years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+const temps = [25.5, 25.8, 25.3, 26.1, 25.7, 26.0, 25.9, 26.3, 26.0, 26.4, 26.5];
+
+// 선형 회귀 계산
+const n = years.length;
+const sumX = years.reduce((a, b) => a + b, 0);
+const sumY = temps.reduce((a, b) => a + b, 0);
+const sumXY = years.reduce((acc, x, i) => acc + x * temps[i], 0);
+const sumX2 = years.reduce((acc, x) => acc + x * x, 0);
+
+const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+const intercept = (sumY - slope * sumX) / n;
+const regression = years.map(x => Math.round((slope * x + intercept) * 100) / 100);
+
+const data = [
+  // 영역 채우기 (실제 데이터 아래)
+  {
+    x: years,
+    y: temps,
+    type: 'scatter',
+    mode: 'none',
+    fill: 'tozeroy',
+    fillcolor: 'rgba(135, 206, 235, 0.2)',
+    showlegend: false,
+    hoverinfo: 'skip'
+  },
+  // 실제 데이터 (마커 + 선)
+  {
+    x: years,
+    y: temps,
+    type: 'scatter',
+    mode: 'lines+markers',
+    name: '실측 기온',
+    line: { color: '#2196F3', width: 2.5 },
+    marker: { size: 9, color: '#2196F3', line: { color: '#fff', width: 1.5 } },
+    hovertemplate: '%{x}년<br>평균기온: %{y}°C<extra></extra>'
+  },
+  // 회귀선
+  {
+    x: years,
+    y: regression,
+    type: 'scatter',
+    mode: 'lines',
+    name: '추세선 (선형 회귀)',
+    line: { color: '#E53935', width: 2, dash: 'dash' },
+    hovertemplate: '%{x}년<br>추세값: %{y:.2f}°C<extra></extra>'
+  }
+];
+
+const layout = {
+  title: {
+    text: '서울 8월 평균기온 추세 (2015-2025)',
+    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    y: 0.96
+  },
+  xaxis: {
+    title: { text: '연도', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 },
+    dtick: 1,
+    range: [2014.5, 2025.5],
+    gridcolor: '#eee'
+  },
+  yaxis: {
+    title: { text: '평균기온 (°C)', font: { family: 'Noto Sans KR', size: 14 } },
+    tickfont: { family: 'Noto Sans KR', size: 12 },
+    range: [24.5, 27.5],
+    gridcolor: '#eee'
+  },
+  legend: {
+    font: { family: 'Noto Sans KR', size: 12 },
+    x: 0.02, y: 0.98,
+    bgcolor: 'rgba(255,255,255,0.85)',
+    bordercolor: '#ddd',
+    borderwidth: 1
+  },
+  annotations: [{
+    x: 2022,
+    y: 27.2,
+    xref: 'x',
+    yref: 'y',
+    text: '<b>10년간 +1.0°C 상승</b>',
+    showarrow: true,
+    arrowhead: 2,
+    arrowsize: 1,
+    arrowwidth: 2,
+    arrowcolor: '#E53935',
+    ax: 0,
+    ay: -40,
+    font: { family: 'Noto Sans KR', size: 14, color: '#E53935' },
+    bgcolor: 'rgba(255,255,255,0.9)',
+    bordercolor: '#E53935',
+    borderwidth: 1,
+    borderpad: 6
+  }],
+  margin: { l: 70, r: 40, t: 60, b: 60 },
+  paper_bgcolor: '#fff',
+  plot_bgcolor: '#fafafa'
+};
+
+Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
+</script>
+</body>
+</html>

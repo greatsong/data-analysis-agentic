@@ -1,0 +1,22 @@
+{
+  "project_created_at": "2026-02-22T09:00:00.000Z",
+  "step1_completed": true,
+  "step1_completed_at": "2026-02-22T09:00:00.000Z",
+  "step2_completed": true,
+  "step2_completed_at": "2026-02-22T09:01:00.000Z",
+  "step3_confirmed": true,
+  "step3_confirmed_at": "2026-02-22T09:02:00.000Z",
+  "chapters": {
+    "chapter01": { "status": "completed", "completed_at": "2026-02-22T09:30:00.000Z" },
+    "chapter02": { "status": "completed", "completed_at": "2026-02-22T09:30:00.000Z" },
+    "chapter03": { "status": "completed", "completed_at": "2026-02-22T09:30:00.000Z" },
+    "chapter04": { "status": "completed", "completed_at": "2026-02-22T09:30:00.000Z" },
+    "chapter05": { "status": "completed", "completed_at": "2026-02-22T09:30:00.000Z" },
+    "chapter06": { "status": "completed", "completed_at": "2026-02-22T09:35:00.000Z" },
+    "chapter07": { "status": "completed", "completed_at": "2026-02-22T09:35:00.000Z" },
+    "chapter08": { "status": "completed", "completed_at": "2026-02-22T09:35:00.000Z" },
+    "chapter09": { "status": "completed", "completed_at": "2026-02-22T09:35:00.000Z" },
+    "chapter10": { "status": "completed", "completed_at": "2026-02-22T09:35:00.000Z" }
+  },
+  "last_updated": "2026-02-22T09:40:00.000Z"
+}

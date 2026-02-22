@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#f8fafc; overflow:hidden; }
+
+  #container {
+    width:100%; height:100%;
+    display:flex; flex-direction:column;
+  }
+
+  /* --- 슬라이더 컨트롤 영역 --- */
+  #controls {
+    flex-shrink:0;
+    padding: 16px 24px 12px;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    color: #e0e7ff;
+  }
+  #controls h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #c7d2fe;
+    letter-spacing: -0.02em;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #a5b4fc;
+    margin-top: 2px;
+    padding: 0 2px;
+  }
+
+  .slider-wrap {
+    flex: 1;
+  }
+
+  /* 커스텀 슬라이더 */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, #ef4444 0%, #f59e0b 33%, #22c55e 66%, #6366f1 100%);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #6366f1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    cursor: grab;
+    transition: transform 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+  input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+    border-color: #4338ca;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #6366f1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    cursor: grab;
+  }
+
+  /* 상태 표시 */
+  #status {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  #status .stat {
+    background: rgba(255,255,255,0.1);
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #status .stat .label { color: #a5b4fc; }
+  #status .stat .value { color: #fff; font-weight: 700; font-size: 14px; }
+  #status .stat.highlight {
+    background: rgba(99,102,241,0.3);
+    border: 1px solid rgba(165,180,252,0.4);
+  }
+
+  /* 차트 영역 */
+  #chart {
+    flex: 1;
+    min-height: 0;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="controls">
+    <h2>이상치 필터링 시뮬레이터</h2>
+    <div class="slider-row">
+      <div class="slider-wrap">
+        <input type="range" id="threshold" min="0" max="3" step="1" value="3">
+        <div class="slider-labels">
+          <span>1.5 (공격적 제거)</span>
+          <span>2.0</span>
+          <span>2.5</span>
+          <span>3.0 (전체 포함)</span>
+        </div>
+      </div>
+    </div>
+    <div id="status">
+      <div class="stat">
+        <span class="label">임계값:</span>
+        <span class="value" id="valSigma">3.0&sigma;</span>
+      </div>
+      <div class="stat">
+        <span class="label">제거된 데이터:</span>
+        <span class="value" id="valRemoved">0개</span>
+      </div>
+      <div class="stat highlight">
+        <span class="label">상관계수:</span>
+        <span class="value" id="valR">r = -0.32</span>
+      </div>
+      <div class="stat">
+        <span class="label">남은 데이터:</span>
+        <span class="value" id="valRemaining">86개</span>
+      </div>
+    </div>
+  </div>
+  <div id="chart"></div>
+</div>
+
+<script>
+// ===== 데이터 생성 =====
+function seededRandom(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 16807 + 0) % 2147483647;
+    return s / 2147483647;
+  };
+}
+const rng = seededRandom(2026);
+
+// 80개 정상 데이터: 스마트폰(x) vs 수면(y), 음의 상관
+const N = 80;
+const data = [];
+for (let i = 0; i < N; i++) {
+  const sp = 1.0 + rng() * 6.0;
+  const noise = (rng() - 0.5) * 2.0;
+  const sl = 9.5 - sp * 0.55 + noise;
+  data.push({
+    x: Math.round(sp * 100) / 100,
+    y: Math.round(Math.max(3.5, Math.min(10.5, sl)) * 100) / 100,
+    isOutlier: false
+  });
+}
+
+// 6개 이상치: 패턴과 크게 다른 점들
+const outliers = [
+  { x: 6.5, y: 9.8, isOutlier: true },  // 많이 쓰는데 잠 많이
+  { x: 6.8, y: 9.5, isOutlier: true },
+  { x: 1.0, y: 4.2, isOutlier: true },  // 적게 쓰는데 잠 적게
+  { x: 1.3, y: 4.0, isOutlier: true },
+  { x: 7.0, y: 9.2, isOutlier: true },  // 극단적 이상치
+  { x: 0.8, y: 3.8, isOutlier: true }
+];
+outliers.forEach(o => data.push(o));
+
+const allX = data.map(d => d.x);
+const allY = data.map(d => d.y);
+
+// ===== 통계 유틸리티 =====
+function mean(arr) { return arr.reduce((a,b) => a+b, 0) / arr.length; }
+function std(arr) {
+  const m = mean(arr);
+  return Math.sqrt(arr.reduce((s,v) => s + (v-m)*(v-m), 0) / arr.length);
+}
+
+function pearsonR(x, y) {
+  const n = x.length;
+  if (n < 3) return 0;
+  let sx=0,sy=0,sxy=0,sx2=0,sy2=0;
+  for (let i=0;i<n;i++) { sx+=x[i]; sy+=y[i]; sxy+=x[i]*y[i]; sx2+=x[i]*x[i]; sy2+=y[i]*y[i]; }
+  const denom = Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy));
+  return denom === 0 ? 0 : (n*sxy - sx*sy) / denom;
+}
+
+function linearReg(x, y) {
+  const n = x.length;
+  if (n < 2) return { slope: 0, intercept: mean(y) };
+  let sx=0,sy=0,sxy=0,sx2=0;
+  for (let i=0;i<n;i++) { sx+=x[i]; sy+=y[i]; sxy+=x[i]*y[i]; sx2+=x[i]*x[i]; }
+  const denom = n*sx2 - sx*sx;
+  if (denom === 0) return { slope: 0, intercept: sy/n };
+  const slope = (n*sxy - sx*sy) / denom;
+  const intercept = (sy - slope*sx) / n;
+  return { slope, intercept };
+}
+
+// ===== 잔차 기반 이상치 판별 =====
+// 전체 데이터에서 회귀선 기준 잔차의 표준편차 계산
+const regAll = linearReg(allX, allY);
+const residuals = data.map(d => d.y - (regAll.slope * d.x + regAll.intercept));
+const residMean = mean(residuals);
+const residStd = std(residuals);
+
+// 각 데이터 포인트에 잔차 z-score 추가
+data.forEach((d, i) => {
+  d.zScore = Math.abs((residuals[i] - residMean) / residStd);
+});
+
+// 시그마 임계값 레벨
+const sigmaLevels = [1.5, 2.0, 2.5, 3.0];
+
+// ===== 차트 초기화 =====
+function getChartData(sigmaThreshold) {
+  const normal = [];
+  const filtered = [];
+
+  data.forEach(d => {
+    if (d.zScore <= sigmaThreshold) {
+      normal.push(d);
+    } else {
+      filtered.push(d);
+    }
+  });
+
+  const nx = normal.map(d => d.x);
+  const ny = normal.map(d => d.y);
+  const r = pearsonR(nx, ny);
+  const reg = linearReg(nx, ny);
+  const trendX = [0.3, 7.5];
+  const trendY = trendX.map(x => reg.slope * x + reg.intercept);
+
+  return { normal, filtered, r, trendX, trendY, removedCount: filtered.length };
+}
+
+function buildTraces(chartData) {
+  const { normal, filtered, trendX, trendY } = chartData;
+
+  // 정상 데이터 (파란색)
+  const traceNormal = {
+    x: normal.filter(d => !d.isOutlier).map(d => d.x),
+    y: normal.filter(d => !d.isOutlier).map(d => d.y),
+    mode: 'markers',
+    type: 'scatter',
+    name: '정상 데이터',
+    marker: {
+      color: '#3b82f6',
+      size: 9,
+      opacity: 0.8,
+      line: { color: '#1d4ed8', width: 1 }
+    },
+    hovertemplate: '스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>'
+  };
+
+  // 이상치 (활성) — 빨간색
+  const activeOutliers = normal.filter(d => d.isOutlier);
+  const traceOutlierActive = {
+    x: activeOutliers.map(d => d.x),
+    y: activeOutliers.map(d => d.y),
+    mode: 'markers',
+    type: 'scatter',
+    name: '이상치 (포함)',
+    marker: {
+      color: '#ef4444',
+      size: 12,
+      symbol: 'diamond',
+      opacity: 0.9,
+      line: { color: '#dc2626', width: 2 }
+    },
+    hovertemplate: '이상치<br>스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>'
+  };
+
+  // 제거된 점 (회색, 작게)
+  const traceFiltered = {
+    x: filtered.map(d => d.x),
+    y: filtered.map(d => d.y),
+    mode: 'markers',
+    type: 'scatter',
+    name: '제거됨',
+    marker: {
+      color: '#d1d5db',
+      size: 6,
+      symbol: 'x',
+      opacity: 0.4,
+      line: { color: '#9ca3af', width: 1 }
+    },
+    hovertemplate: '제거됨<br>스마트폰: %{x}시간<br>수면: %{y}시간<extra></extra>'
+  };
+
+  // 추세선
+  const traceTrend = {
+    x: trendX,
+    y: trendY,
+    mode: 'lines',
+    type: 'scatter',
+    name: '추세선',
+    line: { color: '#ef4444', width: 2.5, dash: 'dash' },
+    hoverinfo: 'skip'
+  };
+
+  return [traceNormal, traceOutlierActive, traceFiltered, traceTrend];
+}
+
+function buildLayout(chartData) {
+  const { r } = chartData;
+  return {
+    title: {
+      text: '이상치 제거가 상관계수에 미치는 영향',
+      font: { family: 'Noto Sans KR', size: 18, color: '#1e293b', weight: 700 },
+      x: 0.5,
+      y: 0.97
+    },
+    font: { family: 'Noto Sans KR', color: '#334155' },
+    paper_bgcolor: '#f8fafc',
+    plot_bgcolor: '#fff',
+    margin: { l: 65, r: 30, t: 50, b: 60 },
+    xaxis: {
+      title: { text: '일일 스마트폰 사용시간 (시간)', font: { size: 13 } },
+      range: [0, 8],
+      gridcolor: '#f1f5f9',
+      zeroline: false,
+      tickfont: { size: 11 }
+    },
+    yaxis: {
+      title: { text: '일일 수면시간 (시간)', font: { size: 13 } },
+      range: [3, 11],
+      gridcolor: '#f1f5f9',
+      zeroline: false,
+      tickfont: { size: 11 }
+    },
+    legend: {
+      x: 0.01, y: 0.99,
+      xanchor: 'left',
+      bgcolor: 'rgba(255,255,255,0.9)',
+      bordercolor: '#e2e8f0',
+      borderwidth: 1,
+      font: { size: 11 }
+    },
+    annotations: [
+      {
+        text: `<b>r = ${r.toFixed(2)}</b>`,
+        font: { size: 20, color: r < -0.6 ? '#dc2626' : (r < -0.4 ? '#d97706' : '#6b7280'), family: 'Noto Sans KR' },
+        showarrow: false,
+        x: 0.98, y: 0.98,
+        xref: 'paper', yref: 'paper',
+        xanchor: 'right', yanchor: 'top',
+        bgcolor: 'rgba(255,255,255,0.9)',
+        bordercolor: r < -0.6 ? '#fca5a5' : (r < -0.4 ? '#fcd34d' : '#d1d5db'),
+        borderwidth: 2,
+        borderpad: 10
+      }
+    ]
+  };
+}
+
+const config = { responsive: true, displayModeBar: false };
+
+// 초기 렌더
+const initData = getChartData(3.0);
+Plotly.newPlot('chart', buildTraces(initData), buildLayout(initData), config);
+updateStatusDisplay(3.0, initData);
+
+// ===== 슬라이더 이벤트 =====
+const slider = document.getElementById('threshold');
+
+slider.addEventListener('input', function() {
+  const idx = parseInt(this.value);
+  const sigma = sigmaLevels[idx];
+  const chartData = getChartData(sigma);
+
+  Plotly.react('chart', buildTraces(chartData), buildLayout(chartData), config);
+  updateStatusDisplay(sigma, chartData);
+});
+
+function updateStatusDisplay(sigma, chartData) {
+  document.getElementById('valSigma').textContent = sigma.toFixed(1) + '\u03C3';
+  document.getElementById('valRemoved').textContent = chartData.removedCount + '개';
+  document.getElementById('valR').textContent = 'r = ' + chartData.r.toFixed(2);
+  document.getElementById('valRemaining').textContent = (data.length - chartData.removedCount) + '개';
+
+  // 상관계수 강도에 따라 색상 변경
+  const rEl = document.getElementById('valR');
+  const absR = Math.abs(chartData.r);
+  if (absR >= 0.7) {
+    rEl.style.color = '#fca5a5';
+  } else if (absR >= 0.5) {
+    rEl.style.color = '#fcd34d';
+  } else {
+    rEl.style.color = '#fff';
+  }
+}
+</script>
+</body>
+</html>

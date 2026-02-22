@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; font-family:'Noto Sans KR',sans-serif; background:#fff; overflow:hidden; }
+  #chart { width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+const dimensions = ['질문 명확성', '데이터 적절성', '분석 논리', '시각화 품질', '해석 타당성'];
+
+// 첫 값을 마지막에 반복해서 레이더 닫기
+const closedDimensions = [...dimensions, dimensions[0]];
+
+const groupA = [8, 6, 7, 5, 8, 8];
+const groupB = [6, 8, 8, 7, 5, 6];
+const groupC = [7, 7, 5, 8, 7, 7];
+
+const data = [
+  {
+    type: 'scatterpolar',
+    r: groupA,
+    theta: closedDimensions,
+    fill: 'toself',
+    fillcolor: 'rgba(33, 150, 243, 0.15)',
+    line: { color: '#2196F3', width: 2.5 },
+    marker: { color: '#2196F3', size: 7 },
+    name: 'A모둠',
+    hovertemplate: 'A모둠<br>%{theta}: %{r}점<extra></extra>'
+  },
+  {
+    type: 'scatterpolar',
+    r: groupB,
+    theta: closedDimensions,
+    fill: 'toself',
+    fillcolor: 'rgba(76, 175, 80, 0.15)',
+    line: { color: '#4CAF50', width: 2.5 },
+    marker: { color: '#4CAF50', size: 7 },
+    name: 'B모둠',
+    hovertemplate: 'B모둠<br>%{theta}: %{r}점<extra></extra>'
+  },
+  {
+    type: 'scatterpolar',
+    r: groupC,
+    theta: closedDimensions,
+    fill: 'toself',
+    fillcolor: 'rgba(255, 152, 0, 0.15)',
+    line: { color: '#FF9800', width: 2.5 },
+    marker: { color: '#FF9800', size: 7 },
+    name: 'C모둠',
+    hovertemplate: 'C모둠<br>%{theta}: %{r}점<extra></extra>'
+  }
+];
+
+const layout = {
+  title: {
+    text: '모둠별 피어리뷰 평가 결과',
+    font: { family: 'Noto Sans KR', size: 20, weight: 700 },
+    y: 0.97
+  },
+  polar: {
+    radialaxis: {
+      visible: true,
+      range: [0, 10],
+      dtick: 2,
+      tickfont: { family: 'Noto Sans KR', size: 11, color: '#888' },
+      gridcolor: '#e0e0e0',
+      linecolor: '#ccc'
+    },
+    angularaxis: {
+      tickfont: { family: 'Noto Sans KR', size: 13, weight: 600 },
+      linecolor: '#ccc',
+      gridcolor: '#e0e0e0'
+    },
+    bgcolor: '#fafafa'
+  },
+  legend: {
+    font: { family: 'Noto Sans KR', size: 13 },
+    x: 0.85,
+    y: 0.95,
+    bgcolor: 'rgba(255,255,255,0.9)',
+    bordercolor: '#ddd',
+    borderwidth: 1
+  },
+  margin: { l: 60, r: 60, t: 70, b: 40 },
+  paper_bgcolor: '#fff'
+};
+
+Plotly.newPlot('chart', data, layout, { responsive: true, displayModeBar: false });
+</script>
+</body>
+</html>

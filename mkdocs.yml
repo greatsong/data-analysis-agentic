@@ -1,0 +1,71 @@
+site_name: "데이터 분석 에이전틱 수업 — 교사용 지도서"
+site_description: "AI를 도구로 활용하는 데이터 분석 수업 시리즈"
+site_author: greatsong
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: 다크 모드로 전환
+    - scheme: slate
+      primary: indigo
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: 라이트 모드로 전환
+  font:
+    text: Noto Sans KR
+    code: Fira Code
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.expand
+    - content.code.copy
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+
+extra_css:
+  - stylesheets/data-analysis-theme.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - 홈: index.md
+  - "Part 1: 질문을 설계하라":
+    - "Ch.1 — 설계 철학": chapter01.md
+    - "Ch.2 — 모호함에서 질문으로": chapter02.md
+    - "Ch.3 — 상황카드·활동지·루브릭": chapter03.md
+  - "Part 2: AI에게 분석을 시켜라":
+    - "Ch.4 — 좋은 지시가 좋은 분석을": chapter04.md
+    - "Ch.5 — Soul Document 작성": chapter05.md
+    - "Ch.6 — 결과 검증과 개선": chapter06.md
+  - "Part 3: 단짝 분석을 부숴라":
+    - "Ch.7 — 피어리뷰": chapter07.md
+    - "Ch.8 — 양식·루브릭·성찰지": chapter08.md
+  - "Part 4: 처음부터 끝까지":
+    - "Ch.9 — 독립 프로젝트": chapter09.md
+    - "Ch.10 — 템플릿·평가·종합": chapter10.md

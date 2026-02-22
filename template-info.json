@@ -1,0 +1,18 @@
+{
+  "template_id": "teacher-guide-4c",
+  "template_name": "교사용 지도서 (4C 역량)",
+  "applied_at": "2026-02-22T09:00:00.000Z",
+  "custom_overrides": {
+    "subject_context": "데이터 분석 에이전틱 수업",
+    "visualization_type": "Plotly.js 인터랙티브 차트 + Mermaid 다이어그램",
+    "embed_pattern": "<div class=\"plotly-demo\" markdown>\n<div class=\"demo-label\">LABEL</div>\n<iframe src=\"../demos/FILENAME\"></iframe>\n</div>",
+    "teaching_approach": "에이전틱 러닝 — 학생이 주체, AI가 도구. 학생이 분석 지침서(Soul Document)를 작성하고 AI에게 분석을 지시하는 구조.",
+    "key_concepts": [
+      "3단 질문 변환 (막연한 느낌→구체적 궁금증→데이터로 답할 수 있는 질문)",
+      "분석 지침서(Soul Document) 작성",
+      "AI 분석 결과 검증 및 비판적 해석",
+      "피어리뷰를 통한 분석 개선",
+      "독립 프로젝트 수행"
+    ]
+  }
+}

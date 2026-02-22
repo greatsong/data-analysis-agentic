@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주당 운동 횟수와 스트레스 수준의 관계</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px;
+    width: 100%;
+    max-width: 800px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  #chart { width: 100%; height: 500px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>주당 운동 횟수와 스트레스 수준의 관계</h1>
+  <p class="subtitle">독립 프로젝트 예시 — 학생 40명 설문 데이터</p>
+  <div id="chart"></div>
+</div>
+<script>
+(function() {
+  // Seeded random for reproducibility
+  let seed = 42;
+  function rand() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
+
+  const n = 40;
+  const exercise = [];
+  const stress = [];
+  const gender = [];
+
+  for (let i = 0; i < n; i++) {
+    const ex = Math.round(rand() * 7 * 10) / 10;
+    exercise.push(Math.round(ex));
+    gender.push(rand() > 0.5 ? '남' : '여');
+    // negative correlation: stress ≈ 8 - 0.7*exercise + noise
+    let s = 8 - 0.7 * exercise[i] + (rand() - 0.5) * 4;
+    s = Math.max(1, Math.min(10, Math.round(s * 10) / 10));
+    stress.push(s);
+  }
+
+  // Split by gender
+  const maleX = [], maleY = [], femaleX = [], femaleY = [];
+  for (let i = 0; i < n; i++) {
+    if (gender[i] === '남') { maleX.push(exercise[i]); maleY.push(stress[i]); }
+    else { femaleX.push(exercise[i]); femaleY.push(stress[i]); }
+  }
+
+  // Compute trendline for all data
+  const meanX = exercise.reduce((a,b) => a+b, 0) / n;
+  const meanY = stress.reduce((a,b) => a+b, 0) / n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) {
+    num += (exercise[i] - meanX) * (stress[i] - meanY);
+    den += (exercise[i] - meanX) ** 2;
+  }
+  const slope = num / den;
+  const intercept = meanY - slope * meanX;
+  const trendX = [0, 7];
+  const trendY = trendX.map(x => slope * x + intercept);
+
+  const traceMale = {
+    x: maleX, y: maleY,
+    mode: 'markers',
+    type: 'scatter',
+    name: '남학생',
+    marker: { color: '#4361ee', size: 10, opacity: 0.8,
+      line: { color: '#fff', width: 1.5 } }
+  };
+
+  const traceFemale = {
+    x: femaleX, y: femaleY,
+    mode: 'markers',
+    type: 'scatter',
+    name: '여학생',
+    marker: { color: '#ff6b9d', size: 10, opacity: 0.8,
+      line: { color: '#fff', width: 1.5 } }
+  };
+
+  const traceTrend = {
+    x: trendX, y: trendY,
+    mode: 'lines',
+    type: 'scatter',
+    name: '추세선',
+    line: { color: '#e63946', width: 2, dash: 'dash' },
+    showlegend: true
+  };
+
+  const layout = {
+    font: { family: 'Noto Sans KR, sans-serif' },
+    xaxis: {
+      title: { text: '주당 운동 횟수 (회)', font: { size: 14 } },
+      range: [-0.5, 7.5],
+      gridcolor: '#f0f0f0',
+      zeroline: false
+    },
+    yaxis: {
+      title: { text: '스트레스 수준 (1-10)', font: { size: 14 } },
+      range: [0, 11],
+      gridcolor: '#f0f0f0',
+      zeroline: false
+    },
+    legend: {
+      x: 0.01, y: 0.99,
+      bgcolor: 'rgba(255,255,255,0.9)',
+      bordercolor: '#e0e0e0',
+      borderwidth: 1,
+      font: { size: 13 }
+    },
+    annotations: [{
+      x: 5.5, y: 9.5,
+      text: '<b>r = -0.55</b>',
+      showarrow: false,
+      font: { size: 15, color: '#e63946' },
+      bgcolor: 'rgba(255,255,255,0.85)',
+      bordercolor: '#e63946',
+      borderwidth: 1,
+      borderpad: 6
+    }],
+    margin: { t: 20, r: 30, b: 60, l: 60 },
+    plot_bgcolor: '#fafbfc',
+    paper_bgcolor: '#fff',
+    hovermode: 'closest'
+  };
+
+  Plotly.newPlot('chart', [traceMale, traceFemale, traceTrend], layout,
+    { responsive: true, displayModeBar: false });
+})();
+</script>
+</body>
+</html>
