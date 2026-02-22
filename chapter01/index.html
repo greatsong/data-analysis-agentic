@@ -48,12 +48,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"Fira Code"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pretendard,+Noto+Sans+KR,+sans-serif:300,300i,400,400i,700,700i%7CJetBrains+Mono,+Fira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Pretendard, Noto Sans KR, sans-serif";--md-code-font:"JetBrains Mono, Fira Code, monospace"}</style>
       
     
     
       <link rel="stylesheet" href="../stylesheets/data-analysis-theme.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0.16.9/dist/katex.min.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -71,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -127,7 +129,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -137,7 +139,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -242,6 +244,8 @@
           
   
   
+    
+  
   Part 1: 질문을 설계하라
 
         </a>
@@ -261,6 +265,8 @@
         <a href="../chapter04/" class="md-tabs__link">
           
   
+  
+    
   
   Part 2: AI에게 분석을 시켜라
 
@@ -282,6 +288,8 @@
           
   
   
+    
+  
   Part 3: 서로의 분석을 검증하라
 
         </a>
@@ -301,6 +309,8 @@
         <a href="../chapter09/" class="md-tabs__link">
           
   
+  
+    
   
   Part 4: 처음부터 끝까지
 
@@ -379,6 +389,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -800,6 +818,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -945,6 +971,12 @@
   
     
     
+      
+        
+      
+        
+      
+    
     
     
       
@@ -1061,6 +1093,12 @@
   
   
     
+    
+      
+        
+      
+        
+      
     
     
     
@@ -1506,9 +1544,9 @@
 <h3 id="2_1">전제 2: 코드의 위치를 재배치하라<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
 <p>기존 수업에서 학생은 코드를 <strong>직접 작성</strong>했습니다. 이 수업에서 코드는 <strong>AI 안에</strong> 있습니다.
 학생의 역할은 코드 작성에서 <strong>지시 설계 + 결과 검증</strong>으로 이동합니다.</p>
-<div class="highlight"><pre><span></span><code>기존:  학생 → [코드 작성] → 결과
-이 수업: 학생 → [지시 설계] → AI → [코드 실행] → 결과 → [학생이 검증]
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>기존:  학생 → [코드 작성] → 결과
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>이 수업: 학생 → [지시 설계] → AI → [코드 실행] → 결과 → [학생이 검증]
+</span></code></pre></div>
 <h3 id="3">전제 3: 결과물이 아니라 생성기를 만들어라<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <p>학생이 제출하는 것은 "분석 보고서" 하나가 아닙니다.
 <strong>Soul Document</strong>(분석 지침서)라는 <strong>생성기</strong>를 만듭니다.
@@ -1581,11 +1619,11 @@
 </div>
 <h3 id="2-gradual-release">원리 2: Gradual Release (점진적 이양)<a class="headerlink" href="#2-gradual-release" title="Permanent link">&para;</a></h3>
 <p>교사의 스캐폴딩(단계적 도움)을 차시마다 줄여갑니다.</p>
-<div class="highlight"><pre><span></span><code>1차시: 교사가 상황을 준다 → [질문 설계] ← 학생이 한다
-2차시: 교사가 데이터를 준다 → [AI 실행+검증] ← 학생이 한다
-3차시: 교사가 프레임을 준다 → [비판적 검토] ← 학생이 한다
-4차시: 교사가 아무것도 안 준다 → [전체 사이클] ← 학생이 혼자 한다
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1차시: 교사가 상황을 준다 → [질문 설계] ← 학생이 한다
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2차시: 교사가 데이터를 준다 → [AI 실행+검증] ← 학생이 한다
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>3차시: 교사가 프레임을 준다 → [비판적 검토] ← 학생이 한다
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4차시: 교사가 아무것도 안 준다 → [전체 사이클] ← 학생이 혼자 한다
+</span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">왜 점진적 이양인가?</p>
 <p>1차시부터 "다 알아서 해봐"라고 하면 학생은 막막합니다.
@@ -1825,23 +1863,23 @@
 <h2 id="9">9. 수업 전 체크리스트<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
 <details class="success">
 <summary>1차시 전 준비물</summary>
-<ul>
-<li>[ ] 상황카드 6종 인쇄 (모둠당 1세트)</li>
-<li>[ ] 3단 변환 활동지 인쇄 (인당 1매)</li>
-<li>[ ] 데이터 역설계 활동지 인쇄 (인당 1매)</li>
-<li>[ ] 칠판/화이트보드에 "3단 변환" 예시 준비</li>
-<li>[ ] 급식 만족도 등 도입용 일상 사례 준비</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 상황카드 6종 인쇄 (모둠당 1세트)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 3단 변환 활동지 인쇄 (인당 1매)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 데이터 역설계 활동지 인쇄 (인당 1매)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 칠판/화이트보드에 "3단 변환" 예시 준비</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 급식 만족도 등 도입용 일상 사례 준비</li>
 </ul>
 </details>
 <details class="success">
 <summary>2차시 전 준비물</summary>
-<ul>
-<li>[ ] 컴퓨터실 예약 확인</li>
-<li>[ ] AI 도구 접속 테스트 (Claude, ChatGPT 등)</li>
-<li>[ ] 학교 데이터셋 파일 학생 배포 준비</li>
-<li>[ ] Soul Document 양식 인쇄 또는 디지털 배포</li>
-<li>[ ] "나쁜 지시 vs 좋은 지시" 시연 준비</li>
-<li>[ ] 검증 체크리스트 인쇄</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 컴퓨터실 예약 확인</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> AI 도구 접속 테스트 (Claude, ChatGPT 등)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 학교 데이터셋 파일 학생 배포 준비</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Soul Document 양식 인쇄 또는 디지털 배포</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> "나쁜 지시 vs 좋은 지시" 시연 준비</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 검증 체크리스트 인쇄</li>
 </ul>
 </details>
 <div class="admonition warning">
@@ -1930,10 +1968,20 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.link", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0.16.9/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://unpkg.com/markmap-autoloader@latest"></script>
+      
+        <script src="../javascripts/extra.js"></script>
       
     
   </body>

@@ -48,12 +48,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"Fira Code"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pretendard,+Noto+Sans+KR,+sans-serif:300,300i,400,400i,700,700i%7CJetBrains+Mono,+Fira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Pretendard, Noto Sans KR, sans-serif";--md-code-font:"JetBrains Mono, Fira Code, monospace"}</style>
       
     
     
       <link rel="stylesheet" href="../stylesheets/data-analysis-theme.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0.16.9/dist/katex.min.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -71,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -127,7 +129,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -137,7 +139,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -240,6 +242,8 @@
           
   
   
+    
+  
   Part 1: 질문을 설계하라
 
         </a>
@@ -259,6 +263,8 @@
         <a href="../chapter04/" class="md-tabs__link">
           
   
+  
+    
   
   Part 2: AI에게 분석을 시켜라
 
@@ -282,6 +288,8 @@
           
   
   
+    
+  
   Part 3: 서로의 분석을 검증하라
 
         </a>
@@ -301,6 +309,8 @@
         <a href="../chapter09/" class="md-tabs__link">
           
   
+  
+    
   
   Part 4: 처음부터 끝까지
 
@@ -377,6 +387,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -522,6 +540,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -669,6 +695,12 @@
   
   
     
+    
+      
+        
+      
+        
+      
     
     
     
@@ -1195,6 +1227,12 @@
   
   
     
+    
+      
+        
+      
+        
+      
     
     
     
@@ -1866,6 +1904,45 @@
 <hr />
 <h3 id="3">3가지 검토 렌즈<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <p>각 렌즈는 서로 다른 관점에서 분석을 검토합니다.</p>
+<div class="markmap">---
+markmap:
+  maxWidth: 280
+  colorFreezeLevel: 2
+---
+
+# 피어리뷰 3렌즈
+
+## 🔍 데이터 정합성
+### 표본 크기
+- n ≥ 30?
+- 대표성 확인
+### 결측값/이상치
+- 처리 방법 적절?
+- 제거 근거 있는지
+### 변수 적합성
+- 질문과 데이터 매칭
+
+## ⚙️ 분석 논리
+### 방법 선택
+- 데이터 유형에 맞는가
+- 전제조건 충족?
+### 통계적 타당성
+- 유의수준 설정 ($\alpha = 0.05$)
+- p-value 해석
+### 시각화
+- 그래프 유형 적절?
+- 축·범위 왜곡 없는지
+
+## 💡 해석 타당성
+### 인과 vs 상관
+- "A 때문에 B" 가능?
+- 혼란변수는?
+### 과잉·과소 해석
+- 데이터 범위 넘는 주장?
+- 중요 패턴 누락?
+### 한계 인식
+- 일반화 가능 범위
+- 추가 연구 필요성</div>
 <div class="peer-review-lenses">
 <div class="peer-review-lens" data-lens="data">
 <p><span class="lens-icon">🔍</span></p>
@@ -2107,11 +2184,11 @@
 <p>오늘 피어리뷰에서 발견한 문제점과 받은 피드백을 바탕으로,
 <strong>다음 차시에는 처음부터 끝까지 혼자</strong> 전체 분석 파이프라인을 수행합니다.</p>
 <p>지금까지 배운 것:</p>
-<ul>
-<li>[x] 1차시: 질문 설계 (3단 변환)</li>
-<li>[x] 2차시: Soul Document + AI 분석 + 결과 검증</li>
-<li>[x] 3차시: 피어리뷰 (비판적 검토)</li>
-<li>[ ] <strong>4차시: 독립 프로젝트</strong> ← 다음 시간</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 1차시: 질문 설계 (3단 변환)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 2차시: Soul Document + AI 분석 + 결과 검증</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 3차시: 피어리뷰 (비판적 검토)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>4차시: 독립 프로젝트</strong> ← 다음 시간</li>
 </ul>
 <p>피어리뷰에서 배운 "남의 분석 보는 눈"을 <strong>자기 분석에 적용</strong>하는 것이 4차시의 핵심입니다.</p>
 </div>
@@ -2185,10 +2262,20 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.expand", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.link", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0.16.9/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="https://unpkg.com/markmap-autoloader@latest"></script>
+      
+        <script src="../javascripts/extra.js"></script>
       
     
   </body>
