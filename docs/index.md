@@ -79,7 +79,7 @@ AI를 도구로, 학생을 주체로. 질문 설계부터 독립 프로젝트까
 <div class="journey-step" data-part="3" markdown>
 <div class="step-marker">3</div>
 
-### 단짝 분석을 부숴라 <span class="step-hours">2시간</span>
+### 서로의 분석을 검증하라 <span class="step-hours">2시간</span>
 
 World Cafe 피어리뷰로 짝의 분석을 3가지 렌즈(데이터, 분석, 해석)로 비판적으로 검토합니다.
 </div>
